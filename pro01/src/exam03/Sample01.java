@@ -42,6 +42,24 @@ public class Sample01 {
 		 * 
 		 */
 		
+		boolean b1 = true;
+		boolean b2 = false;
+		
+		char c1 = 'a';
+		String s1 = "a";
+		
+		byte b3 = 1;
+		short s2 = 2;
+		int num = 3;
+		long lon = 4;
+		long lon2 = 4L;
+		
+		
+		
+		
+		
+		
+		
 	}
 
 }
