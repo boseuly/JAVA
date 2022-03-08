@@ -50,7 +50,7 @@ public class OperatorPrac03 {
 		System.out.println("더하기 계산 결과 : " + r1);
 		System.out.println("빼기 계산 결과 : " + r2);
 		System.out.println("곱하기 계산 결과 : " + r3);
-		System.out.println("나누기 계산 결과 : " + r4);
+		System.out.printf("나누기 계산 결과 : %.4f\n" + r4);
 		System.out.println("나머지 계산 결과 : " + r5);
 		
 		
