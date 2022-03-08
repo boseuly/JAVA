@@ -1,6 +1,6 @@
 package exam04;
 
-public class OperatorPrac1 {
+public class OperatorPrac01 {
 
 	public static void main(String[] args) {
 		// 논리 부정 연산자 -> !
@@ -30,13 +30,15 @@ public class OperatorPrac1 {
 		 */
 		
 		int i4 = 1;
-		int i5 = ++i4;
+		int i5 = ++i4;  //i4에 먼저 +1을 함 -> i4 == 2 -> i5에 i4를 대입 / 결과값 i4 : 2, i5 : 2
 		
 		int i6 = 1;
 		int i7 = i6++;
 		
-		System.out.println("전위 연산 결과 : " + i5);
-		System.out.println("후위 연산 결과 : " + i7);
+		System.out.println("전위 연산 결과 i4: " + i4);
+		System.out.println("전위 연산 결과 i5: " + i5);
+		System.out.println("후위 연산 결과 i6: " + i6);
+		System.out.println("후위 연산 결과 i7: " + i7);
 		
 		System.out.println("전위 후위에 사용한 변수의 값 : " + i4 + "," + i6);
 		
