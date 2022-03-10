@@ -61,11 +61,12 @@ public class ConditionalPrac02 {
 			System.out.println("0 ~ 100 사이의 정수값을 입력하시오.");
 		}
 		
+		// 다른 방법
 		/*
 		String result;
 		int score;
 		
-		result = "";
+		result = "";   // 지역변수임, 지역변수는 초기화 후 사용할 수 있음, 그래서 ""로 임의로 초기화
 		
 		System.out.print("점수를 입력하세요(0 ~ 100) : ");
 		score = sc.nextInt();
