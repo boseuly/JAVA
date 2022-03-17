@@ -5,21 +5,32 @@ public class StopWatch {
 	+------------------------+	
 	|	exam06.StopWatch     |		
 	+------------------------+	
-	| + seconds : int 		 |
-	| + minutes : int 		 |
-	| + hours	: int  		 |
+	| - seconds : int 		 |
+	| - minutes : int 		 |
+	| - hours	: int  		 |
 	+------------------------+	
-	| + start	: 시작		 |	
-	| + pause	: 일시정지		 |
-	| + stop 	: 멈춤		 |
-    | + 		: 리셋		 |
+	| + start()	: void		 |	
+	| + pause()	: void		 |
+	| + stop() 	: void		 |
+    | + reset()	: void		 |
 	+------------------------+	
 	
 		
-		
 */		
-		
-		
+	private int hour;
+	private int minute;
+	private int second;
+	
+	public void setHour(int h) {		//setter
+		hour = h;
+	}
+	public int getHour() {				//getter
+		return hour;
+	}
+	public void start() {}
+	public void stop() {}
+	public void pause() {}
+	public void reset() {}
 		
 
 }
