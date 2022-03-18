@@ -35,6 +35,11 @@ public class BookStore {
 		
 	}
 	
+	//공유하는 메소드 static사용 -> 객체 생성 없이 사용 가능
+	public static void method1() {
+		
+	}
+	
 	
 	
 	
