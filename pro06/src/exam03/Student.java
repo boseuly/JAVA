@@ -49,10 +49,17 @@ public class Student {
 	
 	// 메소드 생성(나이, 학년 +1, 반 랜덤으로 정해주기) 
 	public void nextYear() {	
-		this.age++;
-		this.year++;
-		Random rand = new Random();
-		this.group = rand.nextInt(9)+1;
+		if(year == 3) {		//졸업생
+			this.year = -1;
+			this.group = -1;
+			this.number = -1;
+		}else {
+			this.age++;
+			this.year++;
+			Random rand = new Random();
+			this.group = rand.nextInt(9)+1;
+		}
+		
 	}
 	
 	
