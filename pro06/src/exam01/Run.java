@@ -31,14 +31,21 @@ public class Run {
 		lot.generate(10,20,30);
 		System.out.println(Arrays.toString(lot.getNumbers()));
 	
+		
+		
+		
 		ReportGrade rg = new ReportGrade("이보슬");
 		System.out.println(rg.getName());
+		
 		String[] str = new String[] {"국어", "영어"};
 		rg.setSubjects(str);
 		System.out.println(Arrays.toString(rg.getSubjects()));
+		
 		double[] grades = new double[]{70.7, 46.8, 89};
 		rg.setGrades(grades);
 		System.out.println(Arrays.toString(rg.getGrades()));
+		
+		
 	}
 	
 }
