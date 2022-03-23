@@ -42,5 +42,9 @@ public class ReportGrade {
 		this.grades = ds;
 	}
 	
+	public void printMethod(int n) {
+		System.out.println(this.subjects[n]);
+		System.out.println(this.grades[n]);
+	}
 	
 }
