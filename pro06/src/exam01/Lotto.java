@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class Lotto {
-	private int rangeMin = 1;
+	private int rangeMin = 1;	
 	private int rangeMax = 45;
 	private int count = 6;	//numbers배열의 크기
 	private int numbers[];
@@ -46,7 +46,8 @@ public class Lotto {
 	public int[] getNumbers() {
 		return numbers;
 	}
-	//메소드	//중복 검사도 해야 됨
+	
+	//값을 넣기 위한 메소드
 	public void generate(int ...nums) {		//nums는 배열임-> nums[0], nums[1]	... 인스턴스 생성할 때 매개변수(nums)의 값을 넣어줌
 		int cnt = nums.length;				//cnt = nums의 길이
 		
@@ -54,26 +55,25 @@ public class Lotto {
 			numbers[i] = nums[i];			//numbers[i]에 넣어줘야 한다.
 		}
 		
-		for(int i = cnt; i < count; i++) {	//nums값을 numbers 배열에 넣었응까 나머지는 random으로 이어서 넣어주기
-			numbers[i] = this.random.nextInt(rangeMax) + rangeMin;
+		//nums값을 numbers 배열에 넣었응까 나머지는 random으로 이어서 넣어주기
+		//중복검사
+		for(int i = cnt; i < count;) {	
+			int num = this.random.nextInt(rangeMax) + rangeMin;
+			if(!_isDuplicate(num)) {		//random값 num이 중복이 안 됐으면 
+				numbers[i] = num;			//num값을 numbers[i]에 넣어라
+				i++;						//중복될 경우를 대비해서 -> 중복인 경우에는 if문을 실행하지 않음 -> i++도 안 됨
+			}
 		}
-//		int temp[] = new int[count];	//중복검사할 때 필요함
-//		Random random = new Random();
-//		numbers[0] = random.nextInt(rangeMax-1)+rangeMin;
-//		temp[0] = numbers[0];
-//		
-//		for(int i = 1; i < numbers.length; i++) {
-//			numbers[i] = random.nextInt(rangeMax-1)+rangeMin;
-//			for(int j = 0; j < i-1; j++) {
-//				if(numbers[i] == temp[j]) {
-//					
-//					break;		//만약 같다면?? 
-//				}else {
-//					temp[j] = numbers[i];
-//				}
-//			}
-//		}
-		
+	}
+	//중복검사를 위해 필요한 메서드
+	private boolean _isDuplicate(int number) {
+		for(int i = 0; i < numbers.length; i++) {
+			if(numbers[i] == number) {		//중복된 경우
+				return true;
+			}
+		}
+		return false; 		//다 돌아봤는데 중복이 없는 경우
+				
 	}
 	
 }
