@@ -77,6 +77,9 @@ public class Grade {
 //		this.rank = 'E';	break;
 //	case 3:		case 2:		case 1:		case 0:
 //		this.rank = 'F';	break;
+
+		
+//		switch결과로 나온 식 
 		this.rank = Grade.RANK[(int)(this.score/10)];
 	}
 	
