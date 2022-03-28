@@ -15,7 +15,12 @@ public class Main {
 		p1.discountPrice(3000000);
 		System.out.println(p1);
 		System.out.println(p2);
+		System.out.println("<일반 고객일 경우>");
 		p2.discountPrice(20000000);
+		p2.sum(10000000);
+		System.out.println("<프리미엄 고객일 경우>");
+		p2.discountPrice(400000);
+		System.out.println(p2);
 	}
 
 }

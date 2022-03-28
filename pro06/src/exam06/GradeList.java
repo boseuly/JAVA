@@ -90,8 +90,26 @@ public class GradeList {
 	}
 	
 	
-	//삭제 메소드
-	
+	//과목으로 점수 삭제하기 삭제 메소드
+	public void deletion(String name) {
+		int idx = -1;
+		double[] temp = new double[length() -1];  // 한 칸 줄임
+		for(int i = 0; i < length(); i++) {		// 해당 과목이 몇 번째 인덱스에 있는지
+			for(int j = 0; j < length() )
+			
+			if(this.gArr[i].getName().equals(name)){
+				idx = i;
+			}
+		}
+		for(int i = 0; i < length(); i++) {		// idx인 배열공간 제외하고 모든 공간 새로운 배열에 추가하기
+			if(idx == i) {	// 해당 인덱스일 때 실행이 됨
+				gArr = new double[Arrays.copyOf(, i)]
+						
+			}
+		}
+		
+		
+	}
 	
 	
 	

@@ -29,12 +29,12 @@ public class Premium extends Customer {
 			this.discount = (int)(price- (price * this.disRate));
 			bool = true;
 		}else {
-			System.out.println("일반고객으로 분류되어 할인율을 0% 입니다.");
+			System.out.println("일반고객으로 분류되어 할인율은 0% 입니다. 결제하실 금액은 " + price + "원입니다.");
 			bool = false;
 		}
 		if(bool) {
 			int discountAmost = (price - this.discount);
-			System.out.println(discountAmost + "할인 적용되어 결제하실 금액은 " + discount + "원 입니다.");
+			System.out.println(discountAmost + "할인 적용되어 결제하실 금액은 " + discount + "원입니다.");
 		}
 		
 	}
@@ -62,7 +62,7 @@ public class Premium extends Customer {
 
 	@Override
 	public String toString() {
-		return super.toString() + "Premium [additions=" + additions
+		return super.toString() + " Premium [additions=" + additions
 				 + ", discount=" + discount + "]";
 	}
 	
