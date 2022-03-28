@@ -1,4 +1,4 @@
-package pro07;
+package exam01;
 
 public class Parent {
 	private int number = 1;

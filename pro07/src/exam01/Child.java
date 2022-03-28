@@ -1,4 +1,4 @@
-package pro07;
+package exam01;
 
 public class Child extends Parent {
 	// 부모 생성자가 매개변수 있는 생성자라면 부모의 매개변수 있는 생성자를 자식생성자에 넣어야 됨
