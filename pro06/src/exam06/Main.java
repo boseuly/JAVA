@@ -41,8 +41,9 @@ public class Main {
 		System.out.println("----------------------");
 		
 		System.out.println(Arrays.toString(gList.getUnder()));
+		System.out.println("-----------------------");
 		
-		
+		System.out.println(Arrays.toString(gList.getUnderScore(50)));
 		
 	}
 

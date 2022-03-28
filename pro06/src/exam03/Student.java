@@ -4,15 +4,22 @@ import java.util.Random;
 
 public class Student {
 	private String name;	//이름
-	private int age;	//나이
-	private int year;	//학년
-	private int group;	//반
-	private int number;	//번호
+	private int age;		//나이
+	private int year;		//학년
+	private int group;		//반
+	private int number;		//번호
 	
 	//생성자
-	public Student() {
-		
+	public Student() {}
+	
+	public Student(String name, int age, int year, int group, int number) {
+		this.name = name;
+		this.age = age;
+		this.year = year;
+		this.group = group;
+		this.number = number;
 	}
+	
 	
 	//getter, setter 생성
 	public String getName() {
@@ -61,7 +68,14 @@ public class Student {
 		}
 		
 	}
-	
+	//개인정보 출력
+	public void information() {
+		System.out.println("이름 : " + this.name);
+		System.out.println("나이 : " + this.age);
+		System.out.println("학년 : " + this.year);
+		System.out.println("반 : " + this.group);
+		System.out.println("학번 : " + this.number);
+	}
 	
 	
 	

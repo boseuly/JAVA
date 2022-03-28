@@ -5,7 +5,7 @@ public class Main01 {
 	public static void main(String[] args) {
 		//생성자를 이용하는 여러 방법
 		GradeList01 gList1 = new GradeList01();
-		GradeList01 gList2= new GradeList01(4);	//배열의 공간을 처음에 정해주는 메소드를 만들것인지
+		GradeList01 gList2 = new GradeList01(4);	//배열의 공간을 처음에 정해주는 메소드를 만들것인지
 //		GradeList01 gList = new GradeList01("국어", "영어", "수학", "과학");	//과목을 다 정해놓을 것인지
 		
 //		Grade[] gArr = new Grade[2];

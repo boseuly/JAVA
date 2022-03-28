@@ -97,11 +97,6 @@ public class GradeList {
 	
 	
 	
-	
-	
-	
-	
-	
 	//조회 메소드
 	//이름으로 점수 찾기
 	public double getScore(String name) {	
@@ -125,12 +120,18 @@ public class GradeList {
 		return sum;
 	}
 	
-	//과락 과목 찾기
+	//과락 과목 찾기(과락 40점 미만)
 	public String[] getUnder() {
+		String[] arr = new String[this.getUnderScore(40).length];
+		arr = this.getUnderScore(40);
+		return arr;
+	}
+	//과락 기준 점수 외부에서 받기
+	public String[] getUnderScore(double score) {
 		String[] arr = new String[0];
 		int count = 0;
 		for(int i = 0; i < length(); i++) {
-			if(this.gArr[i].getScore() < 40) {	//과락 기준점수보다 작으면
+			if(this.gArr[i].getScore() < score) {	//과락 기준점수보다 작으면
 				arr = Arrays.copyOf(arr, arr.length + 1);	//동적배열 사용
 				arr[count] = this.gArr[i].getName();		//과락 과목 배열에 넣기
 				count++;
@@ -138,8 +139,46 @@ public class GradeList {
 		}
 		return arr;
 	}
+	//최고 득점 과목
+	public String getTop() {
+		Grade top = gArr[0];
+		for(int i = 1; i < length(); i++) {
+			if(top.getScore() < gArr[i].getScore()) {
+				top = gArr[i];
+			}
+		}
+		return top.getName();
+	}
+	//최저득점 과목
+	public String getBottom() {
+		Grade bottom = gArr[0];
+		for(int i = 1; i< length(); i++) {
+			if(bottom.getScore() > gArr[i].getScore()) {
+				bottom = gArr[i];
+			}
+		}
+		return bottom.getName();
+	}
 	
-	
+	public String[] getTop(int count) {
+		Grade[] tArr = gArr.clone();
+		
+		for(int i = 0; i < tArr.length - 1; i++) {	
+			for(int j = i + 1; j < tArr.length; j++) {
+				if(tArr[i].getScore() < tArr[j].getScore()) {	//이건 내림차순 정렬, 오름차순 정렬하려면 여기 부등호만 >로 바꿔주면 됨
+					Grade temp = tArr[i];
+					tArr[i] = tArr[j];
+					tArr[j] = temp;
+				}
+			}
+		}
+		String[] result = new String[0];
+		for(int i = 0; i < count; i++) {
+			result = Arrays.copyOf(result, result.length+1);
+			result[result.length-1] = tArr[i].getName();
+		}
+		return result;
+	}
 	
 	
 	

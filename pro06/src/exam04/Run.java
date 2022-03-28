@@ -16,27 +16,44 @@ public class Run {
 		 * 
 		 */
 		
-		Page p = new Page(3);
-		System.out.println(p.getPage());		//현재 페이지 출력
-		System.out.println(p.getPageEnd());
+//		Page p = new Page(3);
+//		System.out.println(p.getPage());		//현재 페이지 출력
+//		System.out.println(p.getPageEnd());
+//		
+//		p.pageUp();
+//		System.out.println(p.getPage());
+//		
+//		p.pageDown();
+//		System.out.println(p.getPage());
+//		
+//		p.pageDown(2);
+//		System.out.println(p.getPage());
+//		
+//		p.pageUp(95);
+//		System.out.println(p.getPage());
+//		
+//		p.pageUp(10);
+//		System.out.println(p.getPage());
+//		
+//		p.pageDown(101);
+//		System.out.println(p.getPage());
 		
-		p.pageUp();
-		System.out.println(p.getPage());
+		Page01 p1 = new Page01(100);
 		
-		p.pageDown();
-		System.out.println(p.getPage());
 		
-		p.pageDown(2);
-		System.out.println(p.getPage());
+		for(int i = 0; i < 101; i++) {
+			p1.nextPage();
+			System.out.println(p1.getPageNumber() + "번째 페이지");
+		}
 		
-		p.pageUp(95);
-		System.out.println(p.getPage());
+		for(int i = 0; i < 10 ; i++) {
+			p1.prevPage();
+			System.out.println(p1.getPageNumber() + "번째 페이지");
+		}
 		
-		p.pageUp(10);
-		System.out.println(p.getPage());
 		
-		p.pageDown(101);
-		System.out.println(p.getPage());
+		
+		
 	}
 
 }

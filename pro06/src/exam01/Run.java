@@ -48,23 +48,15 @@ public class Run {
 		 * - 위에 제시한 멤버변수 및 메서드 외에 추가로 필요한 멤버변수 및 메서드가
 		 *   있는 경우 추가해도 됨
 		 * 
+		 * 
 		 */
 		String[] str = new String[] {"국어", "영어", "수학"};
 		ReportGrade rg = new ReportGrade("이보슬", str);
 		System.out.println(Arrays.toString(rg.getSubjects()));
 		rg.setGrades(90.0, 80.0, 95.4);
 		System.out.println(Arrays.toString(rg.getGrades()));
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		rg.printMethod(0);	// 과목, 점수 한번에 출력해주는 메소드 만들어봄
+		System.out.println("------구분선-----");
 		
 		
 		

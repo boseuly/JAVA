@@ -38,6 +38,8 @@ public class ReportGrade {
 	public double[] getGrades() {
 		return grades;
 	}
+	
+	//setter 매개변수는 멤버변수랑 다른 자료형이어도 됨
 	public void setGrades(double ...ds) {	//점수를 가변인자로 받기
 		this.grades = ds;
 	}

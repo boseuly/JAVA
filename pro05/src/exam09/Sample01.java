@@ -26,6 +26,9 @@ public class Sample01 {
 		System.out.println("반지름이 7 인 원의 넓이 : " + c2.getArea());
 		System.out.println("반지름이 7 인 원의 둘레 : " + c2.getRound());
 		System.out.println("반지름 : " + c2.getRadius());
+		
+		System.out.println("------------");
+		
 	}
 
 }

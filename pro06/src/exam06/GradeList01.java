@@ -87,26 +87,26 @@ public class GradeList01 {
 	
 	
 	//조회
-	//이름가지고 점수를 찾을 수 있도록
+	//이름가지고 점수를 찾을 수 있도록(O)
 	public double getScore(String name) {
 		return 0;
 	}
 	
-	//전체 평균 구하기
+	//전체 평균 구하기(O)
 	public double getAvg() {
 		return 0;
 	}
-	//총합 구하기
+	//총합 구하기(O)
 	public double getTotal() {
 		return 0;
 	}
-	//과락 과목 찾기
+	//과락 과목 찾기(O)
 	public String[] getUnder() {
 		// 과락의 기준은 40점 미만
 		return null;
 	}
 	public String[] getUnderScore(double score) {
-		//과락의 기준을 외부 값으로 받아서 찾아내는 함수
+		//과락의 기준을 외부 값으로 받아서 찾아내는 함수(O)
 		return null;
 	}
 	

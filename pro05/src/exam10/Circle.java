@@ -20,8 +20,4 @@ public class Circle {
 		radius += 1;
 	}
 	
-	
-	
-	
-	
 }

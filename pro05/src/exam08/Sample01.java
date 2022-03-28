@@ -10,7 +10,7 @@ public class Sample01 {
 		// System.out.println(m.method01()); -> 반환형이 void이기때문에 여기서 출력구문 사용 불가!!
 	
 		int r1 = m.method02();		//반환타입이 있는 건 객체를 만들어서 객체에 return값을 넣을 수 있다.
-		int[] r2 = m.method03();
+		int[] r2 = m.method03();	//객체는 메소드의 반환형이랑 타입이 같아야 한다.
 		String r3 = m.method04();
 		
 		int[] arg1 = new int[] {1,2,3};	// 배열 하나 만들기

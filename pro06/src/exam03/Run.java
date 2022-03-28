@@ -14,6 +14,20 @@ public class Run {
 		 *   기존의 학년, 반, 번호는 전부 -1로 설정하게 한다.  
 		 * 
 		 */
+		
+//		Student stu = new Student("이보슬",24, 4, 18, 20180031);
+//		stu.information();
+//		
+		Student01 std = new Student01("홍길이", 14,1);
+		
+		std.nextYear();
+		System.out.println(std.getName());
+		System.out.println(std.getAge());
+		System.out.println(std.getClassLevel());
+//		.get -> 이런식으로 정보를 꺼내 쓰는 게 귀찮다면  toString 사용
+		System.out.println(std);	//toString 한 다음 이렇게 출력
+		
+		
 	}
 
 }
