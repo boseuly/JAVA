@@ -10,6 +10,7 @@ public class Grade extends Score {
 		setPoint(point);	// point는 Score 멤버변수이기 때문에 근데 private라서 setter로 접근
 	}
 	
+	//등급 구하는 메소드
 	private void _setLevel() {
 		char[] rank = new char[] {
 				'F','F','F','F','E','E','D','C','B','A','A'
@@ -35,9 +36,9 @@ public class Grade extends Score {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (!super.equals(obj))		// 부모 클래스의 equals메소드에 obj를 넣은 것
 			return false;
-		if (getClass() != obj.getClass())
+		if (getClass() != obj.getClass())		// 얘넨 둘이 같은 클래스를 참조하고 있는지 확인해주기
 			return false;
 		Grade other = (Grade) obj;
 		return level == other.level;
