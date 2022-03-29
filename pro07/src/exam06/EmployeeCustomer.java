@@ -14,6 +14,20 @@ public class EmployeeCustomer extends Customer {
 	 * 	갱신하도록 하여 1년에 한번씩 갱신을 수행한 것으로 간주한다.)
 	 */
 	
+	private double discount = 0.1;
+	private int price;
+	
+	// buy 메소드 오버라이딩
+	@Override
+	public void buy(String productName, int price) {
+		int r = _calDiscount(price);
+		System.out.printf("10% 할인되어 %s 상품을 %,d 원에 구입하였습니다.\n", productName, r);
+		
+	}
+	// 직원 할인 (10%)
+	private int _calDiscount(int price) {
+		return (int)(price * (1 - 0.1));
+	}
 	
 	
 	

@@ -56,20 +56,26 @@ public class Main {
 			}
 		}
 		
-		Customer[] cArr1 = new Customer[3];
+//		Customer[] cArr1 = new Customer[3];
+//		
+//		for(int i = 0; i < cArr1.length; i++) {
+//			cArr1[i] = new NormalCustomer();
+//		}
+//		
+//		cArr1[0].setName("이보슬");
+//		cArr1[1].setName("이다슬");
+//		cArr1[2].setName("이해슬");
+//		
+//		// 여기서 이제 NormalCustomer의 환불 메소드를 사용하기 위해 다운캐스팅을 한다. 
+//		NormalCustomer n1 = (NormalCustomer)cArr[0];
+//		n1.buy("샤넬", 1000000);
+//		n1.refund(1000000);
 		
-		for(int i = 0; i < cArr1.length; i++) {
-			cArr1[i] = new NormalCustomer();
-		}
+		Customer cArr2 = new Customer();
+		cArr2 = new EmployeeCustomer();
+		EmployeeCustomer e1 = (EmployeeCustomer) cArr2;
+		e1.buy("샤넬", 1000000);
 		
-		cArr1[0].setName("이보슬");
-		cArr1[1].setName("이다슬");
-		cArr1[2].setName("이해슬");
-		
-		// 여기서 이제 NormalCustomer의 환불 메소드를 사용하기 위해 다운캐스팅을 한다. 
-		NormalCustomer n1 = (NormalCustomer)cArr[0];
-		n1.buy("샤넬", 1000000);
-		n1.refund(1000000);
 		
 //		<내가 푼 거 -> 막힘,,,>
 //		Customer[] c1 = new Customer[5];	
