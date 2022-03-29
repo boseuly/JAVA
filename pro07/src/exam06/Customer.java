@@ -8,8 +8,6 @@ public class Customer {
 	private int age;
 	private char gender;
 	
-	
-	
 	// getter & setter
 	public String getName() {
 		return name;
@@ -32,8 +30,10 @@ public class Customer {
 	
 	public void buy(String productName, int price) {
 		System.out.printf("%s 상품을 %,d 원에 구입하였습니다.\n", productName, price);
+		
 	}
 	
+	// 환불
 	public void refund() {
 		
 	}

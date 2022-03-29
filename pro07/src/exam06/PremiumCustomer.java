@@ -5,6 +5,7 @@ public class PremiumCustomer extends Customer {
 	private int priceTotal;		// 누적구입액
 	
 	
+	
 	public double getDiscount() {
 		return discount;
 	}

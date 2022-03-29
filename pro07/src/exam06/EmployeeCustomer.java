@@ -1,6 +1,6 @@
 package exam06;
 
-public class EmployeeCustomer {
+public class EmployeeCustomer extends Customer {
 	/*
 	 * - 직원 고객이 물품을 구입할 때 직원 할인가를 적용하여 구입할 수 있도록 한다.
 	 * 	 (직원 할인가는 10%이다.)
