@@ -1,9 +1,26 @@
-package exam04.teacher;
+package exam06;
 
 public class PremiumCustomer extends Customer {
 	private double discount;	// 할인금액
 	private int priceTotal;		// 누적구입액
 	
+	
+	public double getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(double discount) {
+		this.discount = discount;
+	}
+
+	public int getPriceTotal() {
+		return priceTotal;
+	}
+
+	public void setPriceTotal(int priceTotal) {
+		this.priceTotal = priceTotal;
+	}
+
 	@Override
 	public void buy(String productName, int price) {
 		double p = _calcDiscount(price);
@@ -12,32 +29,6 @@ public class PremiumCustomer extends Customer {
 		
 	}
 	
-	
-	
-	public double getDiscount() {
-		return discount;
-	}
-
-
-
-	public void setDiscount(double discount) {
-		this.discount = discount;
-	}
-
-
-
-	public int getPriceTotal() {
-		return priceTotal;
-	}
-
-
-
-	public void setPriceTotal(int priceTotal) {
-		this.priceTotal = priceTotal;
-	}
-
-
-
 	// 할인율 계산 -> 내야할 금액 도출
 	private double _calcDiscount(int price) {	
 		if(priceTotal >= 10000000) {
