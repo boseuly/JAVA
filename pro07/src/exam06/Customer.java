@@ -33,10 +33,22 @@ public class Customer {
 		
 	}
 	
-	// 환불
-	public void refund() {
-		
+	// 갱신
+	public Customer renewal() {
+		System.out.println("고객 정보를 갱신합니다.");
+		return this;	// 나 자신을 다시 반환 시켜주는 것
 	}
+	
+	// 환불(영수증X)
+	public void refund() {
+		System.out.println("영수증 없이 환불 조치를 하였습니다.");
+	}
+	// 환불(영수증O)
+	public void refund(String receipt) {
+		System.out.println("영수증을 확인하였습니다.");
+		System.out.printf("%s 물품을 환불 조치 합니다.\n", receipt);
+	}
+	
 	
 	
 	@Override

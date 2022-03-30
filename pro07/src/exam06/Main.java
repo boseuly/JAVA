@@ -20,42 +20,42 @@ public class Main {
 		 *  p1.setName(n1.getName);
 		 *  
 		 */
-		
-		Random random = new Random();
-		Customer[] cArr = new Customer[5];
-		
-		for(int i = 0; i < cArr.length; i++) {
-			cArr[i] = new NormalCustomer();
-		}
-		// 물품 구입 횟수
-		int count[] = new int[cArr.length];	
-		
-		int unit = 10000;
-		for(int i = 0; i < 100; i++) {				// 구매하는 행위를 100번 반복
-			int idx = random.nextInt(cArr.length);	// 반복할 때마다 회원도 랜덤으로 결정됨
-			int price = (random.nextInt(199000) + unit) / unit * unit;	// 가격도 랜덤으로 결정
-			if(cArr[idx] instanceof NormalCustomer) {			// NomalCustomer(일반고객) 클래스라면
-				NormalCustomer c = (NormalCustomer) cArr[idx];	// 형변환 시켜주고 NomalCustomer 클래스 레퍼런스인 c에 넣어라
-				
-				c.buy("XXXX", price);
-				
-				if(price > 1000000) {		// price 가 1,000,000 원이 초과했다면 프리미엄 고객으로 만들어줘야 함
-					PremiumCustomer p = new PremiumCustomer();
-					p.setName(c.getName());
-					p.setAge(c.getAge());
-					p.setGender(c.getGender());
-					p.setPriceTotal(price);
-					cArr[idx] = p;			// 외부에서 만들어놓은 배열에 p를 넣어줘야 한다. cArr 배열로 고객을 관리하기 때문에
-					System.out.println("축하합니다. 구입액이 1,000,000 원을 초과하여 프리미엄 등급으로 상승하였습니다.");
-					System.out.println("앞으로 상품 구입 누적액에 따른 할인율이 적용됩니다.");
-				}
-			}else {			// 프리미엄 고객이라면
-				PremiumCustomer p = (PremiumCustomer) cArr[idx];
-				p.buy("XXXX", price);
-				
-			}
-		}
-		
+//		
+//		Random random = new Random();
+//		Customer[] cArr = new Customer[5];
+//		
+//		for(int i = 0; i < cArr.length; i++) {
+//			cArr[i] = new NormalCustomer();
+//		}
+//		// 물품 구입 횟수
+//		int count[] = new int[cArr.length];	
+//		
+//		int unit = 10000;
+//		for(int i = 0; i < 100; i++) {				// 구매하는 행위를 100번 반복
+//			int idx = random.nextInt(cArr.length);	// 반복할 때마다 회원도 랜덤으로 결정됨
+//			int price = (random.nextInt(199000) + unit) / unit * unit;	// 가격도 랜덤으로 결정
+//			if(cArr[idx] instanceof NormalCustomer) {			// NomalCustomer(일반고객) 클래스라면
+//				NormalCustomer c = (NormalCustomer) cArr[idx];	// 형변환 시켜주고 NomalCustomer 클래스 레퍼런스인 c에 넣어라
+//				
+//				c.buy("XXXX", price);
+//				
+//				if(price > 1000000) {		// price 가 1,000,000 원이 초과했다면 프리미엄 고객으로 만들어줘야 함
+//					PremiumCustomer p = new PremiumCustomer();
+//					p.setName(c.getName());
+//					p.setAge(c.getAge());
+//					p.setGender(c.getGender());
+//					p.setPriceTotal(price);
+//					cArr[idx] = p;			// 외부에서 만들어놓은 배열에 p를 넣어줘야 한다. cArr 배열로 고객을 관리하기 때문에
+//					System.out.println("축하합니다. 구입액이 1,000,000 원을 초과하여 프리미엄 등급으로 상승하였습니다.");
+//					System.out.println("앞으로 상품 구입 누적액에 따른 할인율이 적용됩니다.");
+//				}
+//			}else {			// 프리미엄 고객이라면
+//				PremiumCustomer p = (PremiumCustomer) cArr[idx];
+//				p.buy("XXXX", price);
+//				
+//			}
+//		}
+//		
 //		Customer[] cArr1 = new Customer[3];
 //		
 //		for(int i = 0; i < cArr1.length; i++) {
@@ -71,11 +71,11 @@ public class Main {
 //		n1.buy("샤넬", 1000000);
 //		n1.refund(1000000);
 		
-		Customer cArr2 = new Customer();
-		cArr2 = new EmployeeCustomer();
-		EmployeeCustomer e1 = (EmployeeCustomer) cArr2;
-		e1.buy("샤넬", 1000000);
-		
+//		Customer cArr2 = new Customer();
+//		cArr2 = new EmployeeCustomer();
+//		EmployeeCustomer e1 = (EmployeeCustomer) cArr2;
+//		e1.buy("샤넬", 1000000);
+//		
 		
 //		<내가 푼 거 -> 막힘,,,>
 //		Customer[] c1 = new Customer[5];	
@@ -122,6 +122,29 @@ public class Main {
 //			
 //		}
 //		
+		
+		
+		Customer[] cArr3 = new Customer[3];
+		cArr3[0] = new NormalCustomer();
+		cArr3[1] = new PremiumCustomer();
+		cArr3[2] = new EmployeeCustomer();
+//		 부모 메서드를 자식이 오버라이딩 했으면 그 메서드는 다운 캐스팅 안 하고 부모 객체 메소드를 통해 바로 사용할 수 있음		
+		for(int i = 0; i < cArr3.length; i++) {
+//			cArr3[i].buy("XXXX", 3000000);
+			System.out.println(cArr3[i].getClass());
+			cArr3[i].refund();	
+			cArr3[i] = cArr3[i].renewal();
+			System.out.println(cArr3[i].getClass());
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
