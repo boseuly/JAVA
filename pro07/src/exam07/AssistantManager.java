@@ -18,8 +18,9 @@ public class AssistantManager extends Employee{
 	}
 	
 	// 법인카드
+	// 대리 이상인 직급들이 대리를 상속하면 각 클래스마다 메소드 굳이 안 써도 됨 
 	public void corpCard(int amount) {
-		if((getSalary() * 0.015) * 10000 > getCorpCardTotal() + amount) {	// 만원 단위라서 * 10000한 거임
+		if((getSalary() * 0.015) * 10000 > getCorpCardTotal() + amount) {	// salary가 만원 단위라서 * 10000한 거임
 			System.out.printf("법인카드로 %,d원을 지출하였습니다.", amount);
 			setCorpCardTotal(getCorpCardTotal() + amount);		// 그냥 corpCardTotal이라고 하면 다른 클래스에서 사용 불가 -> get사용해준다.
 		}else {

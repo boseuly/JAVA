@@ -50,10 +50,11 @@ public class Main {
 			}
 			Random rand = new Random();
 			
+			// 법인카드 사용
 			if((rand.nextInt(9) + 1) % 4 == 0) {
 				int loc = rand.nextInt(4) + 1;
-				System.out.printf("%s가 ", empArr[rand.nextInt(4) + 1].getName());
-				((AssistantManager)empArr[loc]).corpCard(1000);
+				System.out.printf("%s(이)가 ", empArr[loc].getName());
+				((AssistantManager)empArr[loc]).corpCard(1000);	// Employee에는 없는 메소드이기때문에 다운캐스팅 필수
 			}
 				
 		}
