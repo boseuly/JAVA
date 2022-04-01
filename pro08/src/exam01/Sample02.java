@@ -21,9 +21,15 @@ public class Sample02 {
 		
 		System.out.print("1개 이상의 정수값을 입력하세요 : ");
 		String s = sc.nextLine();		// 문자열로 저장 후
-		String[] str = s.split(" ");	// 공백을 기준으로 분리하여 배열에 넣음
+		String[] sArr = s.split(" ");	// 공백을 기준으로 분리하여 배열에 넣음
+		
+		int[] iArr = new int[sArr.length];
+		for(int i = 0; i < sArr.length; i++) {
+			iArr[i] = Integer.parseInt(sArr[i]);	// 받은 문자열을 정수로 변환하고 그걸 iArr[i]에 넣음
+		}
+		
 		System.out.println("다음의 값을 입력하였습니다.");
-		System.out.println(Arrays.toString(str));
+		System.out.println(Arrays.toString(iArr));
 		
 	}
 	
