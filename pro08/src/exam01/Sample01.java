@@ -35,7 +35,7 @@ public class Sample01 {
 		s1 = s1.replace("메서드", "method");		// 메서드를 method로 수정해라
 		System.out.println(s1);
 		
-		String[] sArr = s1.split(" ");			// 문자열 분리(공백을 이용할 때)
+		String[] sArr = s1.split(" ");			// 문자열 분리(예시는 공백을 이용할 때 해당)
 		System.out.println(Arrays.toString(sArr));
 		
 		s1 = "010-1234-5678";
@@ -73,6 +73,8 @@ public class Sample01 {
 		System.out.println(isPhone);  
 		
 		
+		s1 = String.format("%s-%s-%s","010", "1234", "5678");	// System.out.printf는 출력 후에 소멸(오로지 출력을 위한 메서드)
+																// String.format은 내가 원하는 형식의 문자열을 생성할 수 있음
 		
 		
 	}
