@@ -94,22 +94,31 @@ public class Sample07 {
 //		System.out.println("D-Day " + totalDate);
 //	
 	}
-	
-	
-	
-	public static void main(String[] args) {
-		
-		
-		
-		
-		
+
+	public void ex03() {
 		/*
 		 * 프로그램이 동작한 후부터 종료할 때까지의 시간 기록을 남기기 위한
 		 * 코드를 작성해 본다.
 		 * 동작 시킬 프로그램은 1~100,000까지의 누적합을 구하는 코드로
 		 * 해당 반복이 얼만큼의 시간이 걸리는지 기록을 출력한다.
+		 * 
 		 */
-
+		Date start = new Date();	// 프로그램 시작 전에 측정
+		int tot = 0;
+		for(int i = 1; i <= 1000000000; i++) {		// 이 프로그램이 실행되는데 걸리는 시간을 측정하는 거임
+			tot += 1;
+		}
+		Date end = new Date();	// 프로그램 종료 후 시간 측정
+		
+		long timer = end.getTime() - start.getTime();
+		System.out.println("걸린 시간 : " + timer / 1000.0 + " 초");
+	}
+	
+	
+	public static void main(String[] args) {
+		Sample07 sample = new Sample07();
+		sample.ex03();
+	}
 }
 
 

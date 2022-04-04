@@ -14,10 +14,16 @@ public class Sample03 {
 		 * 	 사용하도록 락을 걸어 다른 쓰레드가 작업을 하지 못 하게 막아주는 기능이다.
 		 * 
 		 */
+		/*
+		 * Concat과 +연산자는 같은 문자열을 합치는 기능을 합니다. 
+		 * 하지만 동작하는 방식이 다른데요. Concat은 합친 문자열을 String으로 생성해줍니다. 
+		 * 하지만 + 연산자는 문자열을 먼저 StringBuilder로 변환시킨 뒤, Append로 문자열을 더하고
+		 *  다시 toString함수로 문자열로 반환해주는 방식입니다.
+		 */
 		
-		//StringBuilder sb1 = new StringBuilder();
-		StringBuffer sb1 = new StringBuffer();
-		
+		StringBuilder sb1 = new StringBuilder();
+//		StringBuffer sb1 = new StringBuffer();
+
 		// .append(String) 항상 마지막 위치에 추가 된다.
 		sb1.append("문자열");
 		sb1.append(" 추가");
