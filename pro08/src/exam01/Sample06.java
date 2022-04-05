@@ -26,7 +26,7 @@ public class Sample06 {
 		System.out.println(date.getTime());     // 1970년도 1월 1일 00시 00분 00초를 기준으로 1000밀리세컨즈 지났음 -> 가끔 사용된다고 함 
 		
 		/*
-		 * Calender 클래스
+		 * Calendar 클래스
 		 * - new 생성자를 통해 직접 객체를 만들 수 없다.
 		 */
 		

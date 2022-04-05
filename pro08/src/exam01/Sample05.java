@@ -31,7 +31,6 @@ public class Sample05 {
 		String s3 = Integer.valueOf(10).toString();	// valueOf(10)을 Integer 형태로 변환해서 문자열로 만들어라	
 		s3 = Boolean.valueOf(true).toString();
 		
-		
 	}
 
 }
