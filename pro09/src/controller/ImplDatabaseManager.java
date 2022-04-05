@@ -10,4 +10,7 @@ public interface ImplDatabaseManager {
 	public Student modify(String name, String subject, int score);
 	public boolean remove(String name);
 	
+	
+	
+	
 }

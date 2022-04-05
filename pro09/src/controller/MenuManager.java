@@ -10,17 +10,20 @@ public class MenuManager {
 	private DatabaseManager db = new DatabaseManager();
 	
 	// 메뉴메소드
-	public void main() {	
+	public void main() {		// 이 메소드를 통해 출력
 		StringBuilder menu = new StringBuilder();
 		menu.append("1. 성적 조회\n");			// searchMenu()
 		menu.append("2. 학생 정보 추가\n");		// studentAddMenu()
 		menu.append("3. 성적 정보 수정\n");		// subjectModifyMenu()
 		menu.append("4. 학생 정보 삭제\n");		// studentDeleteMenu()
 		menu.append("9. 프로그램 종료\n");		//	System.exit(0);
+		menu.append(">>> ");
+		
+		
 		while(true) {
 			System.out.println(menu);    	// 메뉴 출력
 			String input = sc.nextLine();	// 입력을 받아서
-			
+			_clear();
 			if(input.equals("1")) {	
 				searchMenu();
 			}else if(input.equals("2")) {
@@ -33,19 +36,33 @@ public class MenuManager {
 				System.out.println("프로그램이 종료됩니다.");
 				System.exit(0);  // 프로그램 종료
 			}
-			System.out.println("[[엔터를 누르세요]]");   sc.nextLine();		// 다음으로 바로 넘어가지 않도록 하기 위해     
+			_clear();
 		}
 	}
+	
 	// 성적 조회
 	public void searchMenu() {
-		System.out.println("학생 이름 입력 : ");
-		String name = sc.nextLine();	// 찾는 이름
-		Grade[] datas = db.search(name);	// 조회하는 메소드 호출(return값은 Grade[])
-		String result = _printGrades(name, datas);
+		String name = "";
+		Grade[] datas = null;	
+		
+		while(true) {
+			System.out.println("학생 이름 입력 : ");
+			name = sc.nextLine();		// 찾는 이름
+			datas = db.search(name);	// 조회하는 메소드 호출(return값은 Grade[])
+			
+			if(datas == null) {		// 해당 학생이 존재하지 않는다면
+				System.out.println("해당 학생은 존재하지 않습니다. 다시 입력하세요.");
+			}else {					// 해당 학생이 존재한다면
+				break;
+			}
+		}
+		String result = _printGrades(name, datas);	// 학생데이터 정리해둔 출력 메서드 _printGrades
+		System.out.println(result);				// 학생 데이터 출력
+		System.out.println("[[엔터키를 누르면 메뉴로 이동합니다.]]");
 	}
 	
 	private String _printGrades(String name, Grade[] datas) {
-		String hLine = "---------------------";
+		String hLine = "---------------------\n";
 		StringBuilder sb = new StringBuilder();	// StringBuilder sb를 만들어서 문자열을 계속 추가해주는 거야
 		String[] scores = new String[datas.length];	// 점수
 		String[] levels = new String[datas.length];	
@@ -77,7 +94,23 @@ public class MenuManager {
 	}
 	// 학생 정보 추가
 	public void studentAddMenu() {
-		System.out.println("학생 정보 추가 메뉴 실행!");
+		String name;
+		while(true) {
+			System.out.println("학생 이름 입력 : ");
+			name = sc.nextLine();
+			
+			if(!db.existed(name)) {	// false면 학생이 있음
+				System.out.println("해당 학생은 이미 존재하는 정보 입니다.");
+			}else {		// 만약 해당 학생이 존재한다면
+				
+				
+				break;
+			}
+		}
+		if(db.add(name)) {
+			System.out.printf("%s 학생의 정보가 추가되었습니다.", name);
+		}
+		
 	}
 	
 	// 성적 정보 수정
@@ -90,6 +123,12 @@ public class MenuManager {
 		System.out.println("학생 정보 삭제 메뉴 실행!");
 	}
 	
-	
+	// 메뉴 보기 좋게 하기 위한 메소드
+		private void _clear() {
+			for(int i = 0; i< 20; i++) {
+				System.out.println("\n");
+			}
+			
+		}
 	
 }

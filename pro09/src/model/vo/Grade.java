@@ -8,7 +8,7 @@ public class Grade extends Subject{
 	 */
 	
 	private double score;	// 점수
-	private char level;		// 등급
+	private char level;	// 등급
 	
 	public Grade(String name) {
 		super(name);
