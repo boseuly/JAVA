@@ -6,7 +6,7 @@ import controller.MenuManager;
 
 public class Main {
 
-	public static void main(String[] args) {	// 프로그램 시작은 항상 main메소드에서!
+	public static void main(String[] args) throws Exception {	// 프로그램 시작은 항상 main메소드에서!
 		/*
 		 * 프로그램 시작 점 -> 시작점을 기점으로 하나하나 분석해보기 
 		 */

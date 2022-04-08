@@ -13,7 +13,7 @@ public class LoginMenuManager {
 	private DatabaseManager sDB = new DatabaseManager();
 	private SimpleDateFormat sFormat = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분 ss초");
 	
-	public void main() {
+	public void main() throws Exception{
 		StringBuilder menu = new StringBuilder();
 		menu.append("1. 교사용 로그인\n");
 		menu.append("2. 학생용 로그인\n");
@@ -97,8 +97,8 @@ public class LoginMenuManager {
 		String password = s.resetPassword();
 		System.out.println(password + " 로 초기화 되었습니다. 초기화 패스워드로 로그인 후 다시 패스워드를 변경하세요.");
 	}
-	
-	private void teacherLogin() {
+	// 교사용 로그인
+	private void teacherLogin() throws Exception{
 		System.out.print("교사명 : ");
 		String username = sc.nextLine();
 		
@@ -116,17 +116,17 @@ public class LoginMenuManager {
 		
 		if(loginAccount == null) {	// 비번을 계속 틀리면 loginAccount는 null값
 			System.out.println("로그인에 실패하였습니다. 다시 시도하세요.");
-		} else {			// 
+		} else {			// 패스워드가 맞는 경우
 			if(loginAccount.getLoginDate() == null) {
 				System.out.println("환영합니다. 첫 로그인 입니다.");
 			} else {
 				Date now = new Date();
-				System.out.println("최근 접속 시간은 " + loginAccount.getLoginDateFormat() + " 입니다.");
-				System.out.println("현재 로그인 시간은 " + sFormat.format(now) + " 입니다.");
-				loginAccount.setLoginDate(now);
+				System.out.println("최근 접속 시간은 " + loginAccount.getLoginDateFormat() + " 입니다.");	// 이전 접속 시간 출력
+				System.out.println("현재 로그인 시간은 " + sFormat.format(now) + " 입니다.");// 지금 접속 시간 출력
+				loginAccount.setLoginDate(now);	 	// 지금 시간을 Teacher클래스의 멤버변수인 loginDate에 저장
 			}
-			MenuManager tMenu = new MenuManager(loginAccount);
-			tMenu.main();
+			MenuManager tMenu = new MenuManager(loginAccount);	// 로그인 계정을 생성자를 통해 전달을 한다. (MenuManager 객체 생성)
+			tMenu.main();		// MenuManager클래스의 main()메소드 호출
 		}
 		
 		/*

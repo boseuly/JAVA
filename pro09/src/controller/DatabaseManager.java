@@ -2,6 +2,7 @@ package controller;
 
 import java.util.Arrays;
 
+import exception.GradeScoreException;
 import model.vo.Grade;
 import model.vo.Student;
 import model.vo.Teacher;
@@ -60,7 +61,11 @@ public class DatabaseManager implements ImplDatabaseManager {
 		Grade[] grades = datas[idx].getGrades();
 		for(int i = 0; i < grades.length; i++) {
 			if(subject.equals(grades[i].getName())) {
-				grades[i].setScore(score);
+				if(score >= 0 && score <= 100) {
+					grades[i].setScore(score);
+				}else {
+					grades[i].setScore(0);
+				}
 				return datas[idx];
 			}
 		}

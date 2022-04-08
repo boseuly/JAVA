@@ -142,7 +142,7 @@ public class MenuManager {
 			}
 		}
 		
-		String result = _printGrades(name, datas);
+		String result = _printGrades(name, datas);	// _printGrades의 반환타입이 String이기 때문에 String 변수에 받아준다.
 		System.out.println(result);
 		System.out.print("[[엔터키를 입력하세요]]");	sc.nextLine();
 	}

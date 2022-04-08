@@ -23,7 +23,7 @@ public class Teacher extends Account {
 	
 	public String getLoginDateFormat() {
 		SimpleDateFormat sFormat = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분 ss초");
-		return sFormat.format(loginDate);
+		return sFormat.format(loginDate);		// sFormat형식으로 loginDate를 반환
 	}
 
 	public void setLoginDate(Date loginDate) {

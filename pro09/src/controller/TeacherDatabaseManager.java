@@ -11,7 +11,7 @@ public class TeacherDatabaseManager {
 	// 테스트용 초기 데이터 나중에는 삭제할 것임.
 	{
 		datas = new Teacher[2];
-		datas[0] = new Teacher("고명환", "1234");
+		datas[0] = new Teacher("이보슬", "1234");
 		datas[0].setLoginDate(new Date());
 		datas[1] = new Teacher("김수덕", "1111");
 	}

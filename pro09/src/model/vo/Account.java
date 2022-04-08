@@ -3,6 +3,8 @@ package model.vo;
 import java.util.Date;
 import java.util.Random;
 
+import exception.PasswordUnValidException;
+
 // 회원 정보	(Student, Teacher 클래스가 Account상속) -> 이렇게 하면 MenuManager에서 둘을 한꺼번에 다룰 수 있음(StudentMenuManager은 삭제해도 됨)
 public abstract class Account {
 	
@@ -22,8 +24,33 @@ public abstract class Account {
 		return password;
 	}
 	
-	public void setPassword(String password) {
+	public void setPassword(String password){	// 패스워드를 설정할 때 영문자/숫자 조합으로 설정하기 위해 
+		boolean numExisted = false;
+		boolean lowerExisted = false;
+		boolean upperExisted = false;
+		
+//		for(int i = 0; i < password.length(); i++) {		// 
+//			if(password.charAt(i) >= '0' && password.charAt(i) <= '9') {	
+//				numExisted =true;
+//			}
+//			if(password.charAt(i) >= 'a' && password.charAt(i) <= 'z') {
+//				lowerExisted = true;
+//			}
+//			if(password.charAt(i) >= 'A' && password.charAt(i) <= 'Z') {
+//				upperExisted = true;
+//			}
+//			
+//		}	
+//		if(!(numExisted && (lowerExisted || upperExisted))) {
+//			throw new PasswordUnvalidException("패스워드에는 숫자/영문자 조합으로 만들어야 합니다.");	
+//		}
+		
+		if(!(password.matches("[0-9a-zA-Z]{4,12}") 		// []안에는 문자에 대한 범위를 적는 거임(0-9 -> 0~9까지의 숫자, a-z ->a~z까지,  ), {}안에는 몇자를 적을 건지
+				&& !password.matches("[0-9]{4,12}")) 	// [^0-9]{4,12} -> ^표시는 제외를 의미(0~9숫자가 안 들어가야 함) -> 그럼 password앞에 !없애도 됨 
+				&& !password.matches("[a-zA-Z]{4,12}")) // ^이[]앞에 붙으면 []안에 내용으로 시작해야 한다는 뜻, []$는 이걸로 끝나야 한다는 뜻. ^[0-9]{4,12}$ 요런식으로 사용
 		this.password = password;
+			
+		
 	}
 	
 	// 패스워드 변경
