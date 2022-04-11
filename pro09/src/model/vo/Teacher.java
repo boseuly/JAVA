@@ -7,7 +7,7 @@ import java.util.Random;
 public class Teacher extends Account {
 	private Date loginDate;	// 로그인 시간
 	
-	public Teacher(String name) {
+	public Teacher(String name) {		
 		setName(name);
 		setPassword("1111");
 	}

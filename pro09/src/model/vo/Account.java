@@ -6,7 +6,7 @@ import java.util.Random;
 import exception.PasswordUnValidException;
 
 // 회원 정보	(Student, Teacher 클래스가 Account상속) -> 이렇게 하면 MenuManager에서 둘을 한꺼번에 다룰 수 있음(StudentMenuManager은 삭제해도 됨)
-public abstract class Account {
+public class Account {
 	
 	private String name;
 	private String password;

@@ -13,7 +13,7 @@ public class LoginMenuManager {
 	private DatabaseManager sDB = new DatabaseManager();
 	private SimpleDateFormat sFormat = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분 ss초");
 	
-	public void main() throws Exception{
+	public void main() throws Exception{		
 		StringBuilder menu = new StringBuilder();
 		menu.append("1. 교사용 로그인\n");
 		menu.append("2. 학생용 로그인\n");
