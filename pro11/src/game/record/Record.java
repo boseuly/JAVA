@@ -48,4 +48,9 @@ public class Record {
 		// 전체 승,패,무 횟수를 반환한다.
 		return score[0] + score[1] + score[2];
 	}
+
+	public int[] setScore(int[] record) {
+		
+		return record;
+	}
 }

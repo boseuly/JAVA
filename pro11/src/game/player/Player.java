@@ -7,5 +7,5 @@ public interface Player {
 	public void randomCardHand();
 	
 	// 가위, 바위, 보 대결을 진행한다.
-	public int versus(Hand h);
+	public String versus(Hand h);
 }
