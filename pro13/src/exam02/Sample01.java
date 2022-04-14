@@ -29,8 +29,8 @@ public class Sample01 {
 		File f = new File("C:/Users/user1/eclipse/jee-2021-12/eclipse/read_test.txt"); 
 		
 		try (FileWriter fw = new FileWriter(f)){
-//			fw.write(Arrays.toString(iArr));			// 방법1) iArr배열을 String으로 바꿔서 내보내기 -> 문제: [1, 2, 3 ..]이렇게 배열형식으로 저장됨
 			
+//			fw.write(Arrays.toString(iArr));			// 방법1) iArr배열을 String으로 바꿔서 내보내기 -> 문제: [1, 2, 3 ..]이렇게 배열형식으로 저장됨
 			for(int i = 0; i < iArr.length; i++) {		// 방법2) for문을 이용해서 숫자를 
 //				fw.write(iArr[i]); -> 이렇게 정수로 그냥 출력하면 문자가 깨진다.
 				fw.write(Integer.valueOf(iArr[i]).toString() + " "); 	// Wrapper 클래스로 래핑 한 뒤 -> 이렇게 문자로 변환을 시켜줘야 한다.
@@ -44,7 +44,7 @@ public class Sample01 {
 			e.printStackTrace();
 		}
 		
-		
+		// 읽어오기
 		StringBuilder sb = new StringBuilder();
 		try (FileReader fr = new FileReader(f)){
 			char[] buffer = new char[4];	 // 버퍼 크기만큼 읽는다.
