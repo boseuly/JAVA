@@ -9,7 +9,7 @@ public class Sample03 {
 		 * 	 불변 : 문자열의 문자값을 변경할 수 없다. -> 새로운 문자열로 만들어서 변경된 것처럼 썼을 뿐이다.
 		 * - StringBuilder, StringBuffer는 가변(Mutable)의 특징을 가진다.
 		 * - StringBulder와 StringBuffer의 기능은 동일하다. 단, 멀티쓰레드 관련 기능 중 Thread Safe 기능에 대해
-		 * 	 StringBuffer만 제공을 한다. (StringBulder가 성능이 좋은데 Thread Safe를 제공하지 않는다는 단점이 있음)
+		 * 	 StringBuffer만 제공을 한다. (StringBuilder가 성능이 좋은데 Thread Safe를 제공하지 않는다는 단점이 있음)
 		 * - Thread Safe 기능은 멀티쓰레드에서 발생할 수 있는 문제 중 공유자원에 대한 접근을 하나의 쓰레드만 접근하여
 		 * 	 사용하도록 락을 걸어 다른 쓰레드가 작업을 하지 못 하게 막아주는 기능이다.
 		 * 

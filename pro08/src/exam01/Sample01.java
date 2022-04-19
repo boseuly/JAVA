@@ -39,11 +39,11 @@ public class Sample01 {
 		System.out.println(Arrays.toString(sArr));
 		
 		s1 = "010-1234-5678";
-		sArr = s1.split("-");
+		sArr = s1.split("-");  // - 를 기준으로 쪼갬
 		System.out.println(Arrays.toString(sArr));
 		
 		s1 = String.join("/", sArr);			// 문자열을 결합(결합시킬 때마다 "/"를 이용해 결합)
-		System.out.println(s1);
+		System.out.println("s1 : " + s1);
 		
 		// 전화번호를 입력받아서 출력할 때 전화번호의 뒷자리 4자리를 ****로 마스킹하시오.
 

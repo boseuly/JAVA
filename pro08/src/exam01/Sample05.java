@@ -14,11 +14,11 @@ public class Sample05 {
 		 */
 		
 		// 문자열을 기본자료형으로 변경하기(Wrapper 사용)
-		boolean b1 = Boolean.parseBoolean("true");
+		boolean b1 = Boolean.parseBoolean("true");	
 		byte b2 = Byte.parseByte("10");
 		short s1 = Short.parseShort("20");
 		char c1 = "문자열".charAt(0);
-		int i1 = Integer.parseInt("30");
+		int i1 = Integer.parseInt("30");		// parseInt : 문자열로 된 부분에서 정수만 추출해서 변환해주는 것
 		long l1 = Long.parseLong("40");
 		float f1 = Float.parseFloat("50.5");
 		double d1 = Double.parseDouble("60.6");
