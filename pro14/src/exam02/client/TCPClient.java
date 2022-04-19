@@ -20,7 +20,6 @@ public class TCPClient {
 			/*
 			 * 1. 클라이언트용 소켓 생성
 			 */
-			
 			byte[] addr = new byte[] {(byte)192,(byte)168,(byte)219,107};
 			InetAddress serverIP = InetAddress.getByAddress(addr);
 			int serverPort = 51100;			// 클라이언트 포트는 랜덤이기 때문에 따로 만들어주지 않음(서버 포트는 지정해야 됨)
