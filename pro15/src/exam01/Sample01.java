@@ -1,13 +1,14 @@
-package pro15;
+package exam01;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 
-class Person{
-	private String name;
+class Person implements Comparable<Person>{	// 정렬을 할 때 사용할 객체면 Comparable을 implements하기(비교 가능하게 만들어주는 것)
+	private String name;					// Comparable인터페이스를 emplements하면 Comparable인터페이스의 compareTo메소드를 extends하게 만든다.
 	private int age;
 	
 	public Person(String name, int age) {
@@ -28,6 +29,22 @@ class Person{
 	public void setAge(int age) {
 		this.age = age;
 	}
+
+	@Override
+	public int compareTo(Person o) {		// 이 안에 크기 비교 코드를 작성해주면 된다. // 이게 있어야 sort()메소드를 이용해서 바로 정렬할 수 있다.
+		if(this.getName().compareTo(o.getName()) > 0){
+			return 1;
+		}else if(this.getName().compareTo(o.getName()) < 0) {
+			return -1;
+		}else {
+			if(this.getAge() > o.getAge()) {
+				return 1;
+			}else if(this.getAge() < o.getAge()) {
+				return -1;
+			}
+		}
+		return 0;
+	}
 	
 }
 
@@ -38,10 +55,10 @@ public class Sample01 {
 		 * List 계열 컬렉션 - ArrayList
 		 * 
 		 */
-		//List<E> aList = new ArrayList<E>;		// <E>는 제네릭타입임,E 또는 K가 들어가는 게 보통이다. 객체 타입을 넣어주면 됨
+		//List<E> aList = new ArrayList<E>();			// <E>는 제네릭타입임,E 또는 K가 들어가는 게 보통이다. 객체 타입을 넣어주면 됨
 		// List 컬렉션을 사용하기 전에는 어떤 타입을 넣어줄지 결정해야 한다.
-		List<Integer> aList = new ArrayList<Integer>();
-		aList.add(100);
+		List<Integer> aList = new Vector<Integer>();	// Vector, LinkedList, ArrayList 모두 적용됨
+		aList.add(100);		// add(E e) ->  elements는 해당 컬렉션의 객체 타입과 동일하다. aList의 객체타입은 Integer이기 때문에 자동으로 100은 Integer타입으로 변환된다.
 		aList.add(200);
 		aList.add(300);
 		System.out.println(aList);	
@@ -139,6 +156,8 @@ public class Sample01 {
 				return 1;
 			}
 		});
+		
+		// Person 클래스에 Comparable을 implements해서 compareTo를 재정의 하지 않은 경우 (복잡함)
 		List<Person> pList = new ArrayList<Person>();
 		pList.add(new Person("홍길동", 23));
 		pList.add(new Person("김철수", 25));
@@ -157,22 +176,40 @@ public class Sample01 {
 			@Override
 			public int compare(Person p1, Person p2) {
 				if(p1.getName().compareTo(p2.getName()) > 0){
-					return 1;
+					return 1;								// 오름차순
 				}else if(p1.getName().compareTo(p2.getName()) < 0) {
-					return -1;
+					return -1;								// 오름차순
 				}else {
 					if(p1.getAge() > p2.getAge()) {
-						return 1;
+						return -1;							// 내림차순			// 만약 위아래 return값이 바뀌면 
 					}else if(p1.getAge() < p2.getAge()) {
-						return -1;
+						return 1;							// 내림차순			// 오름차순이 됨
 					}
 				}
 				return 0;
 			}
 		});
-		for(Person p : pList) {
+		for(Person p : pList) {				//pList에 있는 객체들을 하나씩 꺼내서 Person객체인 p에 넣겠다.
+			System.out.println(p.getName() + " | " + p.getAge());	// 그리고 p를 사용하는 거임
+		}
+		
+		// Person 객체에 Comparable을 implements를 하고 compareTo메소드를 extends한 경우(간단함)
+		System.out.println("-------------------------------------");
+		Collections.sort(pList);
+		for(Person p:pList) {
 			System.out.println(p.getName() + " | " + p.getAge());
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 }
