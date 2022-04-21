@@ -76,9 +76,9 @@ public class Sample01 {
 
 	
 		// 수정해보기 (기존 객체 빼고, 새로운 객체 추가)	// 사용자에게 수정 내용 확인을 시켜주고 수정하겠냐고 물은 뒤 안 하겠다고 하면 다시 
-		Integer i1 = aList.set(2, 350); 		// 원래대로 복원시켜놓을 수 있다.
+		Integer i1 = aList.set(2, 350); 		// 원래대로 복원시켜놓을 수 있다. set은 이전의 값을 반환한다.
 		System.out.println(i1 + "/" + aList);
-		i1 = aList.set(3, 450);
+		i1 = aList.set(3, 450); 
 		System.out.println(i1 + "/" + aList);
 		
 		// 검색하기
@@ -98,8 +98,9 @@ public class Sample01 {
 		// 몇 개의 데이터가 저장되어 있는지 확인
 		System.out.println(aList.size());
 		
-		for(int i = 0; i < aList.size(); i++) {		// 일반 배열은 출력을 하기 위해 
-			System.out.println(aList.get(i));
+		// 특정 위치에 있는 값을 확인하기 위해 for문 돌리기
+		for(int i = 0; i < aList.size(); i++) {		  
+			System.out.println(aList.get(i));		
 		}
 		
 		// 컬렉션 안에 데이터가 있는지 확인
@@ -118,9 +119,9 @@ public class Sample01 {
 		System.out.println(i1 + " / " + aList);	// 지금은 제네릭 타입이 Integer이기 때문에 반환타입이 Integer라고 나온다. remove의 반환타입은 <E>이기 때문에
 		// 임시로 삭제했다가 나중에 필요할 때 가지고 올 수 있다.
 		
-		// Iterator 사용
+		// Iterator 사용 : 배열이나 그와 비슷한 내부를 순회하는 것, 반복자
 		System.out.println("<<<< Iterator 사용 >>>>");
-		Iterator<Integer> iter = aList.iterator();	// Iterator 반복자
+		Iterator<Integer> iter = aList.iterator();	
 		while(iter.hasNext()){
 			Integer i2 = iter.next();
 			System.out.println(i2);
@@ -128,7 +129,7 @@ public class Sample01 {
 		
 		System.out.println("<<< for each 문 >>>");
 		for(Integer i3: aList) {		// Integer 타입이 담겨있는 aList의 데이터를 하나씩 빼서 i3에 담는다. 
-			System.out.println(i3);
+			System.out.println(i3);		// 하나씩 추출 할 수 있다.
 		}
 		
 		// 끝에 있던 게 앞으로, 앞에 있던 게 끝으로 순서 바꾸는 거
@@ -144,12 +145,12 @@ public class Sample01 {
 		
 		// 내림차순으로 정렬 방법1) 오름차순 정렬 후 리버스
 		// 내림차순으로 정렬 방법2) sort를 이용한 정렬, 객체를 이용한 정렬을 할 때
-		Collections.sort(aList, new Comparator<Integer>(){
+		Collections.sort(aList, new Comparator<Integer>(){	// Collections.sort가 요구하는 게 Comparator이기 때문에 new Comparator을 해줌
 			
 			@Override
 			public int compare(Integer i1, Integer i2) {	// 객체라고 치면, 사람이라는 클래스 안에 이름, 나이, 성별이 존재 
 				if(i1 > i2) {								// 이름이 같다면 나이로, 나이마저 같다면 성별로 그 사람을 정렬한다.
-					return -1;
+					return -1;	// 내림차순이라서
 				}else if(i1 == i2) {
 					return 0;
 				}
@@ -175,7 +176,7 @@ public class Sample01 {
 			
 			@Override
 			public int compare(Person p1, Person p2) {
-				if(p1.getName().compareTo(p2.getName()) > 0){
+				if(p1.getName().compareTo(p2.getName()) > 0){	// p1.getName().compareTo(p2.getName() 얘가 양수가 나오면 p1이 p2보다 크다는 의미
 					return 1;								// 오름차순
 				}else if(p1.getName().compareTo(p2.getName()) < 0) {
 					return -1;								// 오름차순
@@ -189,6 +190,7 @@ public class Sample01 {
 				return 0;
 			}
 		});
+		// 하나씩 뽑아서 출력하기 좋음
 		for(Person p : pList) {				//pList에 있는 객체들을 하나씩 꺼내서 Person객체인 p에 넣겠다.
 			System.out.println(p.getName() + " | " + p.getAge());	// 그리고 p를 사용하는 거임
 		}

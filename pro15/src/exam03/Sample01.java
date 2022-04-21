@@ -22,7 +22,7 @@ public class Sample01 {
 		System.out.println(aMap);		// b는 키가 동일하기 때문에 마지막에 추가된 값으로 저장된다.
 		
 		// 값이 중복되면 이미 저장된 값이 출력되고 새로 들어온 값이 저장된다. 
-		Integer result = aMap.put("r", 900);	// 이전의 값(value)을 반환한다.
+		Integer result = aMap.put("r", 900);		// 이전의 값(value)을 반환한다.
 		System.out.println(result + " " + aMap);	// result는 이전의 값
 		
 //		result = aMap.put("a", 200);
@@ -53,7 +53,7 @@ public class Sample01 {
 		result2 = aMap.containsKey("a");
 		System.out.println(result2);
 		
-		// Map의 Entry라는 건 <>안에 키와 value를 갖는 걸 의미
+		// Map의 Entry라는 건 <>안에 key와 value를 갖는 걸 의미
 		// Set<Entry<String, Integer>> : 키는 String으로, value는 Integer로 갖는 Map entry객체들을 Set으로 담아둔 상황 → 이건 Set처럼 사용해주면 된다.
 		// 방법1) 
 		Set<Entry<String, Integer>> entrys = aMap.entrySet();		// aMap.entrySet으로 Set객체 만들어서 Set객체에 넣고

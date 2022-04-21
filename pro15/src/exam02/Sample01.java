@@ -49,7 +49,7 @@ public class Sample01 {
 		System.out.println("--------내용 전부 지우기--------");
 		bSet.clear();
 		result = bSet.isEmpty();
-		System.out.println("다 지웠나요 ? : " + result);
+		System.out.println("안에 내용이 비워져있나요 ? : " + result);
 		
 		System.out.println("------크기------");
 		int len = aSet.size();
@@ -74,7 +74,7 @@ public class Sample01 {
 		
 		// 방법2)
 		for(Integer i1: aSet) {
-			System.out.println(i1+"\t");
+			System.out.print(i1+"\t");
 		}
 		System.out.println();
 		

@@ -8,9 +8,9 @@ import java.util.TreeSet;
 public class Sample03 {
 
 	public static void main(String[] args) {
-		Set<Integer> hashSet = new HashSet<Integer>();
-		Set<Integer> linkedHashSet = new LinkedHashSet<Integer>();
-		Set<Integer> treeSet = new TreeSet<Integer>();
+		Set<Integer> hashSet = new HashSet<Integer>();				// 일반적으로 쓰인다. 속도가 제일 빠름
+		Set<Integer> linkedHashSet = new LinkedHashSet<Integer>();	// 작성한 순서대로 저장이 된다.
+		Set<Integer> treeSet = new TreeSet<Integer>();				// 오름차순 정렬으로 저장이 된다.
 		
 		// hashSet : 정렬은 안 됨
 		hashSet.add(600);	hashSet.add(200);	hashSet.add(500);
