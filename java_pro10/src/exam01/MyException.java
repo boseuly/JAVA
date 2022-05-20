@@ -1,4 +1,4 @@
-package pro10;
+package exam01;
 
 import java.io.FileNotFoundException;
 

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- 
+			<head> : 문서에 대한 정보를 설명하기 위해 사용하는 영역
+			<title>, <meta>, <link>, <script>, <style> 태그가 사용된다. 
+		-->
+		<meta charset = "UTF-8">	<!-- 한글이 깨질 때는 meta를 utf-8로 설정해보기 -->
+		<meta http-equiv="refresh" content="5;">	<!--  일정 간격으로 자동 새로 고침 -->
+		<meta http-equiv="content-type" content="text/html;charset=utf-8">
+		<link rel="icon" type="image/webp" href="img/logo.webp">			<!-- 이미지 삽입 -->
+		<link rel="stylesheet" type="text/css" href="css/sample01.css">		<!-- 외부문서에 작성한 것을 적용하는 것, body를 통해 연결된다. -->
+		<base href="" target="_self">
+		<base href="http://localhost:8080/web01/page" target="_blank"> 		<!--  현재페이지에서 이동(_self)하냐 새로운 페이지를 열어서 이동(_blank)하냐 차이 -->
+		<title>Hello HTML</title>
+		
+		<!-- css 에도 color를 지정했지만 여기의 style이 우선이다. 별도의 스타일을 지정하고 싶을 때 사용-->
+		<style>			
+			body{
+				color:write;
+			}
+		</style>
+	
+	</head>
+	
+	<body>
+		<a href="./sample02.html">페이지 이동!</a>		<!-- ./는 현재 경로에서 해당 페이지로 이동하라는 의미 -->
+		<!-- 
+			<body> : 브라우저 화면에 출력하여 보여줄 정보를 작성하는 영역
+			<h1>, <p> , .... 등 다양한 태그들이 사용된다. (head 태그에서 사용하는 태그를 제외한 모든 태그, 많아서 나열 못함) 
+		 -->
+	</body>
+		안녕하세요 :)
+		<!-- 문서 형식을 알려주는 태그 -->
+</html>
