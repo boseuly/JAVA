@@ -40,9 +40,66 @@
 	예외로 hr태그와 h1태그는 <mark>block tag</mark>에 해당한다.<br>
 	<p>가나다라마바사<p>아자차카타파하</p>	<!--  이렇게 하나의 문단에서 줄바꿈을 하기 위해서는 <p>를 추가하여 또 다른 문단을 만들어주거나 -->
 	<p>가나다라마바사<br>아자차카타파하</p>	<!-- 이렇게 줄바꿈 태그를 사용한다. -->
-	<pre>입력한 내용을 그대로 보여준다.</pre>
+	<pre>입력한 내용을 그대로 보여준다. 줄 바꿈, 정렬 상태 등을 입력한 생태 그대로 보여주어 자유롭게
+	내용을 작성할 수 있는 장점이 있지만 글자의 색상이나 모양을 변경할 수 없는 단점이 있다.</pre>
+	<font size="1">글자 크기는1~7까지 설정 가능</font>
+	<font size="3">글자 크기는1~7까지 설정 가능</font>
+	<font size="6">글자 크기는1~7까지 설정 가능</font><br>
+	<font color="red", size="6">빨강색</font>		<!-- 색깔과 사이즈를 같이 설정 -->
 	
-	
+	<br><br><hr>
+	<ul>
+		<li>하나</li>
+			<ul type="square">
+				<li>하나-하나</li>
+				<li>하나-둘</li>
+			</ul>
+		<li>둘</li>
+		<li>셋</li>
+			<ol>
+				<li>셋-하나</li>
+				<li>셋-둘</li>
+				<li>셋-셋</li>
+			</ol>
+	</ul>
+	<a href="http://naver.com">네이버</a>	<!-- 이건 현재 창에서 네이버로 이동되는 것 -->
+	<a href="http://naver.com" target="_blank">네이버</a><br><br>
+	<hr>
+	<테이블 구조>
+	<table border="1">
+		<caption>테이블 연습01</caption>
+		<tr>
+			<th>1행 1열</th>
+			<th>1행 2열</th>
+			<th>1행 3열</th>
+		</tr>
+		<tr>
+			<td>2행 1열</td>
+			<td>2행 2열</td>
+			<td>2행 3열</td>
+		</tr>
+		<tr>
+			<td>3행 1열</td>
+			<td>3행 2열</td>
+			<td>3행 3열</td>
+		</tr>
+	</table>
+	<테이블 구조>
+	<table border="1">
+		<caption>테이블 연습02</caption>
+		<tr>
+			<td rowspan="3">행합치기</td>
+			<td>1행 2열</td>
+			<td>1행 3열</td>
+		</tr>
+		<tr>
+			<td colspan="2">2행 2열</td>
+		</tr>
+		<tr>
+			<td>3행 2열</td>
+			<td>3행 3열</td>
+		</tr>
+	</table>
 	
 	 
 </body>
