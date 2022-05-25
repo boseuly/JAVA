@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" type="text/css" href="./index.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<!--  이미 설치되어 잇는 폰트가 아닌 외부에서 가져온 폰트를 적용하는 법 -->
+	<link rel="preconnect" href="https://fonts.gstatic.com" 교차 출처>		
+	<link href="https: //fonts.googleapis.com/css2? family= Roboto+Mono:ital,wght@1,200 & display=swap" rel="stylesheet">
+	
+</head>
+<body>
+	<!--  em 적용해보기 -->
+	<div class="p1">				<!--  16px -->
+		<p>기본 글자 크기는 16px</p>		
+		<div class="p2">			<!-- 2em -> 16*2=32px -->
+			<p>2em을 적용한 크기</p>
+			<div class="p3">
+				<p>2em을 적용한 크기</p>	<!-- 2em -> 32*2=64px  -->
+			</div>						<!--  바로 위의 부모 요소를 기준으로 2em을 해준다. -->
+		</div>
+	</div>
+	<hr>
+	<!--  rem 적용해보기 -->
+	<div class="p4">				<!--  16px -->
+		<p>기본 글자 크기는 16px</p>		
+		<div class="p5">			<!-- 최상위 부모를 기준으로 2rem 적용 -->
+			<p>2rem을 적용한 크기</p>
+			<div class="p6">
+				<p>2rem을 적용한 크기</p>	<!-- 2em -> 32*2=64px  -->
+			</div>
+		</div>
+	</div>
+	<hr>
+	<!-- font-variant  -->
+	<div class="test1">
+		<p class="ex1">font-variant 속성 normal 테스트</p>
+		<p class="ex2">font-variant 속성 small-caps 테스트</p>
+	</div>
+	<hr>
+	<div class="test2">
+		<p class="ex1">font-style 속성 normal 테스트</p>
+		<p class="ex2">font-style 속성 italic 테스트</p>
+		<p class="ex2">font-style 속성 oblique 테스트</p>
+	</div>
+	<hr>
+	<div class="test3">
+		<p>font 속성 테스트</p>
+		<p>line-height 속성은 줄의 간격을 나타내기 위해 사용하는 속성이다.</p>
+	</div>
+	<hr>
+	<div class="test4">
+		<h1>rgba 함수의 투명도 테스트</h1>
+	</div>
+	<hr>
+	<div class="test5">
+		<p class="ex1">text-decoration 속성 underline</p>
+		<p class="ex2">text-decoration 속성 overline</p>
+		<p class="ex3">text-decoration 속성 line-through</p>
+		<p class="ex3"><a href="#">a 태그에 적용된 언더라인</a></p>
+	</div>
+	<hr>
+	<div class="test6">
+		<p class="ex1">text-transform 속성의 capitalize</p>
+		<p class="ex2">text-transform 속성의 uppercase</p>
+		<p class="ex3">text-transform 속성의 lowercase</p>
+	</div>
+	<hr>
+	<div class="test7">
+		<p class="ex1">text-shadow 속성</p>
+	</div>
+	<hr>
+	<div class="test8">	<!-- html의 공백 이스케이프 &nbsp -->
+		<p class="ex1">white     속성으로      normal,      nowrap,      pre,      pre-line,      pre-wrap      속성이      있다.</p>
+		<ul>
+			<li>normal : 공백 하나로, 줄바꿈 자동</li>
+			<li>nowrap : 공백 하나로, 줄바꿈 없음</li>
+			<li>pre : 공백 그대로, 줄바꿈 없음</li>
+			<li>pre-line : 공백 하나로, 줄바꿈 자동</li>
+			<li>pre-wrap : 공백 그대로, 줄바꿈 자동</li>
+		</ul>
+	</div>
+	<hr>
+	<div class="test9">
+		<p class="ex1">letter-spacing: 글자 간격(자간)을 조정하기 위해 사용</p>
+		<p class="ex2">word-spacing: 단어 간격을 조정하기 위해 사용
+	</div>
+	<hr>
+	<div class="test10">
+		<p class="ex1">문단과 관련된 스타일 테스트</p>
+	</div>
+	<hr>
+	<div class="test11">
+		<ul>
+			<li>스타일이 적용된 목록</li>
+			<li>스타일이 적용된 목록</li>
+			<li>스타일이 적용된 목록</li>
+			<li>스타일이 적용된 목록</li>
+			<li>스타일이 적용된 목록</li>
+		</ul>
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

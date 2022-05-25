@@ -1,0 +1,128 @@
+@charset "UTF-8";
+/*임포트로 폰트 적용하기 (CSS에서 직접 적용)*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,200&display=swap');
+
+/*다운 받은 폰트로 적용하기*/
+@font-face {
+	font-family: "나눔고딕코딩";
+	src: url(../src/main/webapp/static/fonts);
+}
+* { /*이미 설치되어 있는 폰트 적용하는 법*/
+	font-family: "맑은고딕", "궁서체", "돋움체";	/*메모장에 폰트 들어가서 참고하기*/
+	/*외부 폰트 가져오기*/
+	font-family: 'Roboto Mono', monospace;	
+}
+
+.p1 {
+	font-size: 16px;	
+}
+.p2{
+	font-size: 2em;	
+}
+.p3{
+	font-size: 2em;	
+}
+
+
+.p4 {
+	font-size: 8px;	
+}
+.p5{
+	font-size: 2rem;	
+}
+.p6{
+	font-size: 2rem;	
+}
+.test1 > .ex1 {
+	font-variant: normal;
+}
+.test1 > .ex2 {
+	font-variant: small-caps;
+}
+.test2 {
+	font-style: normal;	/*font : 글꼴 속성을 모아서 적용하는 것*/
+	
+}
+.test2 > .ex1 {
+	font-style: normal;
+}
+.test2 > .ex2 {
+	font-style: italic;
+}
+.test2 > .ex3 {
+	font-style: oblique;
+}
+
+.test3 {
+	font: italic small-caps bold 24px/3 "D2Coding";	/*font : 글꼴 속성을 모아서 적용하는 것, 줄간격은 10px/2 이런식으로 표현 */
+}
+.test4 {
+	/*color: rgba(225,0,0,0.1);	*/	/*rgba는 투명도까지 정할 수 있다. background-color에도 적용 가능*/
+	color: #FF000080;		/*16진수법으로 색상을 적용할 때도 뒤에 0~255 사이의 숫자를 붙여주면 된다. 0으로 갈수록 투명해진다. 지금은 80을 붙여줌*/
+}
+.test5 > .ex1 {			
+	text-decoration: underline;
+}
+.test5 > .ex2 {
+	text-decoration: overline;
+}
+.test5 > .ex3 {
+	text-decoration: line-through;
+}
+.test5 > .ex4 > a {			/*가장 많이 사용하는 속성: text-decoration: none -> a 태그에 기본적으로 설정되어있는 언더라인 속성을 없애려고 사용(못생겨서,,)*/
+	text-decoration: none;
+}
+
+.test6 > .ex1 {	
+	text-transform: capitalize;	/*단어의 앞글자만 대문자로 변경*/
+}
+.test6 > .ex2 {
+	text-transform: uppercase;
+}
+.test6 > .ex3 {
+	text-transform: lowercase;
+}
+.test7 > .ex1 {						/*브라우저에서 개발자 모드에서 바로바로 바꾸는 게 더 편함*/
+	text-shadow: 2px 2px 4px red;	/*왼쪽오른쪽 - 위아래 - 블러효과(번짐효과) - 컬러*/ 
+}
+.test8 > .ex1 {
+	white-space: pre;	/*내가 공백을 만든 만큼 공백이 출력된다. -> 아무리 길어도 줄바꿈이 안 되고 한줄로 나옴*/
+	/*white-space: pre-line;*/	/*공백을 만큼 만큼 공백 출력됨, 자동 줄바꿈*/
+	/*white-space: nowrap;	*/	/*공백을 만큼 만큼 공백 출력됨, 자동 줄바꿈 x*/
+	/*white-space: pre-wrap;*//*공백을 만큼 만큼 공백 출력됨, 자동 줄바꿈 x*/
+}
+
+.test9 > .ex1 {
+	letter-spacing: 24px;	/*letter : 글자 사이사이 간격을 조정해준다.*/
+}
+
+.test9 > .ex2 {
+	word-spacing: 24px;		/*word : 단어 사이사이 간격을 조정해준다.*/
+}
+.test10 > .ex1{
+	/* direction: rt1; */
+	width: 50%;
+	text-align: left;		/*text-align : 정렬 */
+	text-indent: 48px;		/*text-indent: 들여쓰기*/
+	line-height: 24px;		/*줄간격*/
+	white-space: nowrap;	
+	overflow: hidden;
+	text-overflow: ellipsis;	/*이거 쓸 때는 white-space, overflow를 같이 써줘야 한다. 문장이 너무 길어질 때 ... 으로 표기*/
+}
+.test11 > ul {
+	/*list-style-type: none;		/*기본이 원형의 블릿인데 표기하지 마라*/
+	/*list-style-position: inside;	/*outside 가 디폴트값이다. 개발자 모드에서 ul범위에서 왼쪽에 초록창 안에 블릿이 있냐 없냐에 따라 inside, outside*/
+	list-style-image: url();		/*다운 받은 이미지로 블릿을 설정하는 방법*/
+	padding-inline-start: 80px;		/*padding-inline-start가 커지면 커질수록 초록색 영역이 커진다.*/
+}									/*컴퓨터상에서는 초록색 창에 내용이 들어간다고 본다.*/
+
+
+
+
+
+
+
+
+
+
+
