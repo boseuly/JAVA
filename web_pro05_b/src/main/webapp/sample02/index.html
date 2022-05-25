@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>CSS 선택자</title>
+	<style>
+	/*일반 구조 선택자 , 형태 구조 선택자*/
+		.ex1 > li:first-child{		/* ex1 요소 안에 li의 (형제/자매요소 중) 첫번째 요소만  .뒤에는 class name명 작성  #뒤에는 아이디명 작성 */
+			color: red;				/* 클래스 선택자 : .클래스name명  */
+			font-weight: bold;		/* 아이디 선택자 : #아이디명 	 	*/
+		}
+		.ex1 > li:last-child{		/* 형제/자매 요소가 있으면 첫 번째 요소만  */
+			color: blue;
+			font-weight: bold;
+		}
+		.ex2 > li:nth-child(2n){	/* nth는 앞에서부터 시작, n에 1부터 값을 넣어본다. 2n은 짝수 번째 요소만 적용, 2n-1은 홀수 번째 요소만 적용*/
+			color: red;
+			font-weight: bold;
+		}
+		.ex2 > li:nth-last-child(2n-1){	/* 2n은 짝수 번째 요소만 적용, 2n-1은 홀수 번째 요소만 적용*/
+			color: blue;
+			font-weight: bold;
+		}
+		.ex3 > li:nth-last-child(2n){	/* 2n은 짝수 번째 요소만 적용, 2n-1은 홀수 번째 요소만 적용*/
+			color: red;
+			font-weight: bold;
+		}
+		.ex3 > li:nth-last-child(2n-1){	/* 2n은 짝수 번째 요소만 적용, 2n-1은 홀수 번째 요소만 적용*/
+			color: blue;
+			font-weight: bold;
+		}
+		.ex4 > h2:first-child {		/* first-child는 ex4의 무조건 첫 번째 자식만 적용된다. 근데 h2는 첫번째 자식이 아니라서 적용 안 됨  */
+			color: red;
+		}
+		.ex4 > h2:first-of-type {	/* first-of-type : 동일한 요소의 첫 번째 자식만 적용된다. h2라는 요소만 봤을 때 그중에서 첫 번째 h2만 적용 */
+			border-bottom: 2px solid black;
+		}
+		.ex4 > h2:last-child {		/* ex4의 모든 요소 통틀어서 마지막 자식에 적용시킨다. 따라서 h2에 적용하라고 했지만 h2는 마지막 자식이 아니라서 적용 x  */
+			color: red;
+		}
+		.ex4 > h2:last-of-type {	/* h3이 가장 마지막 자식이긴 하지만 h2요소에서만 봤을 때 마지막 자식만 적용된다. 따라서 h3은 적용 안 됨*/
+			border-bottom: 2px solid black;
+		}
+		.ex5 > :nth-of-type(2n) {	/* */
+			color: red;
+		}
+		.ex5 > :nth-last-of-type(2n) {	/* 뒤에서부터 세서 2n에 해당하는 요소에 밑줄을 쳐준다. */
+			border-bottom: 2px solid black;		
+		}
+		/* 문자 선택자 */
+		.ex6 > p::first-letter {
+			color: red;
+			font-size: 24px;
+			font-weight: bold;
+		}
+		.ex7 > p::first-line {
+			text-decoration: underline;		/* 출력이 되었을 때 첫 번째 줄에 적용된다. 아무리 한줄에 입력해도 브라우저 상에서는 줄바꿈이 된다면 두번째 줄은 적용 안 됨 */
+		}
+		.ex7 > p::selection {				/* selection : 사용자가 드래그한 글자 선택 selection에 적용할 수 있는 스타일이 한정되어있음. 아래 참고*/
+			background-color: aqua;
+			color: red;
+			text-docoration: underline;
+			text-shadow: 2px 2px 2px blue;
+		}
+		.ex8 > .b::before {	 /* 앞에 출력할 것 <table>에서 <li>의 불릿 모양을 바꿔줄 수 있다. 또는 가장 큰 제목 앞에 모양을 넣어주는 등의 용도로 사용 */
+			content: "-";	
+		}
+		.ex8 > .a::after {	/* 뒤에 출력할 것 */
+			content: ";";
+		}
+		.ex9 > span:active {		/* */
+			border: 1px solid red;
+		}
+		.ex9 > span:hover {		/* 마우스를 html 특정 요소에 올려두면 디자인이 다르게 적용되도록 하는 것 */
+			color: red;
+			font-weight: bold;
+		}
+		.ex10 > input {
+			outline-style: none;		/* 외각 선을 없애는 것 */
+			border-style: none;
+		}
+		.ex10 > input:enabled {
+			background-color: #EFEFEF;		/* 활성화 되어 있는 input을 배경을 회색으로 변경 */
+		}
+		.ex10 > input:disabled {			/* 비활성화 되어 있는 input을 배경을 회색으로 변경 */
+			background-color: black;
+		}
+		.ex10 > input:focus {				/* 입력이 활성되어 커서가 깜빡거리는 상황에 적용될 스타일 */
+			outline: 1px solid blue;
+		}
+		.ex10 > input:checked {
+			box-shadow: 0 0 0 1px red;		/* 체크 상태일 때 빨간 테두리로 변한다. */
+		}
+		.ex11 > a:link {					/* 링크를 빨간색으로 해라 */
+			color: red;
+			text-decoration: none;			/* 텍스트에 장식선을 넣어라 */
+		}
+		.ex11 > a:visited {					/* 링크에 한 번이라도 방문했다면 */
+			color: vlolet;					/* 바이올릿 색상으로 적용해라 */
+			font-weight: bold;				/* 폰트 굵기를 굵게 해라 */
+			text-decoration: none;
+		}
+		.ex12 > p:not(.t2) {		/* ex12 안에서 하위요소 p 에서 이름이 t2가 아닌 것들만 선택을 해라 */
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<ul class="ex1">
+		<li>목록 1</li>	
+		<li>목록 2</li>
+		<li>목록 3</li>
+		<li>목록 4</li>
+		<li>목록 5</li>
+	</ul>
+	<ol class="ex1">
+		<li>목록 1</li>
+		<li>목록 2</li>
+		<li>목록 3</li>
+		<li>목록 4</li>
+		<li>목록 5</li>
+	</ol>
+	<hr>
+	<ul class="ex2">
+		<li>목록 1</li>	
+		<li>목록 2</li>
+		<li>목록 3</li>
+		<li>목록 4</li>
+		<li>목록 5</li>
+	</ul>
+	<ol class="ex2">
+		<li>목록 1</li>
+		<li>목록 2</li>
+		<li>목록 3</li>
+		<li>목록 4</li>
+		<li>목록 5</li>
+	</ol>
+	<ul class="ex3">
+		<li>목록 1</li>	
+		<li>목록 2</li>
+		<li>목록 3</li>
+		<li>목록 4</li>
+		<li>목록 5</li>
+	</ul>
+	<ol class="ex3">
+		<li>목록 1</li>
+		<li>목록 2</li>
+		<li>목록 3</li>
+		<li>목록 4</li>
+		<li>목록 5</li>
+	</ol>
+	<div class="ex4">
+		<h1>제목1</h1>
+		<h2>제목2</h2>
+		<h2>제목2</h2>
+		<h3>제목3</h3>
+	</div>
+	<hr>
+	<div class="ex5">
+		<h1>제목 1 - 1</h1>
+		<h1>제목 2 - 1</h1>
+		<h1>제목 2 - 2</h1>
+		<h2>제목 1 - 2</h2>
+		<h2>제목 1 - 3</h2>
+		<h2>제목 2 - 3</h2>
+		<h2>제목 2 - 4</h2>
+		<h2>제목 2 - 5</h2>
+	</div>
+	<hr>
+	<div class="ex6">
+		<p>hello CSS Selector</p>
+	</div>
+	<hr>
+	<div class="ex7">
+		<p>CSS 테스트 페이지입니다.CSS 테스트 페이지입니다.CSS 테스트 페이지입니다.CSS 테스트 페이지입니다.CSS 테스트 페이지입니다.CSS 테스트 페이지입니다.CSS 테스트 페이지입니다.CSS 테스트 페이지입니다. </p>
+	</div>
+	<hr>
+	<div class="ex8">
+		<p class="b">before</p>	<!-- 그냥 다른 의미 없이 구분하기 위해서 class 넣어준거임 -->
+		<p class="a">after</p>
+	</div>
+	<div class="ex9">
+		<span>active - 클릭을 유지하세요.</span><br>
+		<span>hover - 마우스를 올려두세요.</span>	<br>
+	</div>
+	<div class="ex10">
+		<input type="text"><br>
+		<input type="text"><br>
+		<input type="text" disabled><br>
+		<input type="checkbox">
+		<input type="checkbox">
+		<input type="checkbox" checked>
+	</div>
+	<hr>
+	<div class="ex11">
+		<a href="https://naver.com">네이버</a><br>
+	</div>
+	<div class="ex12">
+		<p class="t1">Hello</p>
+		<p class="t2">Hello</p>
+		<p class="t3">Hello</p>
+	</div>
+	
+	
+</body>
+</html>

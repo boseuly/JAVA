@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>CSS 선택자</title>
+	<style>		/* margin, padding : 여백을 의미함 */
+		/* 태그 선택자 */
+		* {
+			margin: 0;	
+			padding: 0;
+		}
+		h1,h2,h3,h4,h5,h6 {
+			margin: 24px;
+			padding: 24px;
+		}
+		h1{
+			font-size: 40px;
+		}
+		h2{
+			font-size: 36px;
+		}
+		h3{
+			font-size: 32px;
+		}
+		h4{
+			font-size: 28px;
+		}
+		h5{
+			font-size: 24px;
+		}
+		h6{
+			font-size: 20px;
+		}
+		#main_title {
+			border-bottom: 3px double black;		/* 테두리를 주겠다는 것 */
+		}
+		.red {
+			color: red;
+		}
+		.blue {
+			color: blue;
+		}
+		/* 자식 선택자 */ 
+		table > tbody > tr {			/* 테이블을 선택하고 tr(자식)에 대해서 디자인을 변경하는 것 / 요즘은 html에 자동으로 tbody가 들어가서 tbody까지 적어줘야 한다. */
+			background-color: #BFBFBF;
+		}
+		/*후손 선택자 */
+		table td {
+			padding: 12px;
+		}
+		/* 동위 선택자 */
+		td + td { 			/* 지금 상황에서는 td + td와 td ~ td의 결과가 같다.  -> td 뒤에 또 td 뒤에 또 td 연달아 있어서 */ 
+			color: red;
+		}
+		th + td {
+			color: red;		/* th뒤에 td 하나만 바꿔라*/
+		}
+		th ~ td {
+			font-size: 12px;
+		}
+		/* 속성 선택자 : 해당 속성 있으면 적용해라 또는 해당 속성명=속성값이 맞으면 적용 (아래 세 개가 제일 유용하다) */
+		[required] {					/*유용*/	
+			background-color: #EFEFEF;
+		}
+		[type=number] {					/*유용*/
+			color: red;
+		}
+		[class~=bgred] {				/*유용*//*  ~= 은 어떠한 요소이든 class 속성값이 bgred인 요소가 있으면 적용해라.*/
+			background-color: red;   	/* class 속성값에 bgred fgwhite 둘다 포함되어 있으면 둘다 적용(공백을 구분자로 포함)*/
+		}
+		[class~=fgwhite] {
+			color: white;
+		}
+		[name|=user] {					/* |= 는 반드시 -(하이픈)요소를 포함하고 있는 것만 적용시킨다. 예) user-id */
+			font-weight: bold;
+		}
+		[id^=id] {
+			background-color: blue;		/* 접두사 형태로 id속성값에 id라는 단어가 붙어있으면 선택이 된다. */
+			color: white;
+		}
+		[id$=id] {
+			color: orange;				/* 접미사 형태로  id속성값에 id라는 단어가 붙어있으면 선택이 되다. */
+		}
+		[name*=green] {					/* green이라는 단어가 name의 속성값으로 포함되어 있으면 적용시켜준다. 어디에 있든 상관없음 */
+			color: green;				/* 우연히 포함되어 있는 경우도 적용된다. */
+			font-weight: bold;
+		}
+		/* */
+		
+	</style>
+</head>
+<body>
+	<h1 id="main_title" class="red">제목1</h1>		<!--  id와 class 를 둘다 지정할 수 있다. -->
+	<h2 class="red">제목2</h2>
+	<h3 class="red">제목3</h3>
+	<h4 class="blue">제목4</h4>
+	<h5 class="blue">제목5</h5>
+	<h6 class="blue">제목6</h6>
+	<hr>
+	<table>
+		<tr>
+			<th>1행 1열</th>
+			<td>1행 2열</td>
+			<td>1행 3열</td>
+		</tr>
+		<tr>
+			<th>2행 1열</th>
+			<td>2행 2열</td>
+			<td>2행 3열</td>
+		</tr>
+		<tr>
+			<th>3행 1열</th>
+			<td>3행 2열</td>
+			<td>1행 3열</td>
+		</tr>	
+	</table>
+	<hr>
+	<div>
+		<input type="text" required><br>
+		<input type="password" required><br>
+		<input type="number"><br>
+	</div>
+	<div>
+		<textarea class="fgwhite bgred"></textarea>
+	</div>
+	<div>
+		<input type="email" name="user-email"><br>
+		<input type="tel" name="user-tel"><br>
+	</div>
+	<hr>
+	<div>
+		<input type="text" id="id_input"><br>
+		<input type="text" id="id_input2"><br>
+		<input type="text" id="input3_id">
+	</div>
+	<div>
+		<textarea name="green"></textarea><br>
+		<textarea name="lightgreen"></textarea><br>
+		<textarea name="greendark"></textarea>
+	</div>
+</body>
+</html>
