@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>CSS 적용 순서(코드작성 순서)</title>
+	<link rel="stylesheet" type="text/css" href="./index1.css"> <!-- 같은 위치에 있으니까 현재 위치 ./ 를 사용 -->
+	<link rel="stylesheet" type="text/css" href="./index2.css">	<!-- 위에 스타일과 겹친다면 마지막에 적용된 스타일이 적용이 된다. 겹치지 않은 스타일은 그대로 유지 -->
+	<style>
+		h1 {
+			background-color: #EFEFEF;			/*내부 스타일이 만약 먼저 나오고 나중에 외부 스타일이 나온다면 겹치는 부분은 나중에 나온 외부 스타일이 적용된다.  */
+			color: green;						/*따라서 스타일 적용 순서는 무조건 외부 스타일 -> 내부스타일 -> 인라인 순서가 아니라 누구를 먼저 작성하는지에 따라 달라진다.*/
+		}
+	</style>
+</head>
+<body>
+	<h1 style="background-color: lightcoral;">CSS 할 때 기억해야 할 점</h1>	<!--  인라인 스타일 적용 -->
+	<h1>파일에 의한 적용 순서: 외부 스타일 -> 내부 스타일 -> 인라인 스타일 순으로 병합되어 적용</h1>
+	<h1>CSS 스타일에 !important 키워드가 적용되면 가장 높은 우선순위를 가진다.</h1>
+	<hr>
+	<h2>선택자에 의한 적용 순서</h2>
+	<h2 id="title2" class="txt-blue">태그 선택자 -> class 선택자 -> id 선택자 -> !important 키워드</h2> <!--  태그선택자와 클래스선택자가 겹치면 클래스가 우선/ !important가 제일 우선 -->
+</body>
+</html>
