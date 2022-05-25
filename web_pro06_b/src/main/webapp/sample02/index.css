@@ -1,0 +1,98 @@
+@charset "UTF-8";
+/*CSS 설정하기 전에 box-size를 결정하고 하기 너비 기준을 
+content-box, border-box 중 어느 것으로 할 건지 미리 정하고 하는 게 좋다. */
+/*		아래처럼 설정해두는 게 베스트임
+* {
+	box-sizing: border-box;
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+}
+*/
+/*박스 모델*/
+.test1 > .ex1 {
+	padding: 24px;	
+	margin: 24px;
+	border-style: solid;
+	border-width: 12px;
+	/*content-box : 컨텐츠 영역에만 적용*/
+	/*padding-box : */
+	/*border-box까지가 element영역 / 그 외는 margin */
+}
+
+/*box모델에 background 적용*/
+.test2 > .ex1 {
+	background-clip: border-box;		/*배경 범위 조정, padding 영역에 나온다. */
+	/*background-color: rgb(187,230,255);*/
+	backgroud-image: url();	/*배경에 이미지 넣어주기*/
+	background-repeat: no-repeat;		/*배경에 이미지 넣었을 때 반복되는 것을 막아줌*/
+	background-size: 32px;				/*이미지 크기 조정, cover: element를 다 가릴 정도로 이미지 확장, contain은 */
+	background-position: 100px 250px;		/*이미지를 위에 둔다.*/
+	background-origin: border-box; /*origin을 content-box라고 했으니까 content영역에 나온다. */	
+	background-attachment: fixed;
+	padding: 24px;
+	border-color: rgba(0,0,0,0);
+	border-width: 24px;
+	margin: 24px;
+}
+
+.test3 > .ex1 {
+	box-sizing: content-box;	/*padding 영역*/
+	background-color:lime;
+	border-style: solid;
+	border-width: 12px;
+	padding: 12px;
+	margin: 12px;
+	width: 300px;
+}
+.test3 > .ex2 {
+	box-sizing: border-box;	/*padding 영역까지 포함해서 300이 적용되기 때문에 */
+	background-color:lime;	/*content-box와 너비가 다르게 나온다.*/
+	border-style: solid;
+	border-width: 12px;
+	padding: 12px;
+	margin: 12px;
+	width: 300px;
+}
+
+.test4 > p {		/*p태그는 기본적으로 블럭에 해당*/
+	display: inline;		/*inline-block이 디자인 할 때는 편하다*/
+	width: 200px;
+	height: 200px;
+	padding: 24px;
+	margin: 24px;
+	border: 1px solid red;
+}
+
+.test4 > p {		/*p태그는 기본적으로 블럭에 해당*/
+	display: inline-block;		/*inline-block이 디자인 할 때는 편하다*/
+	width: 200px;
+	height: 200px;
+	padding: 24px;
+	margin: 24px;
+	border: 1px solid red;
+}
+
+.test5 > p {		/*p태그는 기본적으로 블럭에 해당*/
+	display: block;		/*inline-block이 디자인 할 때는 편하다*/
+	width: 200px;
+	height: 200px;
+	padding: 24px;
+	margin: 24px;
+	border: 1px solid red;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
