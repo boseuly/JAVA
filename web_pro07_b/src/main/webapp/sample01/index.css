@@ -1,0 +1,65 @@
+@charset "UTF-8";
+
+nav ul.top-menu {
+	list-style-type: none;		/*블릿 빼주기*/
+	background-color: #f5997a;
+}
+
+ul.top-menu li, a {
+	display: inline-block;	/*위아래로 배치됐던 게 좌->우로 바뀜*/
+}
+
+
+ul.top-menu a.menu-link {
+	text-decoration: none;
+	color: white;
+	padding: 1em;
+}
+ul.top-menu a.menu-link:hover {	/*마우스를 가져다 댔을 때 색 조정*/
+	background-color: white;
+	color: #f5997a;
+}
+
+ul.top-menu .active {
+	background-color: #f2cdbb;
+	color: #f5997a;
+}
+
+
+/* 사이드 메뉴 */
+ul.side-menu {
+	list-style-type: none;
+	background-color: #f5997a;
+	width: 480px;
+	padding: 0;
+}
+ul.side-menu a.menu-link {
+	text-decoration: none;
+	color: white;
+	padding: 1em;
+}
+ul.side-menu a.menu-link:hover {	/*마우스를 가져다 댔을 때 색 조정*/
+	background-color: white;
+	color: #f5997a;
+}
+
+ul.side-menu .active {
+	background-color: #f2cdbb;
+	color: #f5997a;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

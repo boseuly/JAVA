@@ -2,7 +2,7 @@
 /*CSS 설정하기 전에 box-size를 결정하고 하기 너비 기준을 
 content-box, border-box 중 어느 것으로 할 건지 미리 정하고 하는 게 좋다. */
 /*		아래처럼 설정해두는 게 베스트임
-* {
+body * {						// body 안에 모든 요소들만 해당
 	box-sizing: border-box;
 	display: inline-block;
 	margin: 0;

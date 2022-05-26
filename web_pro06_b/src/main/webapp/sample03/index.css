@@ -1,0 +1,154 @@
+@charset "UTF-8";
+
+* {
+	box-sizing: border-box;
+	margin: 0;	padding: 0;
+}
+
+.test1 > .ex1 {
+	width: 120px;
+	height: 100px;
+	margin: 12px;
+	padding: 12px;
+	
+	/*border-style: solid;		/*사각형 한 변마다 테두리 설정 가능, 연달아 스타일 작성하면 됨. 시계방향으로 테두리가 적용된다.*/	/*테두리 pdf 참고*/
+	/*border-width: 1px 2px;	/*위아래-좌우 테두리 굵기*//*두껍게 해라*/
+	border: 1px solid blue;		/*한번에 테두리 설정*/
+	border-radius: 5px; 		/*모서리를 둥글게 만들어준다. 값이 커질수록 둥글게 됨. 완전 원으로 나오게 하려면 높이 너비 같게하고 radius: 50% 설정*/
+	box-shadow: 10px 10px 10px 10px lightskyblue;	/*얘는 번짐뿐만 아니라 흐린정도까지 정할 수 있다.*/
+	
+}
+
+.test2 > * {
+	display: inline-block;
+}
+.test2 > p {
+	border: 1px solid black;
+	padding: 4px; margin: 4px;
+}
+
+
+.test2 > .rel {
+	position: relative;	/*일반적인 흐름에 따라 좌->우로 */
+	/*top: 24px;			/*위에서부터 24px 만큼 떨어져 나온다.*/
+	/*left: 24px;*/
+	right: 24px;
+	bottom: 24px;
+}
+.test3 {
+	position: relative;		/*만약 이걸 지정하지 않으면 absolute 설정 할 때 기준은 margin */
+}
+
+.test3 > * {
+	display: inline-block;
+}
+.test3 > p {
+	border: 1px solid red;	
+	padding: 4px; margin: 4px;
+}
+
+.test3 > .abs {
+	position: absolute;	/*position: relative를 기준으로*/
+	top: 24px;			/*위로부터 24px 만큼 떨어져 나온다.*/
+	left: 24px;			/*오른쪽에서 24px 만큼 떨어져 나온다.*/
+	/*right: 24px;*/	
+	/*bottom: 24px;*/
+}
+
+.test4 > * {
+	display: inline-block;
+}
+.test4 > p {
+	border: 1px solid red;	
+	padding: 4px; margin: 4px;
+}
+
+.test4 > .fix {
+	position: fixed;	/*position: relative를 기준으로*/
+	/*top: 24px;			/*위로부터 24px 만큼 떨어져 나온다.*/
+	/*left: 24px;			/*오른쪽에서 24px 만큼 떨어져 나온다.*/
+	right: 24px;	
+	bottom: 24px;
+}
+
+body {
+	margin-bottom: 64px;	/*계속 여백 필요해서 body로 넣은 거임*/
+}
+
+.test5 > * {
+	display: inline-block;
+}
+.test5 > p {
+	border: 1px solid blue;	
+	padding: 4px; margin: 4px;
+}
+
+.test5 > .ex1 {
+	/*visibility: hidden;	/*visible은 보이도록 하는 것, hidden은 숨기는 것, 눈에는 안 보이지만 영역은 존재하기 때문에 비어있다. */
+	display: none;			/*이렇게 하면 안 보일 뿐만 아니라 영역조차 사라진다.*/
+}
+
+.test5 > .ex1 {
+	visibility: visible;
+}
+
+.test6 > table, td {
+	border: 1px solid black;
+}
+
+.test6 .collapse {
+	visibility: collapse;		/*table에 특정 cell에 대해서 숨겨지게 만드는 것*/
+}
+
+.test7 {
+	position: relative;
+}
+
+.test7 > p {
+	position: absolute;
+	width: 80px;
+	height: 80px;
+}
+.test7 > .z1 {
+	background-color: lightcyan;
+	z-index: 2;					/*2라고 하면 뒤에 있던 요소가 앞으로 나온다.*/
+}
+.test7 > .z2 {
+	background-color: lightcoral;
+	top: 24px;
+	left: 24xp;
+	z-index: 1;
+}
+.test7 > .z3 {
+	background-color: lightgreen;
+	top:48px;
+	left: 48px;
+	z-index: 3;			/*z-index : 값이 높을수록 해당 요소가 앞으로 나온다.*/
+}
+.test8 {
+	margin-top: 150px;
+}
+.test8 > p {
+	display: inline-block;
+	width: 100px;
+	height: 80px;
+	padding: 12px;
+	margin: 8px;
+	border: 1px solid black;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
