@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+* {
+	box-sizing: border-box;
+}
+
+.flex-menu {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.flex-menu .menu{
+	display: flex;
+	flex-wrap: wrap;
+}
+.flex-menu .menu-item {
+	list-style-type: none;
+	width: 100%;
+}
+
+
+
+.menu-link {
+	display: inline-block;
+	text-decoration: none;
+	color: white;
+	font-weight: 1px;
+	padding: 1rem 2rem;
+	width: 100%;
+}
+.bg-red {
+	background-color: red;
+}
+.bg-red :hover {
+	background-color: red;
+}
+.fg-white * {
+	color: white;
+}
+.fg-white :hover {
+	color: white;
+	font-weight: bold;
+}
+
+@media screen and (max-device-width: 500px) {
+	.flex-menu .menu {
+		flex-wrap: wrap;
+	}
+	.flex-menu .menu-item {
+		flex-basis: 480px;
+	}
+}

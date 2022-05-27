@@ -1,0 +1,123 @@
+@charset "UTF-8";
+
+.flex-layout {
+	display: flex;
+	flex-wrap: wrap;
+}
+@media screen and (max-device-width: 620px) {	/*device는 물리적인 크기를 알아내줌 */
+	.flex-layout {
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+
+header {	/*제목*/
+	height: 120px;		/*높이지정 안 하면 너무 작은 영역을 차지 해서 구분을 위해 넣음*/
+	background-color: #d5f5e5;
+}
+section {	
+	height: 360px;
+	background-color: #e8f6f3;
+}
+aside {
+	height: 360px;
+	background-color: #f4ecf7;
+}
+footer {
+	height: 120px;
+	background-color: #fbeee6;
+}
+
+.b480 {
+	flex-basis: 480px;
+}
+.b360 {
+	flex-basis: 360px;
+}
+
+/* 화면 비율 */
+.w12 {
+	width: 100%
+}
+.w11 {
+	flex-grow: 11;
+}
+.w10 {
+	flex-grow: 10;
+}
+.w9 {
+	flex-grow: 9;
+}
+.w8 {
+	flex-grow: 8;
+}
+.w7 {
+	flex-grow: 7;
+}
+.w6 {
+	flex-grow: 6;
+}
+.w5 {
+	flex-grow: 5;
+}
+.w4 {
+	flex-grow: 4;
+}
+.w3 {
+	flex-grow: 3;
+}
+
+.w2 {
+	flex-grow: 2;
+}
+.w1 {
+	flex-grow: 1;
+}
+
+.flex-menu {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.flex-menu .menu{
+	display: flex;
+	flex-wrap: wrap;
+}
+.flex-menu .menu-item {
+	flex-grow: 1;
+}
+@media screen and (max-device-width: 480px) {
+	.flex-menu .menu {
+		flex-wrap: wrap;
+	}
+	.flex-menu .menu-item {
+		flex-basis: 480px;
+	}
+}
+
+
+.menu-link {
+	display: inline-block;
+	text-decoration: none;
+	color: white;
+	font-weight: 1px;
+	padding: 1rem 2rem;
+	width: 100%;
+}
+.bg-red {
+	background-color: red;
+}
+.bg-red :hover {
+	background-color: red;
+}
+.fg-white * {
+	color: white;
+}
+.fg-white :hover {
+	color: white;
+	font-weight: bold;
+}
+
+
+

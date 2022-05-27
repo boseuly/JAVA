@@ -1,0 +1,139 @@
+@charset "UTF-8";
+
+.test1 {
+	width: 500px;
+	height: 500px;
+	border: 1px solid black;
+	/*해당 컨테이너를 flex 를 사용하는 영역으로 설정. 이걸 먼저 꼭 해줘야지만 얘를 기준으로 요소들의 크기가 늘어난다.*/
+	display: flex;
+}
+
+
+.test1 div {
+	/*flex 컨테이너 안의 요소에 대해 부모 요소에 맞추어 너비를 균등하게 자동 조정해준다.*/
+	flex: 1;		/*모든 요소들이 부모의 크기에 맞춰서 자동으로 늘어난다.(높이와 길이)*/
+}
+
+
+.test2 {
+	width: 500px;
+	height: 500px;
+	border: 1px solid black;
+	/*해당 컨테이너를 flex 를 사용하는 영역으로 설정. 이걸 먼저 꼭 해줘야지만 얘를 기준으로 요소들의 크기가 늘어난다.*/
+	display: flex;
+}
+
+
+
+.test3 {
+	width: 100%;		/*창을 늘리고 줄이려면 %로 설정 하는 게 좋다.*/
+	height: 500px;
+	border: 1px solid black;
+	/*해당 컨테이너를 flex 를 사용하는 영역으로 설정. 이걸 먼저 꼭 해줘야지만 얘를 기준으로 요소들의 크기가 늘어난다.*/
+	display: flex;
+}
+.test3 div{
+	/*기본 크기를 지정한다. flex-shrink 사용하기 전 이걸 먼저 적용해야 한다. */
+	flex-basis: 200px;	
+}
+/* 부모요소 크기에 맞춰서 비율을 조정하는 것. 지금은 1:2:3으로 비율 조정 */
+.test2 .g1 {
+	flex-grow: 1;
+}
+.test2 .g2 {
+	flex-grow: 2;
+}
+.test2 .g3 {
+	flex-grow: 3;
+}
+.sr3 {
+	/*창을 줄였을 때 다른 요소보다 더 많이 줄어들게 한다. 지금은 다른 요소보다 3배 더 줄어들게 함 */
+	flex-shrink: 4;
+}
+
+.test4 {
+	width: 100%;		/*창을 늘리고 줄이려면 %로 설정 하는 게 좋다.*/
+	height: 500px;
+	border: 1px solid black;
+	display: flex;
+	/*어느 방향으로 flex를 적용해줄 건지*/
+	flex-direction: row;
+}
+
+@media all and (min-width: 0px) and (max-width: 480px) {	/*480px 이하면 {}안에 실행해라*/
+	.test4 {		
+		width: 100%;					
+		height: 300px;
+		border: 1px slid black;
+		display: flex;
+		flex-direction: column;		/*방향을 column 으로 바꿔라 */
+		
+/*
+미디어 쿼리에서 사용하는 min-width, max-width 의미
+min-width <= 브라우저크기 <= max-width
+
+예)
+	(min-width: 1024px)만 사용된 경우
+	1024px
+
+
+
+*/
+		
+	}
+}
+
+.test4 div{
+	/*기본 크기를 지정한다. flex-shrink 사용하기 전 이걸 먼저 적용해야 한다. */
+	flex-basis: 200px;	
+}
+
+.test5 {
+	width: 100%;		/*창을 늘리고 줄이려면 %로 설정 하는 게 좋다.*/
+	height: 300px;
+	border: 1px solid black;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+
+.g1 {
+	/*요소의 크기를 비율로 늘리거나 줄이기 위해 사용*/
+	flex-grow: 1;
+}
+.g2 {
+	/*요소의 크기를 비율로 늘리거나 줄이기 위해 사용*/
+	flex-grow: 2;
+}
+.g3 {
+	/*요소의 크기를 비율로 늘리거나 줄이기 위해 사용*/
+	flex-grow: 3;
+}
+
+.sr3 {
+	/*창을 줄였을 때 다른 요소보다 더 많이 줄어들게 한다. 지금은 다른 요소보다 3배 더 줄어들게 함 */
+	flex-shrink: 4;
+}
+.box-red {
+	background-color: red;
+}
+.box-blue {
+	background-color: blue;
+}
+.box-green {
+	background-color: green;
+}
+
+
+.box-red {
+	background-color: red;
+}
+.box-blue {
+	background-color: blue;
+}
+.box-green {
+	background-color: green;
+}
+
+
+
