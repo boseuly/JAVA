@@ -4,95 +4,107 @@
 <meta charset="UTF-8">
 <title>Pricing example for Bootstrap</title>
 <link rel="stylesheet" type="text/css" href="./index.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Roboto+Mono:ital,wght@1,200&display=swap" rel="stylesheet">
 </head>
 <body>
-	<div class="container-1">
+	<div class="container center">	
 		<header>
-			<div>
-				<span class="nav-1">Pricing example</span>
+			<div class="inline-block">
+				<a class="dec-none" href="#"><span class="nav-1"><b>Company name</b></span></a>
 				<nav class="nav-2">
-					<a class="menu" href="#">Features</a>
-					<a class="menu" href="#">Enterprise</a>
-					<a class="menu" href="#">Support</a>
-					<a class="menu" href="#">Pricing</a>
-					<a class="s-menu" href="#">Sign up</a>
-				</nav><hr class="hr1">
+					<a class="menu" href="#"><b>Features</b></a>
+					<a class="menu" href="#"><b>Enterprise</b></a>
+					<a class="menu" href="#"><b>Support</b></a>
+					<a class="menu" href="#"><b>Pricing</b></a>
+					<div class="s-menu-color">
+						<a class="s-menu" href="#"><b>Sign up</b></a>
+					</div>
+				</nav>
+			</div>
+			<hr>
+			<div class="flex-inline">
+				<div class="block">
+					<h1 class="sub">Pricing</h1>
+					<p class="con-1">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It’s built with default Bootstrap components and utilities with little customization.</p>
+				</div>
 			</div>
 		</header>
-			<div>
-				<h1 class="sub">Pricing</h1>
-				<p class="con-1">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It’s built with default Bootstrap components and utilities with little customization.</p>
-			</div>
 		<main>
-			<div class="flex-box">
-				<div class="first-box">
-					<div class="free-head">
-						<h3>Free</h3>
-					</div>
-					<div class="container-2">
+			<div class="flex">
+				<div class="flex-box">
+					<div class="all-box">
 						<div class="head">
-							<h1>$0</h1>
-							<h2>/mo</h2>
+							<h3>Free</h3>
 						</div>
-						<ul>
-							<li>10 users included</li>
-							<li>2 GB of storage</li>
-							<li>Email support</li>
-							<li>Help center access</li>
-						</ul>
-						<div>
-							<button>Sign up for free</button>
+						<div class="container-2">
+							<div class="fee">
+								<h1>$0</h1>
+								<h2>/mo</h2>
+							</div>
+							<ul class="ul-list">
+								<li>10 users included</li>
+								<li>2 GB of storage</li>
+								<li>Email support</li>
+								<li>Help center access</li>
+							</ul>
+							<div>
+								<button class="color-none">Sign up for free</button>
+							</div>
 						</div>
-					</div>
-				</div>		<!-- first-box 종료 -->
-				
-				<div class="seconds-box">
-					<div class="pro-head">
-						<h3>Pro</h3>
-					</div class="container-2">
-					<div>
-						<div>
-							<h1>$15</h1>
-							<h2>/mo</h2>
+					</div>		<!-- first-box 종료 -->
+					
+					<div class="all-box">
+						<div class="head">
+							<h3>Pro</h3>
+						</div >
+						<div class="container-2">
+							<div class="fee">
+								<h1>$15</h1>
+								<h2>/mo</h2>
+							</div>
+							<ul class="ul-list">
+								<li>20 users included</li>
+								<li>10 GB of storage</li>
+								<li>Priority email support</li>
+								<li>Help center access</li>
+							</ul>
+							<div>
+								<button class="color-blue">Get started</button>
+							</div>
 						</div>
-						<ul>
-							<li>20 users included</li>
-							<li>10 GB of storage</li>
-							<li>Priority email support</li>
-							<li>Help center access</li>
-						</ul>
-						<div>
-							<button>Get started</button>
+					</div>	<!-- seconds-box 종료 -->
+					
+					<div class="all-box">
+						<div class="head">
+							<h3>Enterprise</h3>
 						</div>
-					</div>
-				</div>	<!-- seconds-box 종료 -->
-				
-				<div class="third-box">
-					<div class="Enter-head">
-						<h3>Enterprise</h3>
-					</div>
-					<div class="container-2">
-						<div>
-							<h1>$29</h1>
-							<h2>/mo</h2>
+						<div class="container-2">
+							<div class="fee">
+								<h1>$29</h1>
+								<h2>/mo</h2>
+							</div>
+							<ul class="ul-list">
+								<li>30 users included</li>
+								<li>15 GB of storage</li>
+								<li>Phone and email support</li>
+								<li>Help center access</li>
+							</ul>
+							<div>
+								<button class="color-blue">Contact us</button>
+							</div>
 						</div>
-						<ul>
-							<li>30 users included</li>
-							<li>15 GB of storage</li>
-							<li>Phone and email support</li>
-							<li>Help center access</li>
-						</ul>
-						<div>
-							<button>Contact us</button>
-						</div>
-					</div>
-				</div>	<!-- third-box 종료 -->
+					</div>	<!-- third-box 종료 -->
+				</div>
 			</div>
 		</main>
 		<footer>
+		<hr class="fot-hr">
 			<div class="container-3">
 				<div class="fot-1">
 					<image class="img-fot" src="https://getbootstrap.kr/docs/5.1/assets/brand/bootstrap-logo.svg"></image>
+					<br>
 					<small>© 2017–2022</small>
 				</div>
 				<div class="fot-2">
