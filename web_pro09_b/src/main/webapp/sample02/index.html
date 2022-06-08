@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title>자바스크립트 - 함수</title>
+	<link rel="stylesheet" type="text/css" href="../static/css/sample02.css">
+	<script type="text/javascript" src="../static/js/sample02.js"></script>
+</head>
+<body>
+	<h1>함수</h1>
+	<button type="button" onclick="console.log(f1());">f1()</button>
+	<button type="button" onclick="console.log(f2());">f2()</button>
+	<button type="button" onclick="console.log(f3());">f3()</button>	<!--  console에 나오게 하기 위해서 console.log 사용 -->
+	<button type="button" onclick="console.log(f4());">f4()</button>
+	<hr>
+	<h2>매개변수를 사용한 함수</h2>
+	<button type="button" onclick="f5();">f5()</button>
+	<button type="button" onclick="f5(10);">f5(10)</button>
+	<button type="button" onclick="f5(10, 20);">f5(10,20)</button>
+	<button type="button" onclick="f5('a');">f5('a')</button>
+	<button type="button" onclick="f5([1,2,3]);">f5([1,2,3])</button>
+	<hr>
+	<h2>기본값을 가지는 매개변수</h2>
+	<button type="button" onclick="f6();">f6()</button>
+	<button type="button" onclick="f6(10);">f6(10)</button>
+	<button type="button" onclick="f6(10,20);">f6(10,20)</button>
+	<button type="button" onclick="f6(10,20,30);">f6(10,20,30)</button>
+	<h2>가변매개변수를 사용한 함수</h2>
+	<button type="button" onclick="f7();">f7()</button>
+	<button type="button" onclick="f7(10);">f7(10)</button>
+	<button type="button" onclick="f7(10,20);">f7(10,20)</button>
+	<button type="button" onclick="f7(10,20,30);">f7(10,20,30)</button>
+	<h2>함수에 내장된 arguments 객체</h2>
+	<button type="button" onclick="f9();">f9()</button>
+	<button type="button" onclick="f9(10);">f9(10)</button>
+	<button type="button" onclick="f9(10,20);">f9(10,20)</button>
+	<button type="button" onclick="f9(10,20,30);">f9(10,20,30)</button>
+</body>
+</html>
