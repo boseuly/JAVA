@@ -44,6 +44,13 @@ function f9(x){
 	console.log("매개변수 x값 -> " + x);
 }
 
+// 화살표 함수
+var f10 = (x) => {		// function 함수를 안 쓰고 화살표를 사용해서 
+	return x + 10;		// 화살표 함수라고 한다.
+};
+
+// var f10 = (x,y) => x + y; 이렇게 할 수도 있다. {}와 return 생략
+
 
 
 
