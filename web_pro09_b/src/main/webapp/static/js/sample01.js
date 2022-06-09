@@ -1,4 +1,4 @@
-/*
+/*배열
  * 
  */
  
@@ -9,6 +9,7 @@ res1.innerHTML += "arr1[0] -> " + arr1[0] + "<br>";
 res1.innerHTML += "arr1[1] -> " + arr1[1] + "<br>";
 res1.innerHTML += "arr1[2] -> " + arr1[2] + "<br>";
 
+var res2 = document.getElementById("res2");
 arr1[0] = 10;
 arr1[1] = 20;
 arr1[2] = 30;
@@ -70,6 +71,30 @@ for(let item of tmp){
 }
 arr2.push(total);
 exam2.innerHTML = "['" + arr2.join("','") + "']";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
