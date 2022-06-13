@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>자바스크립트 - BOM</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/sample06.css">
+    <script type="text/javascript" src="../static/js/sample06.js"></script>
+</head>
+<body>
+    <h1>Event</h1>
+    <h2>이벤트 등록 방법</h2>
+    <h3>인라인 이벤트 등록</h3>
+    <div onclick="this.innerText='클릭이벤트 발생!';"> <!--this. 는 div 태그 자기 자신--></div>
+    <hr>
+    <h3>고전 방식(이벤트 속성에 함수 연결)</h3>
+    <div id="id_div1">이벤트 속성에 연결</div>
+    <script type="text/javascript">
+        var div1 = document.getElementById("id_div1");
+        div1.onclick = function(e) {    
+            // e.target.innerHTML += "<br>실행되었습니다."; target은 이벤트가 발생한 객체 반환, 이렇게 해도 되지만 this.를 사용하는 게 더 간단
+            this.innerHTML += "<br>실행됨!";    // 얘는 하나의 이벤트에 하나의 기능만 가능, 등록 덮어씌운다.
+        }
+    </script>
+    <hr>
+    <h3>표준방식</h3>
+    <div id="id_div2">이벤트 리스너에 등록</div>    <!-- 표준 방식(addEventListener)을 사용하면 하나의 이벤트에 여러 기능 등록 가능 -->
+    <script type="text/javascript">     
+        var div2 = document.getElementById("id_div2");      // 순서는 등록된 순서대로!
+        div2.addEventListener("click", function(e) {
+            this.innerHTML += "<br>실행됨1";
+        });
+        div2.addEventListener("click", function(e) {
+            this.innerHTML += "<br>실행됨2";
+        });
+        function f1(e) {
+            this.innerHTML += "<br>실행됨3";    // 함수를 따로 빼서
+        }
+        div2.addEventListener("click", f1);     // 여기에 넣어준 것뿐 위에 것들과 다를 바 없음
+    </script>
+    <hr>
+    <h2>이벤트 종류</h2>
+    <table>
+        <tbody>
+            <tr>
+                <td>onload</td>
+                <td>웹 페이지의 정보(css, javascript, 이미지 등)가 로드 완료된 시점에 발생</td>
+                <td id="res1">
+                    <script type="text/javascript">
+                        window.onload = function() {
+                            var res1 = document.getElementById("res1");
+                            res1.innerHTML += "페이지의 로드가 완료되었습니다.";
+                        }
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>focus / blur</td>
+                <td>엘리먼트에 포커스가 잡혔을 때(focus), 포커스가 풀렸을 때(blur) 발생</td>
+                <td id="res2">
+                    <input id="id_input1" type="text" tabindex=2>   <!--탭을 눌렀을 때 어느 곳부터 포커싱 될지 정함-->
+                    <input id="id_input2" type="text" tabindex=1>
+                    <script type="text/javascript">
+                        var in_input1 = document.getElementById("id_input1");
+                        var in_input2 = document.getElementById("id_input2");
+                        
+                        id_input1.addEventListener("focus", function() {
+                            this.value =  "포커스 잡힘!";
+                        });
+                        id_input1.addEventListener("blur", function() {
+                            this.value =  "포커스 풀림!";
+                        });
+                        id_input2.addEventListener("focus", function() {
+                            this.value =  "포커스 잡힘!";
+                        });
+                        id_input2.addEventListener("blur", function() {
+                            this.value = "포커스 풀림!";
+                        });
+                    </script>
+                </td>
+            </tr>
+
+            <tr>
+                <td>resize</td>
+                <td>브라우저 창의 크기를 조절할 때 발생</td>
+                <td>
+                    <label id="res3"></label>
+                    <script type="text/javascript">
+                       var res3 = document.getElementById("res3") ;
+                       window.addEventListener("resize", function(e) {
+                            res3.innerText = "x:" + this.innerWidth + ",";   // resize를 했을 때 너비를 출력함
+                            res3.innerText = "y:" + this.innerHeight + " / ";
+                            res3.innerText = "x:" + this.outerWidth + ",";
+                            res3.innerText = "y:" + this.outerHeight;
+                       });
+                    </script>
+                </td>
+            </tr>
+
+            <tr>
+                <td>scroll</td>
+                <td>스크롤을 했을 때 발생</td>
+                <td>
+                    <label id="res4"></label>
+                    <script type="text/javascript">
+                       var res4 = document.getElementById("res4") ;
+                       window.addEventListener("scroll", function(e) {
+                            res4.innerText = "x:" + this.scrollX + ","; 
+                            res4.innerText = "y:" + this.scrollY;
+                       });
+                        // 스크롤 이용해서 맨위로 이동 시킬 수 있다.
+                       // scroll 이동은 window.scrollTo(0,0) 을 사용!
+                    </script>
+                </td>
+            </tr>
+
+            <tr>
+                <td>cut</td>
+                <td>잘라내기 작업을 했을 때 발생</td>
+                <td>
+                    <label id="res5"></label>
+                    <input id="input5" type="text">
+                    <script type="text/javascript">
+                       var res5 = document.getElementById("res5") ;
+                       var input5 = document.getElementById("input5");
+                       input5.addEventListener("cut", function(e) { // 이벤트의 정보가 e 로 전달된다.
+                            res5.innerText = "잘라내기 작업을 하였습니다. 출처를 표기합니다.";
+                            // 클립보드에 저장할 때(복사할때) 출처를 추가로 넣어줌
+                            e.clipboardData.setData("text/plain", selectText + " [출처:localhost]");
+                            e.target.value = e.target.value.substr(e.target.value.indexOf(selectText), selectText); // 여기 이어서 작성하기
+                            e.preventDefault(); // 이건 꼭 필요하다. 
+                       });
+                        // 스크롤 이용해서 맨위로 이동 시킬 수 있다.
+                       // scroll 이동은 window.scrollTo(0,0) 을 사용!
+                    </script>
+                </td>
+            </tr>
+
+            <tr>
+                <td>copy</td>
+                <td>복사 작업을 했을 때 발생</td>
+                <td>
+                    <label id="res6"></label>
+                    <input id="input6" type="text">
+                    <script type="text/javascript">
+                       var res6 = document.getElementById("res6") ;
+                       var input6 = document.getElementById("input6");
+                       input6.addEventListener("copy", function(e) { // 이벤트의 정보가 e 로 전달된다.
+                            let selectText = document.getSelection().toString();
+                            res6.innerText= "복사 작업을 하였습니다. 복사금지";      // 복사 -> 클립보드에 저장
+                            e.clipboardData.setData("text/plain" , ""); // 드래그 해서 복붙을 할 때 ""빈공간을 넣어주게 만듦 -> 복사금지 할 때 사용!
+                            e.preventDefault(); // 이건 꼭 필요하다. 
+                       });
+                        // 스크롤 이용해서 맨위로 이동 시킬 수 있다.
+                       // scroll 이동은 window.scrollTo(0,0) 을 사용!
+                    </script>
+                </td>
+            </tr>
+
+            <tr>
+                <td>paste</td>
+                <td>붙여넣기 작업을 했을 때 발생</td>
+                <td>
+                    <label id="res7"></label>
+                    <input id="input7" type="text">
+                    <script type="text/javascript">
+                       var res7 = document.getElementById("res7") ;
+                       var input7 = document.getElementById("input7");  // input7 의 박스에서 ctrl+v 가 눌리면 
+                       input7.addEventListener("paste", 
+                            function(e) { // 이벤트의 정보가 e 로 전달된다.
+                                res7.innerText = "복사 작업을 하였습니다.";
+                                //this.value = e.clipboardData.getData("text/plain");  // 텍스트 종류
+                                //e.preventDefault(); // 내가 등록한 이벤트가 실행된 뒤 기본 이벤트가 실행되는데, 
+                       });                          // 내가 등록한 이벤트를 기본 이벤트로 만든 거임(추가 이벤트가 실행돼서)
+                    </script>
+                </td>
+            </tr>
+
+            <tr>
+                <td>keydown</td>
+                <td>키보드의 키를 누를 때 발생</td>
+                <td>
+                    <label id="res8"></label>
+                    <input id="input8" type="text">
+                    <script type="text/javascript">
+                        var res8 = document.getElementById("res8");
+                        var input8 = document.getElementById("input8");
+                        input8.addEventListener("keydown", 
+                            function(e){
+                                console.log(e);     
+                                res8.innerText += e.key;    // e.key : 키입력을 알아낼 수 있다. keycode
+                            })                              // 한글은 어떤 글자를 입력했는지 알아보기 힘들다.
+                      
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>keyup</td>
+                <td>키보드의 키를 땔 때 발생</td>
+                <td>
+                    <label id="res9"></label>
+                    <input id="input9" type="text">
+                    <script type="text/javascript">
+                        var res9 = document.getElementById("res9");
+                        var input9 = document.getElementById("input9");
+                        input9.addEventListener("keyup", 
+                            function(e){
+                                console.log(e);  // 컨트롤 키를 같이 눌렀는지 확인 하려면 출력된 e 속성 안에 ctrlkey가 true인지 false인지 확인
+                                res9.innerText += e.key;       
+                            })    
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>keypress</td>
+                <td>키보드의 키를 누르고 있을 때 발생(쉬프트, Fn, CapsLock 등 특수키를 제외한 키가 눌린 상태 일 때)</td>
+                <td>
+                    <label id="res10"></label>
+                    <input id="input10" type="text">
+                    <script type="text/javascript">
+                        var res10 = document.getElementById("res10");
+                        var input10 = document.getElementById("input10");
+                        input10.addEventListener("keypress", 
+                            function(e){
+                                console.log(e);
+                                res10.innerText += e.key;   
+                            })    
+                    </script>
+                </td>
+            </tr>
+
+            <tr>
+                <td>mouseenter/mouseleave</td>
+                <td>마우스가 요소 위에 올려져 있을 때 발생</td>
+                <td>
+                    <label id="res11"></label>
+                    <div id="input11" style="display: inline-block; height: 80px;">
+                        <input type="text">
+                    </div>
+                    <input id="input11" type="text">
+                    <script type="text/javascript">
+                        var res11 = document.getElementById("res11");   
+                        var input11 = document.getElementById("input11");   // div안에 들어있는 input 에 대해서는 실행 x
+                        input11.addEventListener("mouseenter", 
+                            function(e){
+                                res11.innerText = "마우스가 요소에 올려졌습니다.";
+                            })  
+                        var input11 = document.getElementById("input11");   // div안에 들어있는 input 에 대해서는 실행 x
+                        input11.addEventListener("mouseleave", 
+                            function(e){
+                                res11.innerText = "마우스가 요소에서 벗어났습니다. ";
+                            })    
+                    </script>
+                </td>
+            </tr>
+
+            <tr>
+                <td>mouseover/mouseout</td>
+                <td>마우스가 요소 위에 올려져 있을 때 발생(하위요소 포함)</td>
+                <td>
+                    <label id="res12"></label>
+                    <input id="input12" type="text">
+                    <script type="text/javascript">
+                        var res12 = document.getElementById("res12");
+                        var input12 = document.getElementById("input12");
+                        input12.addEventListener("mouseover", 
+                            function(e){
+                                console.log(e);
+                                res12.innerText = "마우스가 요소에 올려졌습니다.";
+                            })    
+                        input12.addEventListener("mouseout", 
+                        function(e){
+                                console.log(e);
+                                res12.innerText = "마우스가 요소에서 벗어났습니다.";
+                            })    
+                    </script>
+                </td>
+            </tr>
+
+            <tr>
+                <td>mousemove</td>
+                <td>마우스가 요소 위에서 움직이는 동안 발생</td>
+                <td>
+                <div id="input13" style="display: inline-block; width: 120px; height: 80px; background-color: white;">
+                    <label id="res13">...</label>
+                </div>
+                    <script type="text/javascript">
+                        var res13 = document.getElementById("res13");
+                        var input13 = document.getElementById("input13");
+                        input13.addEventListener("mousemove", function (e) {
+                            res13.innerText = "x:" + e.x + ", y:" + e.y + " / " + "x: " + e.offsetX + ", y" + e.offsetY; 
+                        });                // 그냥 x, y는 브라우저 안에서의 위치, offsetX,Y는 해당 요소 안에서의 위치
+                    </script>
+                </td>
+            </tr>
+
+            <tr>
+                <td>click/dblclick</td>
+                <td>마우스 클릭 / 더블 클릭 이벤트</td>
+                <td>
+                <div id="input14" style="display: inline-block; width: 120px; height: 80px; background-color: white;">
+                    <label id="res14">...</label>
+                </div>
+                    <script type="text/javascript">
+                        var res14 = document.getElementById("res14");
+                        var input14 = document.getElementById("input14");
+                        input14.addEventListener("dblclick", function (e) {
+                            console.log(e);
+                            res14.innerText = "더블클릭";
+                        });               
+                    </script>
+                </td>
+            </tr>
+
+            <tr>
+                <td>wheel / contextmenu</td>
+                <td>마우스 휠 버튼이 회전되었을 때 / 마우스 오른쪽 버튼을 클릭할 때</td>
+                <td>
+                <div id="input15" style="display: inline-block; width: 120px; height: 80px; background-color: white;">
+                    <label id="res15">...</label>
+                </div>
+                    <script type="text/javascript">
+                        var res15 = document.getElementById("res15");
+                        var input15 = document.getElementById("input15");
+                        input15.addEventListener("wheel", function (e) {    
+                            console.log(e);
+                            res15.innerText = "휠 조작!";   // 휠위아래 구분은 e의 속성 중 deltaX,Y
+                        });                
+                        input15.addEventListener("contextmenu", function (e) {
+                            console.log(e);
+                            res15.innerText = "마우스 오른쪽 클릭!";
+                            e.preventDefault();     // contextmenu의 기본 이벤트를 없애고 다른 걸 기본 이벤트로 하겠다. -> 우클릭할 때 menu창 안 뜸
+                        });
+                    </script>
+                </td>
+            </tr>
+
+            
+        </tbody>
+    </table>
+</body>
+</html>
