@@ -334,7 +334,123 @@
                 </td>
             </tr>
 
+            <tr>
+                <td>change</td>
+                <td>값이 변경되었을 때(input, select textarea에서만 사용가능)</td>
+                <td>
+                    <div>
+                        <input id="input16" type="text">
+                        <select id="input17">
+                            <option value="opt1">옵션1</option>
+                            <option value="opt2">옵션2</option>
+                            <option value="opt3">옵션3</option>
+                        </select>
+                    </div>
+                    <label id="res16">...</label>
+                    <script type="text/javascript">
+                        var input16 = document.getElementById("input16");
+                        var input17 = document.getElementById("input17");
+                        var res16 = document.getElementById("res16");
+
+                        input16.addEventListener("change", function(e){
+                            res16.innerText= "input의 입력 값이 변경 되었습니다.";
+                        });
+                        input17.addEventListener("change", function(e){
+                            res16.innerText= "select의 option 선택이 변경 되었습니다.";
+                        });
+                    </script>
+                </td>
+            </tr>
+
+            <tr>
+                <td>select</td>
+                <td>텍스트가 선택되었을 때 (input type="text", textarea에서만 사용가능)</td>
+                <td>
+                    <textarea id="input18">select 이벤트 테스트용 textarea입니다.</textarea>
+                    <br>
+                    <label id="res18">...</label>
+                    <script type="text/javascript">
+                        var input18 = document.getElementById("input18");
+                        var res18 = document.getElementById("res18");
+
+                        input18.addEventListener("select", function(e) {
+                            res18.innerText = this.value.substring(this.selectionStrart, this.selectrionEnd); //시작위치, 종료위치 -> 잘라서 반환
+                        })
+                    </script>
+                </td>
+            </tr>
             
+            <tr>
+                <td>input</td>
+                <td>문자 단위로 입력이 발생할 때(input, select, textarea에서만 사용가능)어떤 키를 눌렀는지 알 수 있다.</td>
+                <td></td>
+                <div>
+                    <input id="input19" type="text">
+                    <select id="input20">
+                        <option value="opt1">옵션1</option>
+                        <option value="opt2">옵션2</option>
+                        <option value="opt3">옵션3</option>
+                    </select>
+                </div>
+                <label id="res19">...</label>
+                <script type="text/javascript">
+                    var input19 = document.getElementById("input19");
+                    var input20 = document.getElementById("input20");
+                    var res19 = document.getElementById("res16");
+
+                    input19.addEventListener("input", function(e){
+                        res19.innerText= "this.value"; // 어떤 키를 
+                    });
+                    input20.addEventListener("input", function(e){
+                        res19.innerText= "this.value";
+                    });
+                </script>
+            </tr>
+
+            <tr>
+                <td>reset</td>
+                <td>리셋 버튼을 클릭 했을 때</td>
+                <td>
+                    <form id="f1"> <!--reset을 사용할 때는 button을 form에 넣어줘야 한다.-->
+                        <input type="text" name="username">
+                        <button type="reset">리셋</button>  
+                        <input type="teset" value="리셋">
+                    </form>
+                    <label id="res20">...</label>
+                    <script type="text/javascript">
+                        var f1 = document.getElementById("f1");
+                        var res20 = document.getElementById("res20");
+                        f1.addEventListener("reset", function(e){
+                            this.username.value = "지정된 초기값";
+                            res20.innerText="입력값이 초기화 되었습니다.";
+                            e.preventDefault(); // 기본 reset버튼 이벤트를 없앰 
+                        })
+                    </script>
+                </td>
+            </tr>
+
+            <tr>
+                <td>submit</td>
+                <td>전송</td>
+                <td>
+                    <form id="f2" action="./" method="get"> <!--reset을 사용할 때는 button을 form에 넣어줘야 한다.-->
+                        <input type="text" name="username">
+                        <button type="submit">리셋</button>  
+                        <input type="submit" value="전송">
+                    </form>
+                    <label id="res21">...</label>
+                    <script type="text/javascript">
+                        var f2 = document.getElementById("f2");
+                        var res21 = document.getElementById("res21");
+                        f2.addEventListener("submit", function(e){  
+                            res21.innerText="입력값을 전송합니다.";
+                            // 내가 만든 submit 기능을 사용하려면
+                            e.submit(); // 이 메서드는 form 이어야지만 사용이 가능하다!
+                            e.preventDefault();
+                        })
+                    </script>
+                </td>
+            </tr>
         </tbody>
     </table>
 </body>
