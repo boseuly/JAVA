@@ -2,9 +2,44 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<title>UI 테스트</title>
+<link rel="stylesheet" type="text/css" href="./static/css/exam.css">
 <body>
+    <div class="out-box">
+        <form id="f1" action="#" method="POST">
+            
+            <div class="inner-box">
+                <div class="contents">
+                    <p>아이디</p>
+                    <p>패스워드</p>
+                    <p class="con-pw2">패스워드 확인</p>
+                    <p>이메일</p>
+                    <p>주소</p>
+                </div>
+                <div class="inputs">
+                    <input id="user-id" type="text" size="50" required >
+                    <input id="user-pw1" class="margin-0" type="password" size="50" required onclick="">
+                    <p id="information"></p> <!--여기에 내용이 나오도록 한다.-->
+                    <script>
+                        var pw1 = document.getElementById("user-pw1");
+                        var information = document.getElementById("information");
+                        
+                        pw1.addEventListener("click", function (e) {
+                            information.innerHTML = "영문자 대/소문자 특수문자, 숫자 포함 8 ~ 32자";
+                        });
+                    </script>
+                    <input id="user-pw2" type="password" size="50" required>
+                    <input id="user-email" type="text" size="50" ><!--@ 중간에 써야 하는지 여쭙기-->
+                    <input id="user-address" type="text" size="50"><!--address 두줄로 해야 하는지 여쭤보기-->
+                    <input id="user-address" type="text" size="50">
+                </div>
+            </div>
+            <div class="submit-box">
+                <input id="in-submit" type="submit" value="가입">
+            </div>
 
+        </form>
+    </div>
+    <script type="text/javascript" src="./static/js/exam.js"></script>
 </body>
 </html>
