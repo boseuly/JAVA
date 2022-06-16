@@ -108,8 +108,34 @@
      <hr>
      <div>
         <input type="text" placeholder="input" style="background-color: skyblue;">
+        <input type="text" placeholder="input"><br>
+        <input type="text" >
      </div>
-
+     <h3>css()</h3> <!--여러 요소의 속성을 알려면 함수를 이용해서 하면 된다.-->
+     <p>선택자에 의해 선택된 요소의 속성 값을 가져오거나 설정하는 메소드</p>
+     <ul>
+        <li>$(‘요소 명‘).css(‘속성 명‘); -> 속성 명의 속성 값 리턴</li>
+        <li>$(‘요소 명‘).css(‘속성 명‘, ‘속성 값‘); * 속성 명의 속성 값 설정</li>
+        <li>$(‘요소 명‘).css(‘속성 명‘, function(index, 현재 값){}); * 함수에서 리턴되는 값으로 속성 설정</li>
+        <li>$(‘요소 명‘).css({오브젝트}); * 오브젝트에서 설정한 다중 속성 설정</li>
+        <li>css() 로 추가한 스타일을 지우고 싶을 때는removeAttr("style"); 이렇게 하면 스타일 적용한 게 전부 지워진다.</li>
+        <li>인라인 css(스타일)은 되도록이면 사용하지 않기.</li>
+     </ul>
+     <hr>
+     <div class="origin">
+        <p class="copy1">복사 대상1</p>
+        <p class="copy1">복사 대상2</p>
+     </div>
+     <div class="area1">
+        div영역 1
+     </div>
+     <div class="area2">
+        div영역 2
+     </div>
+    <hr>
+    <div class="event"></div>
+        <p class="event-target">이벤트 테스트</p>
+        
 
 </body>
 </html>
