@@ -17,21 +17,15 @@
                     <p>주소</p>
                 </div>
                 <div class="inputs">
-                    <input id="user-id" type="text" size="50" required >
-                    <input id="user-pw1" class="margin-0" type="password" size="50" required onclick="">
-                    <p id="information"></p> <!--여기에 내용이 나오도록 한다.-->
-                    <script>
-                        var pw1 = document.getElementById("user-pw1");
-                        var information = document.getElementById("information");
-                        
-                        pw1.addEventListener("click", function (e) {
-                            information.innerHTML = "영문자 대/소문자 특수문자, 숫자 포함 8 ~ 32자";
-                        });
-                    </script>
+                    <input id="user-id" type="text" size="50" required>
+                    <p id="message1"></p>
+                    <input id="user-pw1" class="margin-bottom" type="password" size="50" required>
+                    <p id ="message2"></p> 
                     <input id="user-pw2" type="password" size="50" required>
-                    <input id="user-email" type="text" size="50" ><!--@ 중간에 써야 하는지 여쭙기-->
-                    <input id="user-address" type="text" size="50"><!--address 두줄로 해야 하는지 여쭤보기-->
-                    <input id="user-address" type="text" size="50">
+                    <p id="message3"></p>
+                    <input id="user-email1" class="margin" type="text" size="21">@<input id="user-email2" type="text" size="22">
+                    <input id="user-address"  class="margin" type="text" size="50">
+                    <input id="user-address" class="margin" type="text" size="50">
                 </div>
             </div>
             <div class="submit-box">

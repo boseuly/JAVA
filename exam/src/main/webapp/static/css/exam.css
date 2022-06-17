@@ -35,7 +35,8 @@ li {
     color :rgb(85, 80, 80);
 }
 .inner-box .contents p {
-    margin-bottom : 3.3rem;
+    margin-bottom : 3rem;
+    
 }
 .inner-box .inputs {
     display: block;
@@ -44,17 +45,20 @@ li {
 }
 .inner-box .inputs input {
     height: 2rem;
-    margin-bottom : 2rem;
+    /* margin-bottom : 1rem; */
     border-style: none none dashed none;
     background-color:rgb(236, 235, 236);
 }
-.inner-box .inputs .margin-0 {
-    margin-bottom : 5px;
+.inner-box .inputs .margin-bottom {
+    margin-bottom : 2px;
 }
-.inner-box .inputs #information {
+.inner-box .inputs .margin {
+    margin-bottom : 1rem;
+}
+.inner-box .inputs #message1, #message2, #message3 {
     font-size: small;
     color: darkgray;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
 }
 
 .submit-box {
