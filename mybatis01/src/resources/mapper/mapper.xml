@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="testMapper"> <!-- 얘도 바꿔도 된다. -->
+	  <select id="test" resultType="map"> <!--  resultType은 내가 어떤 타입으로 결과를 받을지 정하는 것이다(반환타입).  string , int, map 뭐든 가능.  list 는 직접 쓰면 안 된다.--> 
+	    	select 1 as n1, 2 as n2, 3 as n3, 4 as n4 from dual <!-- 만약 제대로 했는데도 실행이 안 되면 복붙 말고 직접 다시 써보기 -->
+	    	union all
+	    	select 5 as n1, 6 as n2, 7 as n4, 8 as n4 from dual
+	  </select>
+	  <select id="employee" resultType="empVo">
+	  		SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME FROM EMPLOYEES
+	  </select>
+</mapper>
+
