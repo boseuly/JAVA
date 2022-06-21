@@ -2,34 +2,39 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>flex로 화면 구성</title>
+	<title>flex 로 화면 구성</title>
 	<link rel="stylesheet" type="text/css" href="./index.css">
 </head>
 <body>
 	<div class="flex-layout">
 		<header class="w12">
-			<nav class="flex-menu"> <!--  nav는 메뉴를 만들어주는 것, div를 사용해서 하든 nav를 사용하든 상관 없다. -->
-		<ul class="menu bg-red fg-white">
-			<li class="menu-item"><a href="#" class="menu-link">Home</a></li>
-			<li class="menu-item"><a href="#" class="menu-link">About Us</a></li>
-			<li class="menu-item"><a href="#" class="menu-link">Team</a></li>
-			<li class="menu-item"><a href="#" class="menu-link">Services</a></li>
-			<li class="menu-item"><a href="#" class="menu-link">Blog</a></li>
-			<li class="menu-item"><a href="#" class="menu-link">Contact</a></li>
-		</ul> 
-	</nav>
+			<nav class="flex-menu">
+				<ul class="menu bg-red fg-white">
+					<li class="menu-item">
+						<a class="menu-link" href="#">메뉴 1</a>
+					</li>
+					<li class="menu-item">
+						<a class="menu-link" href="#">메뉴 2</a>
+					</li>
+					<li class="menu-item">
+						<a class="menu-link" href="#">메뉴 3</a>
+					</li>
+					<li class="menu-item">
+						<a class="menu-link" href="#">메뉴 4</a>
+					</li>
+					<li class="menu-item">
+						<a class="menu-link" href="#">메뉴 5</a>
+					</li>
+				</ul>
+			</nav>
 		</header>
-		<!--  중간에 3개를 넣어서 3레이아웃이 됨 -->
-		<aside class="w2 b360">	
-			광고 및 사이트 메뉴 영역
-		</aside>
-		<section class="w8 b480">
+		<section class="w10 b480">
 			화면 본문 내용이 생성되는 영역
 		</section>
 		<aside class="w2 b360">
 			광고 및 사이트 메뉴 영역
 		</aside>
-		<footer class="w12">	<!-- footer은 기본적으로 맨 아래에 나온다. -->
+		<footer class="w12">
 			회사 소개/정보 및 사이트맵이 작성된 영역
 		</footer>
 	</div>

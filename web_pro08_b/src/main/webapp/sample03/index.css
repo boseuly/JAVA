@@ -26,6 +26,7 @@
 	margin-top: 13px;
 	margin-left: 60px;
 	margin-bottom: 13px;
+	font-size: 23px;
 	float: left;
 	
 }
@@ -177,6 +178,12 @@ hr {
 	margin-right: auto;
 	align-items: center;
 	
+}
+
+.head-hr {
+	border-color: #e8e8e8;
+	border-width: thin;
+	box-shadow: 1px 1px #f0f0f0; 
 }
 .fot-hr {
 	margin-top: 30px;

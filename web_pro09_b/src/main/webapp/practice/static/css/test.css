@@ -1,0 +1,61 @@
+@charset "UTF-8";
+* {
+	margin: 0; padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-color : rgb(220,230,254);
+}
+.container {
+	width: 540px;
+	margin : 5rem auto 1rem auto;
+	background-color: rgb(230,230,230);
+}
+
+.join-form {
+	padding: 3rem 10px 1rem 10px;
+}
+.input-control {
+	margin : 1rem 0;
+}
+
+.input-control .input-label {
+	display: inline-block; 
+	width: 120px;
+}
+.input-control input {
+	width: 390px;
+	border-style: none;
+	border-bottom-style: dashed;
+	background-color: rgb(230, 230, 230);
+
+	
+}
+.input-inline {
+	display:inline-block; 
+	
+}
+
+.input-inline .input-inline-form {
+	width : 181px;	
+}
+
+.button-control .btn-block {
+	width : 100%;
+	font-weight: bold;
+	 font-size: 1.2rem;
+	 padding: 1rem;
+	 border-style: none;
+	 background-color:  rgb(117,230, 43);
+	 color: rgb(80,170, 20);
+}
+.message-control { /*처음에는 none으로 해서 안 보이게 하기*/
+	display: none;
+}
+.message-control .message-label {
+	margin-left : 125px;
+	color:  red;
+	font-size: 0.8rem;
+}
+
