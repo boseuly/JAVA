@@ -12,16 +12,21 @@
 	</settings>
 	<typeAliases> <!--  mybatis에서 사용할 자료형에 별칭을 지어주는 것 -->
 			<typeAlias type="com.data.vo.EmpVO" alias="empVo"/> <!-- alias값으로 해당 파일을 사용할 수 있게 된다. -->
+			<typeAlias type="com.data.vo.TestVO" alias="testVo"/> <!-- alias값으로 해당 파일을 사용할 수 있게 된다. -->
+			<typeAlias type="com.data.vo.EmpSelectVO" alias="empSelectVo"/> <!-- alias값으로 해당 파일을 사용할 수 있게 된다. -->
 	</typeAliases>
 	
+	<!--  여기 시험범위 (문제 나옴) value만 바꾸면 됨 -->
 	  <environments default="development"> <!-- environments는 여러개 있을 수 있다. id를 다르게 해서 여러 db와 연결할 수 있음 dbconn의 sqlsessionfactory 에서 build(is, "development")-->
 		    <environment id="development">
 			      <transactionManager type="JDBC"/>
-				      <dataSource type="POOLED">
-					        <property name="driver" value="${driver}"/> <!--  여기서 부터 -->
+				      <dataSource type="POOLED"> <!-- 웬만하면 POOLED로 사용하기 -->
+					        <property name="driver" value="${driver}"/>
 					        <property name="url" value="${url}"/>  <!-- @host:port:service -->
 					        <property name="username" value="puser1"/>
-					        <property name="password" value="puser1"/> 	<!-- 여기까지만 바꿔주면 된다. -->
+					        <property name="password" value="puser1"/> 	
+					         <property name="poolMaximumIdleConnections" value="5"/> <!--  사용하지 않는 커넥션(유휴상태)이 5개 정도는 남아있을 수 있게 하는 것--> 
+					        <property name="poolMaximumActiveConnections" value="10"/> <!--  db의 커넥션 수와 맞춰서 value 지정 -->
 			      	</dataSource>
 		    </environment>
 	  </environments>
