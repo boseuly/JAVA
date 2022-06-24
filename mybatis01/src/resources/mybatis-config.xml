@@ -11,9 +11,13 @@
 			<setting name="jdbcTypeForNull" value="NULL"/> <!-- jdbcTypeForNull : 자바 타입에 대해서 null이 발생되면 오라클 타입의 NULL 로 인식해라! -->
 	</settings>
 	<typeAliases> <!--  mybatis에서 사용할 자료형에 별칭을 지어주는 것 -->
+			<!--  vo 클래스 만들면 여기에 등록부터 해야 한다. -->
 			<typeAlias type="com.data.vo.EmpVO" alias="empVo"/> <!-- alias값으로 해당 파일을 사용할 수 있게 된다. -->
 			<typeAlias type="com.data.vo.TestVO" alias="testVo"/> <!-- alias값으로 해당 파일을 사용할 수 있게 된다. -->
 			<typeAlias type="com.data.vo.EmpSelectVO" alias="empSelectVo"/> <!-- alias값으로 해당 파일을 사용할 수 있게 된다. -->
+			<typeAlias type="com.data.vo.EmpComplexVO" alias="empComplexVo"/>
+			<typeAlias type="com.data.vo.JobVO" alias="jobVo"/>
+			<typeAlias type="com.data.vo.DeptVO" alias="deptVo"/>
 	</typeAliases>
 	
 	<!--  여기 시험범위 (문제 나옴) value만 바꾸면 됨 -->
@@ -33,5 +37,6 @@
 	  
 	  <mappers>
 	   	 	<mapper resource="resources/mapper/mapper.xml"/> <!-- 내가 저장한 mapper.xml의 경로 지정 -->
+	   	 	<mapper resource="resources/mapper/example.xml"/> 
 	  </mappers>
 </configuration>

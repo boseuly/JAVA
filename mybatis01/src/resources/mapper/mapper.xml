@@ -9,6 +9,27 @@
 				<result column="last_name" property="lName"/><!-- column은  대소문자 구분 x   property 는 구분-->
 		</resultMap>
 		
+		<!-- 복잡한 구조 resultMap 연습 -->
+		<resultMap type="empComplexVo" id="empComplexVoMap"> <!--  type : 외부의 vo객체 , id : 내부에서 사용할 resultMap 식별자 이다. -->
+				<result column="EMPLOYEE_ID" 			property="empId" 		javaType="_int"/><!--  javaType은 객체타입인 멤버변수 때문에 사용한다. 아니면 안 써도 상관 없다.--> 
+				<result column="EMPLOYEE_NAME" 	property="empName" javaType="string"/><!-- column은 db의 컬럼명, property는 클래스의 변수명 -->
+				<result column="PHONE_NUMBER" 	property="empPhone" javaType="string"/>
+				<result column="COMMISSION_PCT" 	property="empComPct" javaType="_double"/>
+				<result column="SALARY" 						property="empSalary" javaType="_int"/>
+				<association property="dept" javaType="deptVo">
+						<result column="DEPARTMENT_ID"		 property="deptId" 			javaType="_int"/>
+						<result column="DEPARTMENT_NAME" property="deptName" 	javaType="string"/>
+				</association>
+				<association property="job" javaType="jobVo">
+						<result column="JOB_ID"		 	 property="jobCode" 				javaType="string"/>
+						<result column="JOB_TITLE" 	 property="jobTitle" 				javaType="string"/>
+						<result column="MIN_SALARY" property="jobMinSalary"	 	javaType="_int"/>
+						<result column="MAX_SALARY" property="jobMaxSalary" 	javaType="_int"/>
+				</association>	
+		</resultMap>
+		
+		
+		
 	  <!-- <select id="employee" parameterType= "_int" resultType="empVo">  resultSet으로 결과 반환 -> row data(record) -->
 	  		<!-- SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME FROM EMPLOYEES WHERE EMPLOYEE_ID =  #{id}   외부의 값(파라미터값)을 여기( #{id} )에 넣는 거임 -->
 	  <!-- </select> -->
@@ -129,7 +150,7 @@
 					 , SALARY
 		FROM EMPLOYEES
 		<where></where> <!-- where 태그 :  아래 중 하나라도 조건문 만족하는 경우 where이 들어간다.-->
-		<trim prefix="WHERE" prefixOverrides="AND/OR"> <!--  AND라는 글자가 있으면 WHERE로 오버라이드해라 바꿔치기! (단, 최초발견한 AND에 한해서만!! WHERE은 한번만 필요하니까ㅎㅎ) -->
+		<trim prefix="WHERE" prefixOverrides="AND|OR"> <!--  AND라는 글자가 있으면 WHERE로 오버라이드해라 바꿔치기! (단, 최초발견한 AND에 한해서만!! WHERE은 한번만 필요하니까ㅎㅎ) -->
 			<if test="salary != 0" ><!-- salary가 null이 아니면 where절을 실행해라 //  여기에는 검사 조건을 넣어야 한다. -->
 					AND SALARY >= #{salary}
 			</if>
@@ -163,5 +184,35 @@
 			</choose>
 		</trim>
  	</select>
+ 	
+ 	<!--  자신이 어떤 ID를 생성했는지 알 수가 없다. ID를 알기 위한 방법
+ 			파라미터 타입은 반드시 객체를 사용해야 함 -->
+ 	<insert id="seqGetInsert" parameterType="testVo" useGeneratedKeys="true"
+ 				keyProperty="id" keyColumn="ID"> <!--  서로 매칭 시키기 위해서는 typeAlias 에 등록 시켜야 한다. -->
+				INSERT INTO T_MYBATIS VALUES (SEQ_MYBATIS.NEXTVAL, #{name}, #{today}) <!--  testVo 의 멤버 변수명이 들어가면 됨  -->	
+	</insert> <!--  keyproperty  : 생성된 시퀀스가 저장된 변수명 -->
+	
+	<!--  ResultMap  사용해보기 -->
+	<select id="empComplexSelect" resultMap="empComplexVoMap"> <!-- 매개변수타입은 int라서 따로 안 적어도 된다. -->
+			SELECT E.EMPLOYEE_ID
+						 , E.FIRST_NAME || ' ' || E.LAST_NAME AS EMPLOYEE_NAME
+						 , E.PHONE_NUMBER
+						 , E.COMMISSION_PCT
+						 , E.SALARY
+						 , D.DEPARTMENT_ID
+						 , D.DEPARTMENT_NAME
+						 , J.JOB_ID
+						 , J.JOB_TITLE
+						 , J.MIN_SALARY
+						 , J.MAX_SALARY
+ 			FROM EMPLOYEES E
+			 JOIN 	DEPARTMENTS D 
+			   ON 	E.DEPARTMENT_ID = D.DEPARTMENT_ID 
+			JOIN  	JOBS J 
+			   ON 	E.JOB_ID = J.JOB_ID
+ 			WHERE E.EMPLOYEE_ID = #{empId}
+	</select>
+	
+	
 </mapper>
 

@@ -7,6 +7,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/user1/eclipse/mybatis-3.5.10/mybatis-3.5.10.jar"/>
-	<classpathentry kind="lib" path="C:/Users/user1/eclipse/oracle DB/jre/ojdbc8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user1/eclipse/oracle DB/jre/oraclepki.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user1/eclipse/oracle DB/jre/osdt_cert.jar"/>
+	<classpathentry kind="lib" path="C:/Users/user1/eclipse/oracle DB/jre/osdt_core.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

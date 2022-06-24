@@ -2,18 +2,19 @@ package com.conn.db;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import com.data.vo.EmpSelectVO;
-import com.data.vo.EmpVO;
+import com.data.vo.EmpComplexVO;
+import com.data.vo.TestVO;
 
 public class DBConn {
 	//  mybatis를 사용할 수 있도록 만드는 구문 
@@ -32,7 +33,7 @@ public class DBConn {
 	}
 	public static void main(String[] args) {
 		// 기본
-//		SqlSession session = DBConn.getSqlSession();
+		SqlSession session = DBConn.getSqlSession();
 //		String result = session.selectOne("testMapper.test"); // 여기에 mapper.xml에 있는 태그의 namespace.id 를 적어주면 된다. 내가 실행하고자 하는 태그의 id를 넣어주는 것
 //		System.out.println(result);
 		
@@ -41,7 +42,7 @@ public class DBConn {
 //		List<Object> result = session.selectList("testMapper.test");
 //		System.out.println(result);
 		
-		SqlSession session = DBConn.getSqlSession();
+//		SqlSession session = DBConn.getSqlSession();
 //		Map<String , Integer> data = new HashMap<String, Integer>(); //파라미터값으로 넣어줄 data를 map 타입으로 만들어준다. 
 //		data.put("id1", 100);	// data에 키와 값을 넣어준다.
 //		data.put("id2", 110);
@@ -149,33 +150,67 @@ public class DBConn {
 //		System.out.println(res14+ "개의 행이 삭제 되었습니다.");
 //		
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-		java.util.Date stDate = null;
-		java.util.Date edDate = null;
-		
-		try {
-			stDate = sdf.parse("1990/01/01");
-			edDate = sdf.parse("2000/12/31");
-		}catch(ParseException e) {
-			e.printStackTrace();
-		}
-		
-		EmpSelectVO dynamicData = new EmpSelectVO();
-		dynamicData.setSalary(10000);
-		dynamicData.setStartDate(new java.sql.Date(stDate.getTime()));
-		dynamicData.setEndDate(new java.sql.Date(edDate.getTime()));
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+//		java.util.Date stDate = null;
+//		java.util.Date edDate = null;
+//		
+//		try {
+//			stDate = sdf.parse("1990/01/01");
+//			edDate = sdf.parse("2000/12/31");
+//		}catch(ParseException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		EmpSelectVO dynamicData = new EmpSelectVO();
+//		dynamicData.setSalary(10000);
+//		dynamicData.setStartDate(new java.sql.Date(stDate.getTime()));
+//		dynamicData.setEndDate(new java.sql.Date(edDate.getTime()));
 		//dynamicData.setDeptId(80);
 		// 만약 db 컬럼이 string타입이라면 이렇게 해준다. 
 //		dynamicData.setStrStartDate("1990/01/01");
 //		dynamicData.setStrEndDate("1990/01/01");
 		// foreach반복문 사용하기 위해서 List 사용 (Map 사용해도 됨)
-		List<Integer> deptList = new ArrayList<Integer>();
-		deptList.add(80); deptList.add(90); deptList.add(100); 
-		dynamicData.setDeptIdList(deptList);
-		List<EmpVO> res15 = session.selectList("testMapper.test16", dynamicData);
-		System.out.println(res15.size() + "개 행 데이터가 조회되었습니다.");
+//		List<Integer> deptList = new ArrayList<Integer>();
+//		deptList.add(80); deptList.add(90); deptList.add(100); 
+//		dynamicData.setDeptIdList(deptList);
+//		List<EmpVO> res15 = session.selectList("testMapper.test16", dynamicData);
+//		System.out.println(res15.size() + "개 행 데이터가 조회되었습니다.");
+//		
 		
-		
+// 부서 조회
+		// 결과가 하나일 수도 있고, 여러 개 일수도 있는 경우에는 List에 담기
+		// 매개변수는 Map 또는 vo객체 2개 다 선택 가능
+//		Map<String, Integer> mapParam = new HashMap<String, Integer>(); // 하나의 값만 전달 할 때
+//		mapParam.put("deptId", 80);  // 키와 값의 쌍 -> 얘는 하나의 값을 전달할 때
+		// 여러 개의 값을 전달할 때
+//		Map<String, List<Integer>> mapParam = new HashMap<String , List<Integer>>();	// List를 값으로 넣은 것
+//		List<Integer> deptList2 = new ArrayList<Integer>();
+//		deptList2.add(80); deptList2.add(90); deptList2.add(100);
+//		mapParam.put("deptList", deptList2);
+//		// List의 Object가 Map 의 형태이다. List안에 Map이 있는 거 -> 반환되는 map의 키와 값이 List에 map의 형태로 들어가는 것
+//		List<Map<String, Object>> res16 = session.selectList("exampleMapper.empOfDeptCount", mapParam);
+//		
+//		// 출력
+//		if(res16.size() != 0 ) {
+//				for(Map<String, Object> record: res16) {
+//					System.out.println("총원 : " + record.get("TOTAL"));
+//					System.out.println("부서명 : " + record.get("DEPT_NAME"));
+//					System.out.println("부서코드 : " + record.get("DEPT_CODE"));
+//				}
+//		}else  {
+//				System.out.println("해당 부서는 존재하지 않습니다.");
+//		}
+//		
+//		TestVO insertData2 = new TestVO();
+//		
+//		insertData2.setName("test"); insertData2.setToday(new java.sql.Date(new Date().getTime()));
+//		
+//		int res17 = session.insert("testMapper.seqGetInsert", insertData2);
+//		session.commit();
+//		System.out.println(res17 +" 개의 행이  추가되었습니다. 자동 생성된 ID 는 + " + insertData2.getId() + "입니다.");
+//		
+		EmpComplexVO res18 = session.selectOne("testMapper.empComplexSelect", 100);
+		System.out.println(res18);
 		
 		
 	}
