@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
   <display-name>jsp_pro</display-name>
+  	<filter>
+  		<filter-name>characterEncodingFilter</filter-name>
+  		<filter-class>com.newlecture.filter.CharacterEncodingFilter</filter-class>
+  	</filter>
+  	<filter-mapping>
+  		<filter-name>characterEncodingFilter</filter-name>
+  		<url-pattern>/*</url-pattern> <!--  특정 url패턴에 대해서만 해당 필터를 사용할 수 있도록 할수도 있고 지금처럼 * 모든 url에 대해서 적용할수도 있다.-->
+  	</filter-mapping>
+  
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.jsp</welcome-file>
