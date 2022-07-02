@@ -1,9 +1,9 @@
-package dept.service;
+package locs.service;
 
 import java.util.List;
 
-import dept.model.LocsDAO;
-import dept.model.LocsDTO;
+import locs.model.LocsDAO;
+import locs.model.LocsDTO;
 
 public class LocsService {
 	

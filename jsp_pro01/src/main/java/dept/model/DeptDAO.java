@@ -16,12 +16,49 @@ public class DeptDAO {
 		
 		public List<DeptDTO> searchAll () {
 				List<DeptDTO> datas = session.selectList("deptMapper.deptSelectAll");
-				System.out.println("DeptDAO.searchAll : " + datas);
 				return datas;
 		}
 		public DeptDTO searchId(int id) {
 			DeptDTO data = session.selectOne("deptMapper.deptSelectId", id);
 			return data;
 		}
-		
+
+		public boolean insertDept(DeptDTO deptDto) {
+			int result = session.insert("deptMapper.deptInsert", deptDto);
+			if(result == 1) {
+				session.commit();
+				return true; 
+			}
+			session.rollback();
+			return false;
+		}
+
+		public boolean existManager(int id) {
+			int result = session.selectOne("deptMapper.existManager", id);
+			if(result == 1) {
+				return true;
+			}
+			return false;
+		}
+
+		public boolean existLocation(int id) {
+			int result = session.selectOne("deptMapper.existLocation", id);
+			if(result == 1) {
+				return true;
+			}
+			return false;		
+		}
+
+		public boolean updateDept(DeptDTO deptDto) {
+			int result = session.update("deptMapper.deptUpdate", deptDto);
+			if(result == 1) {
+				session.commit();
+				return true;
+			}
+			session.rollback();
+			return false;
+		}
+		public void close() {
+			session.close();
+		}
 }

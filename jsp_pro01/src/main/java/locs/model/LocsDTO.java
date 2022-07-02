@@ -1,4 +1,4 @@
-package dept.model;
+package locs.model;
 
 public class LocsDTO {
 	private int localId;

@@ -81,6 +81,9 @@ function formCheck(e){
 <body>
 	<h1>부서 조회 결과</h1>
 	<div>
+			<button type="button" onclick="location.href='./depts/add'">추가</button>
+	</div>
+	<div>
 			<form action="./depts" method="get">  <!--  ./depts 에서 db를 조회하도록 보내는 것 -->
 					<div>
 							<input type="text" name="search" data-required="부서코드를 입력하세요."> <!--  search라는 parameter name으로 특정 데이터를 조회하라 -->
@@ -95,6 +98,7 @@ function formCheck(e){
 					<th>DeptName</th>
 					<th>MngId</th>
 					<th>LocalId</th>
+					<th></th>
 			</tr>	
 	<%
 			if(request.getAttribute("deptDatas") != null){
@@ -105,7 +109,10 @@ function formCheck(e){
 					<td><%=data.getDeptId() %></td>
 					<td><%=data.getDeptName() %></td>
 					<td><%=data.getMngId() %></td>
-					<td><a href="./locsController?search"><%=data.getLocationId() %><a></td>
+					<td><a href="./locsController?search=<%=data.getLocationId() %>"><%=data.getLocationId() %></a></td>
+					<td>
+							<button type="button" onclick="location.href='./depts/mod?id=<%=data.getDeptId() %>'">수정</button> <!--  수정 하는 란으로 이동 -->
+					</td>
 			</tr>	
 	<%
 				}

@@ -1,4 +1,4 @@
-package dept.model;
+package locs.model;
 
 import java.util.List;
 
