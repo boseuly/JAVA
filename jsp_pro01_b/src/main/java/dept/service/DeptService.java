@@ -1,6 +1,9 @@
 package dept.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dept.model.DeptDAO;
 import dept.model.DeptDTO;
@@ -15,6 +18,44 @@ public class DeptService {
 		
 		dao.close();
 		return datas;
+	}
+
+	// mybatis를 이용한 페이징
+	public List<DeptDTO> getPage(int pageNumber){
+		int start, end;
+		start = (pageNumber - 1) * 10;
+		end = 10;
+		dao = new DeptDAO();
+		List<DeptDTO> datas = dao.searchPage(start, end);
+		dao.close();
+		return datas;
+	}
+	
+	
+	// 이전방식 
+//	public List<DeptDTO> getPage(int pageNumber){ // 두번째 페이지를 요청하면 그에 해당하는 데이터 전달
+//		dao = new DeptDAO();
+//		Map<String, Integer> page = new HashMap<String, Integer>();
+//		page.put("start", (pageNumber -1) * 10 + 1);
+//		page.put("end", (pageNumber -1) * 10 + 10);
+//		
+//		List<DeptDTO> datas = dao.searchPage(page);
+//		dao.close();
+//		return datas;
+//		
+//	}
+	
+	public List<Integer> getPageList(){
+		dao = new DeptDAO();
+		
+		List<Integer> pageList = new ArrayList<Integer>();
+		int total = dao.totalRow(); // 전체 몇 개의 행인지 찾기
+		
+		// 전체 행 수를 가지고 페이지 목록을 만든 거다.
+		for(int num = 0; num <= (total -1) / 10; num++) { // 기본이 10개라서 10이라고 한 거임
+			pageList.add(num + 1);
+		}
+		return pageList;
 	}
 	
 	public DeptDTO getId(String id) {
@@ -49,7 +90,7 @@ public class DeptService {
 			deptDto.setMngId(Integer.parseInt(mngId));
 			deptDto.setLocId(Integer.parseInt(locId));
 			
-			if(dao.searchId(deptDto.getDeptId()) != null) {
+			if(dao.searchId(deptDto.getDeptId()) != null) { 
 				deptDto.setDeptId(-1);
 				dao.close();
 				return deptDto;
@@ -99,6 +140,19 @@ public class DeptService {
 			return 1;
 		}
 		return 0;
+	}
+	public int deleteDept(String id) {
+		dao = new DeptDAO();
+		if(dao.searchId(Integer.parseInt(id)) == null) { // 데이터가 존재하지 않으면 삭제할 데이터가 없음
+			dao.close();
+			return -1;	// 삭제 대상이 없음을 알림
+		}
+		boolean result = dao.deleteDept(Integer.parseInt(id));
+		dao.close();
+		if(result) {
+			return 1;
+		}
+		return 0; 	// 알 수 없는 오류
 	}
 	
 }

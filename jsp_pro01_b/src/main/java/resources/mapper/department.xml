@@ -21,6 +21,22 @@
 	<select id="existLocation" resultType="_int">
 		SELECT COUNT(*) FROM LOCATIONS WHERE LOCATION_ID = #{id}
 	</select>
+	
+	<select id="deptSelectPage" resultMap="deptDtoMap" resultType="DeptDTO">
+		SELECT * 
+		  FROM (SELECT ROWNUM AS NUM
+		  			 , DEPARTMENT_ID
+		  			 , DEPARTMENT_NAME
+					 , MANAGER_ID
+			 		 , LOCATION_ID
+				  FROM DEPARTMENTS)
+		WHERE NUM BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="deptTotalRow" resultType="_int">
+		SELECT COUNT(*) FROM DEPARTMENTS
+	</select>
+	
 	<insert id="deptInsert" parameterType="deptDto">
 		INSERT INTO DEPARTMENTS VALUES (#{deptId}, #{deptName}, #{mngId}, #{locId})
 	</insert>
@@ -31,4 +47,8 @@
 		     , LOCATION_ID = #{locId}
 		 WHERE DEPARTMENT_ID = #{deptId}
 	</update>
+	<delete id="deptDelete" parameterType="_int">
+		DELETE FROM DEPARTMENTS
+		 WHERE DEPARTMENT_ID = ${id}
+	</delete>
 </mapper>

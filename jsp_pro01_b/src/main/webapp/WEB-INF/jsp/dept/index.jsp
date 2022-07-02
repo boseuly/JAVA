@@ -113,6 +113,7 @@ function requiredBox(element, message) {
 					<td><a href="./locs?search=<%=data.getLocId() %>"><%=data.getLocId() %></a></td>
 					<td>
 						<button type="button" onclick="location.href='./depts/mod?id=<%=data.getDeptId() %>'">수정</button>
+						<button type="button" onclick="location.href='./depts/del?id=<%=data.getDeptId() %>'">삭제</button>
 					</td>
 				</tr>
 	<%
@@ -120,5 +121,22 @@ function requiredBox(element, message) {
 		}
 	%>
 	</table>
+	<div>
+		<ul>
+			<li><a href="">Prev</a></li> <!--  현재 페이지 -1 -->
+			<%
+				if(request.getAttribute("pageList") != null){
+					List<Integer> pageList = (List<Integer>) request.getAttribute("pageList");
+					for(Integer n : pageList){
+			%>
+						
+						<li><a href="./depts?page=<%=n%>"><%=n %></a></li>
+			<%
+					}
+				}
+			%>
+			<li><a href="">Next</a></li> <!--  현재 페이지 + 1 -->
+		</ul>
+	</div>
 </body>
 </html>
