@@ -34,7 +34,7 @@
 		<div>
 			<input type="text" name="deptName" value="<%=deptName %>" placeholder="부서 이름">
 		</div>
-		<div>
+		<div> 
 			<input type="text" name="mngId" value="<%=mngId %>" placeholder="관리자 ID">
 		</div>
 		<div>

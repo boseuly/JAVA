@@ -30,7 +30,7 @@ public class DeptController extends HttpServlet {
 			}else if(request.getParameter("page").isEmpty()) { // null은 아니지만 비어져 있는 경우
 				deptDatas = service.getPage(page);
 			}else {
-				
+				// 숫자인지 확인하기
 				if(request.getParameter("page").matches("\\d+")) { // 숫자인 경우
 					page = Integer.parseInt(request.getParameter("page"));
 				}

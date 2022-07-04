@@ -92,18 +92,21 @@ public class DeptService {
 			
 			if(dao.searchId(deptDto.getDeptId()) != null) { 
 				deptDto.setDeptId(-1);
+				dao.rollback();
 				dao.close();
 				return deptDto;
 			}
 			
 			if(!dao.existManager(deptDto.getMngId())) {
 				deptDto.setMngId(-1);
+				dao.rollback();
 				dao.close();
 				return deptDto;
 			}
 			
 			if(!dao.existLocation(deptDto.getLocId())) {
 				deptDto.setLocId(-1);
+				dao.rollback();
 				dao.close();
 				return deptDto;
 			}
@@ -111,11 +114,13 @@ public class DeptService {
 			boolean isSaved = dao.insertDept(deptDto);
 			
 			if(!isSaved) {
+				dao.rollback();
 				dao.close();
 				return null;
 			}
 		}
 		
+		dao.commit();
 		dao.close();
 		return deptDto;
 	}
@@ -124,34 +129,44 @@ public class DeptService {
 		dao = new DeptDAO();
 		
 		if(!dao.existManager(data.getMngId())) {
+			dao.rollback();
 			dao.close();
 			return -1;
 		}
 		
 		if(!dao.existLocation(data.getLocId())) {
+			dao.rollback();
 			dao.close();
 			return -2;
 		}
 		
 		boolean isSaved = dao.updateDept(data);
-		dao.close();
 		
 		if(isSaved) {
+			dao.commit();
+			dao.close();
 			return 1;
 		}
+		dao.rollback();
+		dao.close();
 		return 0;
 	}
 	public int deleteDept(String id) {
 		dao = new DeptDAO();
 		if(dao.searchId(Integer.parseInt(id)) == null) { // 데이터가 존재하지 않으면 삭제할 데이터가 없음
+			dao.rollback();
 			dao.close();
 			return -1;	// 삭제 대상이 없음을 알림
 		}
 		boolean result = dao.deleteDept(Integer.parseInt(id));
-		dao.close();
+		
 		if(result) {
+			dao.commit();
+			dao.close();
 			return 1;
 		}
+		dao.rollback();
+		dao.close();
 		return 0; 	// 알 수 없는 오류
 	}
 	

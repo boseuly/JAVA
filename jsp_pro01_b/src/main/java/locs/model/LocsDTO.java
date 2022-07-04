@@ -1,12 +1,12 @@
 package locs.model;
 
 public class LocsDTO {
-	private int locId;
+	private int locId;		// 기본키
 	private String stAddr;
 	private String postal;
 	private String city;
 	private String state;
-	private String ctyId;
+	private String ctyId; // COUNTRIES 테이블의 COUNTRY_ID를 참조 
 	
 	public int getLocId() {
 		return locId;

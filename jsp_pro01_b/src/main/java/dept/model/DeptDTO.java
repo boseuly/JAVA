@@ -1,10 +1,10 @@
 package dept.model;
 
 public class DeptDTO {
-	private int deptId;
-	private String deptName;
-	private int mngId;
-	private int locId;
+	private int deptId; // DEPARTMENT_ID -> PRIMARY KEY
+	private String deptName; 
+	private int mngId;	// MANAGER_ID -> EMPLOYEES(MANAGER_ID) 참조
+	private int locId;	// LOCATION_ID -> LOCATION(LOCATION_ID) 참조
 	
 	public int getDeptId() {
 		return deptId;

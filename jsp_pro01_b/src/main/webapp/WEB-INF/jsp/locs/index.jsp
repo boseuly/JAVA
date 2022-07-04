@@ -86,6 +86,9 @@ function requiredBox(element, message) {
 	<div>
 		<form action="./locs" method="get">
 			<div>
+				<button type="button" onclick="location.href='./locs/add'">지역추가</button>
+			</div>
+			<div>
 				<input type="text" name="search" data-required="지역코드를 입력하세요.">
 				<button type="submit">조회</button>
 			</div>
