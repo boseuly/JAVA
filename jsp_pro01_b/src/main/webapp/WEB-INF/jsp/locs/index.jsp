@@ -115,6 +115,8 @@ function requiredBox(element, message) {
 					<td><%=data.getCity() %></td>
 					<td><%=data.getState() %></td>
 					<td><%=data.getCtyId() %></td>
+					<td><button type="button" onclick="location.href='./locs/mod?id=<%=data.getLocId()%>'">수정</button></td>
+					<td><button type="button" onclick="location.href='./locs/del'">삭제</button></td>
 				</tr>
 	<%
 			}

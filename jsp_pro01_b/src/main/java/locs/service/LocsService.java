@@ -59,4 +59,33 @@ private LocsDAO dao;
 			return 0;
 		}
 	}
+	
+	// 수정(update)
+	public int locsModify(String locId, String stAddr, String postal, String city, String state, String ctyId) {
+		// country_id는 외래키 검사를 해야 한다.
+		boolean fkCheck = dao.checkCtyId(ctyId);	// true여야 통과
+		if(!fkCheck) {		// false -> 해당 country_id는 존재하지 않음
+			dao.rollback();	
+			dao.close();
+			return -1;
+		}
+		// 만약 제약조건 확인 통과 했다면
+		LocsDTO data = new LocsDTO();
+		data.setLocId(Integer.parseInt(locId));
+		data.setStAddr(stAddr);
+		data.setPostal(postal);
+		data.setCity(city);
+		data.setState(state);
+		data.setCtyId(ctyId);
+		
+		boolean modResult = dao.update(data); 
+		if(modResult) {
+			dao.commit();
+			dao.close();
+			return 1;
+		}
+		dao.rollback();
+		dao.close();
+		return 0;
+	}
 }

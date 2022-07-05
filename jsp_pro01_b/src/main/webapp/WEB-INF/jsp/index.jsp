@@ -11,7 +11,7 @@
 	<div class="outside-container">
 		<div class="head-container">
 			<h1>Welcome JSP/Servlet</h1>
-		</div>
+		</div><br><hr>
 		<div class="ul-container">
 			<ul class="ul-list">
 				<li><a href="./jsp_script">JSP - 스크립트 태그</a></li>

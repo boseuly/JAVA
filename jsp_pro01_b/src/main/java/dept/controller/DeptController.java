@@ -53,7 +53,7 @@ public class DeptController extends HttpServlet {
 		request.setAttribute("deptDatas", deptDatas);
 		
 		String view = "/WEB-INF/jsp/dept/index.jsp";
-		request.getRequestDispatcher(view).forward(request, response);
+		request.getRequestDispatcher(view).forward(request, response);	// 매퍼이름은 알아서
 	}
 
 }
