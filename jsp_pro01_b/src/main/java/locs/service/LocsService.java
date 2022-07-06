@@ -16,8 +16,8 @@ private LocsDAO dao;
 	
 	public LocsDTO getId(String id) {
 		dao = new LocsDAO();
-		return _getId(Integer.parseInt(id));
-	}
+		return _getId(Integer.parseInt(id)); //String으로 전달해도 형변환하니까 돼야 하는 거 아닌가...
+	}	// 왜 자꾸 여기서 오류가 나는지 모르겠음..ㅠ
 	
 	public LocsDTO getId(int id) {
 		dao = new LocsDAO();

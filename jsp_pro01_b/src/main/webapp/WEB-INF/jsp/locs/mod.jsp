@@ -12,7 +12,7 @@
 	<%
 		LocsDTO data = (LocsDTO)request.getAttribute("data");
 	%>
-	<form action="./mod" method="get"><!--  내가 이미 locs/mode 이기때문에 locs는 쓰면 중복된다. -->
+	<form action="./mod" method="post"><!--  내가 이미 locs/mode 이기때문에 locs는 쓰면 중복된다. -->
 		<div>
 			<input type="text" name="locId" value="<%=data.getLocId() %>" placeholder="지역 ID" readonly>
 		</div>

@@ -24,4 +24,14 @@
 		INSERT INTO LOCATIONS
 		VALUES (#{locId},#{stAddr}, #{postal}, #{city}, #{state}, #{ctyId})
 	</insert>
+	<update id="locsMod" parameterType="locsDto">
+		UPDATE LOCATIONS
+		   SET LOCATION_ID = #{locId} <!-- locId는 안 써도 되는 줄 알았는데 써줘야 한다. -->
+		   	 , STREET_ADDRESS = #{stAddr}
+		   	 , POSTAL_CODE = #{postal}
+		   	 , CITY = #{city}
+		   	 , STATE_PROVINCE = #{state}
+		   	 , COUNTRY_ID = #{ctyId}
+		 WHERE LOCATION_ID = #{locId}
+	</update>
 </mapper>
