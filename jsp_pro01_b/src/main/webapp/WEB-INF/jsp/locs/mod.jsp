@@ -12,6 +12,16 @@
 	<%
 		LocsDTO data = (LocsDTO)request.getAttribute("data");
 	%>
+	<%
+		if(request.getAttribute("errorMsg") != null) {
+	%>
+			<script type="text/javascript">
+				alert("<%=request.getAttribute("errorMsg") %>");
+			</script>
+	<%
+		}
+	%>
+	
 	<form action="./mod" method="post"><!--  내가 이미 locs/mode 이기때문에 locs는 쓰면 중복된다. -->
 		<div>
 			<input type="text" name="locId" value="<%=data.getLocId() %>" placeholder="지역 ID" readonly>
