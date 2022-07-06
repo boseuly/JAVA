@@ -88,4 +88,21 @@ private LocsDAO dao;
 		dao.close();
 		return 0;
 	}
+
+	public boolean deleteLocs(String id) {
+		int locId = Integer.parseInt(id);
+
+		
+		// 해당 locId가 존재하는지 확인
+		if(dao.searchId(locId) != null) {// 해당 아이디가 존재한다면
+			boolean result = dao.deleteLocs(locId);
+			if(result) {
+				dao.commit();
+				dao.close();
+				return true;
+			}
+		}
+		// 해야 locId가 존재하지 않는다면
+		return false;
+	}
 }

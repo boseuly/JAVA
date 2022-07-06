@@ -34,4 +34,8 @@
 		   	 , COUNTRY_ID = #{ctyId}
 		 WHERE LOCATION_ID = #{locId}
 	</update>
+	<delete id="locsDel" parameterType="_int">
+		DELETE FROM LOCATIONS
+		WHERE LOCATION_ID = #{id}
+	</delete>
 </mapper>

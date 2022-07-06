@@ -82,6 +82,17 @@ function requiredBox(element, message) {
 }
 </script>
 <body>
+	<%
+		String msg = (String)request.getAttribute("msg");
+		if(msg != null){
+	%>
+			<script>
+				alert("<%=msg%>");
+			</script>
+	<%
+		}
+	%>
+	
 	<h1>지역 조회 결과</h1>
 	<div>
 		<form action="./locs" method="get">
@@ -116,7 +127,7 @@ function requiredBox(element, message) {
 					<td><%=data.getState() %></td>
 					<td><%=data.getCtyId() %></td>
 					<td><button type="button" onclick="location.href='./locs/mod?id=<%=data.getLocId()%>'">수정</button></td>
-					<td><button type="button" onclick="location.href='./locs/del'">삭제</button></td>
+					<td><button type="button" onclick="location.href='./locs/del?id=<%=data.getLocId()%>'">삭제</button></td>
 				</tr>
 	<%
 			}

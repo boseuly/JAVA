@@ -51,7 +51,14 @@ public class LocsDAO {
 		}
 		return false;
 	}
-	
+	// 삭제하기(delete)
+	public boolean deleteLocs(int locId) {
+		int result = session.delete("locsMapper.locsDel", locId);
+		if(result == 1) {
+			return true;
+		}
+		return false;
+	}
 	
 	public void commit() {
 		session.commit();
@@ -62,4 +69,6 @@ public class LocsDAO {
 	public void close() {
 		session.close();
 	}
+
+	
 }
