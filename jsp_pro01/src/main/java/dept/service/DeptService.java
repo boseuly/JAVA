@@ -9,8 +9,8 @@ public class DeptService {
 	// 여러 개의 부서 정보를 가지고 올 거니까 list를 사용하는 게 좋다.
 		private DeptDAO dao; // 여기에 요청할 거임
 //		
-//		public DeptService () { -> 이렇게 하면 세션이 다른 경우 적용 안 됨
-//			dao = new DeptDAO();
+//		public DeptService () { -> 이렇게 하면 세션이 다른 경우 변경 내용이 적용 안 됨
+//			dao = new DeptDAO(); 
 //		}
 		
 		// 요청 메소드
