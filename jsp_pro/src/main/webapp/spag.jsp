@@ -8,5 +8,12 @@
 </head>
 <body>
 	<%=request.getAttribute("result") %>입니다.
+	${result} <br>
+	${names[0]}<br>
+	${notice.title}<br>
+	${param.n ge 3}<br>
+	${empty param.n ? '값이 비어있습니다.' : param.n}<br>
+	${header.accept}<br>
+	${param.n/2}
 </body>
 </html>
