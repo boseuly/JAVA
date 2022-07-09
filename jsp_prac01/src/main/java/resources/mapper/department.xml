@@ -23,6 +23,19 @@
 		SELECT COUNT(*) FROM EMPLOYEES
 		 WHERE EMPLOYEE_ID = #{id}
 	</select>
+	<select id="deptSelectPage" resultMap="deptResultMap">
+		SELECT * 
+		  FROM (SELECT ROWNUM AS NUM	<!-- departments 테이블의 행 개수 -> 별칭 num -->
+		  			 , DEPARTMENT_ID
+		  			 , DEPARTMENT_NAME
+		  			 , MANAGER_ID
+		  			 , LOCATION_ID
+		  		  FROM DEPARTMENTS)		<!-- num이 start ~ end 에 해당 하는 값들만 resultSet으로 가져와라 -->
+		  		 WHERE NUM BETWEEN #{start} AND #{end} <!-- 페이지에 따라서 달라지는 범위값 -->
+	</select>
+	<select id="deptTotalRow" resultType="_int"> <!--  전체 페이지를 센다. -->
+		SELECT COUNT(*) FROM DEPARTMENTS
+	</select>
 	<insert id="insertDept" parameterType="deptDto">
 		INSERT INTO DEPARTMENTS
 		VALUES (#{deptId},#{deptName},#{mngId},#{locId})

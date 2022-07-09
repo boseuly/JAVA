@@ -1,5 +1,6 @@
 package dept.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dept.model.DeptDAO;
@@ -7,6 +8,36 @@ import dept.model.DeptDTO;
 
 public class DeptService {
 	private DeptDAO dao;
+	/* 페이징 공식
+	 [ ( page - 1) * count + 1 ] ~ [ (page -1) * count + count ]  
+	 */
+	
+	// 한 페이지에 들어갈 내용들을 가져오는 것
+	public List<DeptDTO> getPage(int page, int pageCount){	// pageCount : 몇 행씩 보여줄지
+		int pageNumber = page;	// page : 현재 몇 페이지인지
+		int start, end;			// 시작페이지와 끝페이지
+		start = (pageNumber - 1) * pageCount;	// 만약 현재 1페이지이면 0 * pageCount = 0 
+		end = pageCount;		// 
+		dao = new DeptDAO();
+		List<DeptDTO> datas = dao.searchPage(start, end);
+		dao.close();
+		return datas;
+	}
+
+	
+	// 총 몇 페이지인지 알려준다. 
+	public List<Integer> getPageList(int pageCount){
+		dao = new DeptDAO();
+		
+		List<Integer> pageList = new ArrayList<Integer>();
+		int total = dao.totalRow(); // 전체 행 수
+		
+		for(int num = 0; num <= (total - 1) / pageCount; num++) {	// pageCount = 한페이지에 들어가는 행 수  
+			pageList.add(num + 1);			// 총 페이지 수에서 -1을 한 뒤 한 페이지에 넣을 
+		}
+		return pageList;
+	}
+	
 	
 	// 모든 정보 조회
 	public List<DeptDTO> getAll() {
@@ -26,6 +57,7 @@ public class DeptService {
 		dao.close();
 		return data;
 	}
+	
 	// dept 추가
 	public int insertDept(String deptId, String deptName, String mngId, String locId) {
 		// dao 에 전달하기 전에 확인해야 할 것 
