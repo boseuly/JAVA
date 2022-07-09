@@ -2,6 +2,8 @@ package locs.service;
 
 import java.util.List;
 
+import dept.model.DeptDAO;
+import dept.model.DeptDTO;
 import locs.model.LocsDAO;
 import locs.model.LocsDTO;
 
@@ -13,6 +15,16 @@ private LocsDAO dao;
 		List<LocsDTO> datas = dao.searchAll();
 		return datas;
 	}
+	
+	// 페이징 구현 중 미완
+	public List<LocsDTO> getPage(int pageNumber) {
+		int start, end;
+		start = (pageNumber - 1) * 10;
+		
+		dao = new LocsDAO();
+		return null;
+	}
+	
 	
 	public LocsDTO getId(String id) {
 		dao = new LocsDAO();
@@ -34,7 +46,7 @@ private LocsDAO dao;
 		return data;
 	}
 
-	// 지역 추가하기 
+	// 지역 추가하기 1
 	public int datasAdd(LocsDTO data) {
 		dao = new LocsDAO();
 		// 기본키 검사 (location_id 이미 존재하는지)
@@ -58,6 +70,48 @@ private LocsDAO dao;
 			dao.rollback();
 			return 0;
 		}
+	}
+	
+	// 지역 추가하기 2 : 에러 한꺼번에 보내기
+	public LocsDTO addLocs(String locsId, String stAddr, String postal, String city, String state, String ctyId) {
+		dao = new LocsDAO();
+		
+		LocsDTO locsDto = null;
+		if(locsId.matches("\\d+")) {	// 만약 locsId가 숫자형태가 맞다면
+			boolean isValid = true;
+			locsDto = new LocsDTO();
+			locsDto.setLocId(Integer.parseInt(locsId));
+			locsDto.setStAddr(stAddr);
+			locsDto.setPostal(postal);
+			locsDto.setCity(city);
+			locsDto.setState(state);
+			locsDto.setCtyId(ctyId);	// ctyId 외래키 충족한다면
+			
+			if(dao.searchId(locsDto.getLocId()) != null) {
+				locsDto.setLocId(-1);
+				isValid = false;
+			}
+			if(!dao.checkCtyId(locsDto.getStAddr())) {
+				locsDto.setStAddr("-1");
+				isValid = false;
+			}
+			if(isValid) {	// 만약 제약조건에 어긋하는 게 없다면
+				int isSaved = dao.addLocs(locsDto);
+				if(isSaved == 1) {
+					dao.commit();
+					dao.close();
+					return locsDto;
+				}else {// 저장에 실패했다면
+					dao.rollback();
+					dao.close();
+					return null;
+				}
+			}
+		}
+		// 만약제약조건에 어긋난다면
+		dao.rollback();	 
+		dao.close();
+		return locsDto;
 	}
 	
 	// 수정(update)

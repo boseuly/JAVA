@@ -26,7 +26,7 @@ public class LocsAddController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String view = "/WEB-INF/jsp/locs/index.jsp";
 
-		int locId = Integer.parseInt(request.getParameter("locId"));
+		String locId = request.getParameter("locId");
 		String stAddr = request.getParameter("stAddr");
 		String postal = request.getParameter("postal");
 		String city = request.getParameter("city");
@@ -34,11 +34,17 @@ public class LocsAddController extends HttpServlet {
 		String ctyId = request.getParameter("ctyId");
 
 		LocsDTO data = new LocsDTO();
-		data.setLocId(locId); data.setStAddr(stAddr); data.setPostal(postal); 
-		data.setCity(city); data.setState(state); data.setCtyId(ctyId);
-			
+		// 지역 추가하기 : 에러 한꺼번에 나오도
 		// 값을 하나라도 안 입력한 경우
-		int resultNum = service.datasAdd(data);	
+		data = service.addLocs(locId, stAddr, postal, city, state, ctyId);	
+		
+		if(data != null) {
+			response.sendRedirect(request.getContextPath() + "/add.jsp" );
+		}else {	// 값이 비어있다면 -> 저장에 실패했다(알 수 없는 이유)
+			
+			
+		}
+		/* 이전 방식
 		if(data != null ){  
 			// 값을 다 입력한 경우
 			// -2 : 기본키 위배, -1 : 외래키 위배, 0 : 알수 없는 오류, 1 : 저장성공 
@@ -65,6 +71,7 @@ public class LocsAddController extends HttpServlet {
 		}else {// 저장 실패
 			request.getRequestDispatcher(view).forward(request, response);
 		}
+		*/
 	}
 
 }

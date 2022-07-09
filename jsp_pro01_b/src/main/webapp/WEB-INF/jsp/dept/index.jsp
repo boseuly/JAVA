@@ -1,86 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page import="java.util.*, dept.model.DeptDTO" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title>부서 조회 결과</title>
-	<style type="text/css">
-		.required-box {
-			margin: 0; padding: 0.3rem 0.6rem;
-			box-sizing: border-box;
-			display: inline;
-			position: relative;
-			border: 1px solid black;
-			border-radius: 4px;
-			background-color: black;
-			color: white;
-			box-shadow: 2px 2px 2px gray;
-			opacity: 0;
-			transition: opacity 0.5s;
-		}
-		.required-box.show {
-			opacity: 1;
-			transition: opacity 0.5s;
-		}
-		.required-box:after {
-			content: '';
-			position: absolute;
-			top: 0; left: 15%;
-			width: 0; height: 0;
-			border: 6px solid transparent;
-			/* border-bottom-color: white; */
-			border-top: 0;
-			margin-left: -6px; margin-top: -6px;
-		}
-		.required-box:before {
-			content: '';
-			position: absolute;
-			top: 0; left: 15%;
-			width: 0; height: 0;
-			border: 7px solid transparent;
-			border-bottom-color: black;
-			border-top: 0;
-			margin-left: -7px; margin-top: -7px;
-		}
-	</style>
+	<%@ include file="../module/head.jsp" %>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/default.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/navigation.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/required.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/form.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/table.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/paging.css">
+	<script type="text/javascript" src="./static/js/required.js"></script>
 </head>
-<script type="text/javascript">
-window.onload = function() {
-	var form = document.forms[0];
-	form.addEventListener("submit", formCheck);
-}
-
-function formCheck(e) {
-	for(element of e.target.querySelectorAll("[data-required]")) {
-		if(element.value === "") {
-			e.preventDefault();
-			if(!document.querySelector(".required-box")) {
-				requiredBox(element, element.dataset.required);
-			}
-			return false;
-		}
-	}
-	this.submit();
-}
-
-function requiredBox(element, message) {
-	var box = document.createElement("div");
-	box.setAttribute("class", "required-box");
-	box.innerText = message;
-	element.parentElement.append(box);
-	
-	box.style.left = element.offsetLeft - box.offsetLeft + (element.offsetWidth / 10) + "px";
-	box.style.top = element.offsetHeight + 16 + "px";
-	box.setAttribute("class", "required-box show");
-	
-	setTimeout(function() {
-		box.remove();
-	}, 1500);
-}
-</script>
 <body>
+	<%@ include file="../module/navigation.jsp" %>
 	<h1>부서 조회 결과</h1>
 	<div>
 		<button type="button" onclick="location.href='./depts/add'">추가</button>
@@ -90,6 +29,14 @@ function requiredBox(element, message) {
 			<div>
 				<input type="text" name="search" data-required="부서코드를 입력하세요.">
 				<button type="submit">조회</button>
+			</div>
+			<div class="input-form form-right">
+				<select class="select-form" onchange="location.href='./depts?pgc=' + this.value"> <!-- 선택이 되면 바뀌도록 설정해둠 여기서 this.는 select 태크 요소를 지칭 -> select요소에서 value라는 값 -->
+					<option value="5" ${pageCount == 5 ? 'selected' : ''}>5개</option>				<!--  pgc 파라미터에 value 값 저장 -->
+					<option value="10" ${pageCount == 10 ? 'selected' : ''}>10개</option>
+					<option value="15" ${pageCount == 15 ? 'selected' : ''}>15개</option>
+					<option value="20" ${pageCount == 20 ? 'selected' : ''}>20개</option>
+				</select>
 			</div>
 		</form>
 	</div>
@@ -101,42 +48,37 @@ function requiredBox(element, message) {
 			<th>LocId</th>
 			<th></th>
 		</tr>
-	<%
-		if(request.getAttribute("deptDatas") != null) {
-			List<DeptDTO> datas = (List<DeptDTO>) request.getAttribute("deptDatas");
-			for(DeptDTO data: datas) {
-	%>
-				<tr>
-					<td><%=data.getDeptId() %></td>
-					<td><%=data.getDeptName() %></td>
-					<td><%=data.getMngId() %></td>
-					<td><a href="./locs?search=<%=data.getLocId() %>"><%=data.getLocId() %></a></td>
+		
+		<c:if test="${not empty deptDatas}"> <!-- 설정했을 때의 속성명 -->
+			<c:forEach items="${deptDatas}" var="data">
+					<tr>
+					<td>${data.deptId}</td>
+					<td>${data.deptName}</td>
+					<td>${data.mngId}></td>
+					<td><a href="./locs?search=${data.locId}">${data.locId}</a></td>
 					<td>
-						<button type="button" onclick="location.href='./depts/mod?id=<%=data.getDeptId() %>'">수정</button>
-						<button type="button" onclick="location.href='./depts/del?id=<%=data.getDeptId() %>'">삭제</button>
+						<c:url var="modUrl" value="./depts/mod">
+							<c:param name="id" value="${data.deptId}"></c:param>
+						</c:url>
+						<button type="button" onclick="location.href='${modUrl}'">수정</button>
+						<c:url var="delUrl" value="./depts/del">
+							<c:param name="id" value="${data.deptId}"></c:param>
+						</c:url>
+						<button type="button" onclick="location.href='${delUrl}'">삭제</button>
 					</td>
 				</tr>
-	<%
-			}
-		}
-	%>
+			</c:forEach>
+		</c:if>
 	</table>
-	<div>
-		<ul>
-			<li><a href="">Prev</a></li> <!--  현재 페이지 -1 -->
-			<%
-				if(request.getAttribute("pageList") != null){
-					List<Integer> pageList = (List<Integer>) request.getAttribute("pageList");
-					for(Integer n : pageList){
-			%>
-						
-						<li><a href="./depts?page=<%=n%>"><%=n %></a></li>
-			<%
-					}
-				}
-			%>
-			<li><a href="">Next</a></li> <!--  현재 페이지 + 1 -->
-		</ul>
-	</div>
+	<c:choose>
+		<c:when test="${not empty pageList}">
+			<%@include file="../module/paging.jsp" %>
+		</c:when>	
+		<c:otherwise>
+			<div class="input-form wide form-left">
+					<button class="btn btn-outline" onclick="location.href=''"></button> <!--  여기 이어서 작성하기 -->
+			</div>
+		</c:otherwise>
+	</c:choose>
 </body>
 </html>

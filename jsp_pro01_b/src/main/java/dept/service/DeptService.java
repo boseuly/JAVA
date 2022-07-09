@@ -21,17 +21,39 @@ public class DeptService {
 	}
 
 	// mybatis를 이용한 페이징
-	public List<DeptDTO> getPage(int pageNumber){
+	public List<Integer> getPageList(int pageCount) {	// pageCount 로 나눠서 몇 페이지인지 알아내야 한다.
+		dao = new DeptDAO();
+		
+		List<Integer> pageList = new ArrayList<Integer>();
+		int total = dao.totalRow();
+		
+		for(int num = 0; num <= (total - 1) / pageCount; num++) {
+			pageList.add(num + 1);
+		}
+		
+		return pageList;
+	}
+	public List<DeptDTO> getPage(int page, int pageCount) {
+		int pageNumber = page;
 		int start, end;
-		start = (pageNumber - 1) * 10;
-		end = 10;
+		start = (pageNumber - 1) * pageCount;
+		end = pageCount;
 		dao = new DeptDAO();
 		List<DeptDTO> datas = dao.searchPage(start, end);
 		dao.close();
 		return datas;
 	}
-	
-	
+	// mybatis를 이용한 페이징
+	public List<DeptDTO> getPage(String pageNumber){
+		int start, end;
+		int number = Integer.parseInt(pageNumber); 
+		start = (number - 1) * 10;
+		end = 10;
+		dao = new DeptDAO();
+		List<DeptDTO> datas = dao.searchPage(start, end);
+		dao.close();
+		return datas;
+	}	
 	// 이전방식 
 //	public List<DeptDTO> getPage(int pageNumber){ // 두번째 페이지를 요청하면 그에 해당하는 데이터 전달
 //		dao = new DeptDAO();
