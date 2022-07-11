@@ -33,6 +33,9 @@
 			<li class="nav-item<%=url.contains("/locs") ? " active" : "" %>">
 				<a class="nav-link" href="./locs">지역</a>
 			</li>
+			<li class="nav-item<%=url.contains("/emps") ? " active" : "" %>">
+				<a class="nav-link" href="./emps">직원</a>
+			</li>
 		</ul>
 	</nav>
 </header>

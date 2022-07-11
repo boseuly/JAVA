@@ -32,10 +32,10 @@
 			</div>
 			<div class="input-form form-right">
 				<select class="select-form" onchange="location.href='./depts?pgc=' + this.value"> <!-- 선택이 되면 바뀌도록 설정해둠 여기서 this.는 select 태크 요소를 지칭 -> select요소에서 value라는 값 -->
-					<option value="5" ${pageCount == 5 ? 'selected' : ''}>5개</option>				<!--  pgc 파라미터에 value 값 저장 -->
-					<option value="10" ${pageCount == 10 ? 'selected' : ''}>10개</option>
-					<option value="15" ${pageCount == 15 ? 'selected' : ''}>15개</option>
-					<option value="20" ${pageCount == 20 ? 'selected' : ''}>20개</option>
+					<option value="5" ${sessionScope.pageCount == 5 ? 'selected' : ''}>5개</option>				<!--  pgc 파라미터에 value 값 저장 -->
+					<option value="10" ${sessionScope.pageCount == 10 ? 'selected' : ''}>10개</option>	<!--  이거 왜 pageCount가 10개면  -->
+					<option value="15" ${sessionScope.pageCount == 15 ? 'selected' : ''}>15개</option>
+					<option value="20" ${sessionScope.pageCount == 20 ? 'selected' : ''}>20개</option>
 				</select>
 			</div>
 		</form>
@@ -50,6 +50,7 @@
 		</tr>
 		
 		<c:if test="${not empty deptDatas}"> <!-- 설정했을 때의 속성명 -->
+		
 			<c:forEach items="${deptDatas}" var="data">
 					<tr>
 					<td>${data.deptId}</td>
@@ -72,11 +73,12 @@
 	</table>
 	<c:choose>
 		<c:when test="${not empty pageList}">
+			<c:url var="pageUrl" value="./depts"/>
 			<%@include file="../module/paging.jsp" %>
 		</c:when>	
 		<c:otherwise>
 			<div class="input-form wide form-left">
-					<button class="btn btn-outline" onclick="location.href=''"></button> <!--  여기 이어서 작성하기 -->
+					<button class="btn btn-outline" onclick="'${pageContext.request.contextPath}/depts'">돌아가기</button> 
 			</div>
 		</c:otherwise>
 	</c:choose>
