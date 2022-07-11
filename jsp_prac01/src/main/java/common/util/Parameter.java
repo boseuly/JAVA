@@ -3,8 +3,8 @@ package common.util;
 import javax.servlet.http.HttpServletRequest;
 
 public class Parameter {
-// 몇 페이지로 설정할지 정하는 건가..? 아니면 몇 페이지를 보여달라고 하는 건가.. 헷갈림
-	
+// 몇 페이지로 이동할지, 한 페이지에 몇 행으로 할지 정하는 클래스임
+// 만약 해당 메소드를 사용할 클래스가 여러 개 있다면 아예 클래스를 만들어서 임포트해서 사용할 수 있다.
 	public int defaultIntValue(HttpServletRequest request, String paramName, String defValue) {
 		// 만약 request를 통해 전달된 "page"라는 속성명을 가진 parameter가 null이라면 defValue(1), 있다면 result = 해당 파라미터 값을 저장
 		String result = request.getParameter(paramName) == null ? defValue : request.getParameter(paramName);
