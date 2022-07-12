@@ -33,10 +33,28 @@ public class DeptController extends HttpServlet {
 		
 		// 쿠키를 저장하는 과정 (pageCount -> 행수)
 		String search = request.getParameter("search");
-		int page = param.defaultIntValue(request, "page","1");
-		int pageCount = 0;	// 행 수는 0으로 초기화
+		int page = param.defaultIntValue(request, "page","1");	// 페이지를 기본 1로 설정한다.
+		int pageCount =0;
+		boolean pageCountCookieExist = false; //해당 쿠키가 존재하지 않는 경우는 페이지를 처음 요청한 경우
+/*		
+		// 세션 이용
+		HttpSession session = request.getSession();
 		
-		boolean pageCountCookieExist = false;	// 해당 쿠키가 존재하지 않는 경우는 페이지를 처음 요청한 경우
+		// 만약 이전에 pageCount를 설정한 session이 있다면
+		if(session.getAttribute("pageCount") != null) {
+			pageCount = Integer.parseInt(session.getAttribute("pageCount").toString());
+			pageCountCookieExist = true;
+		}
+		// pgc 요청이 없거나 pageCount쿠키가 존재하지 않는다면 기본 10으로 설정해라
+		if(request.getParameter("pgc") != null || !pageCountCookieExist) {
+			pageCount = param.defaultIntValue(request, "pageCount", "10");
+		}
+		// 세션에 저장하기
+		session.setAttribute("pageCount", pageCount);
+		request.setAttribute("page", page);
+*/		
+		
+//		쿠키 사용하기
 		Cookie[] cookies = request.getCookies();
 		for(Cookie c: cookies) {
 			if(c.getName().equals("pageCount")) {	// 만약 pageCount가 존재한다면
@@ -44,6 +62,7 @@ public class DeptController extends HttpServlet {
 				pageCountCookieExist = true;	
 			}
 		}
+		
 		// 만약 pageCount를 변경하는 게 아니라 처음 페이지 요청을 하는 경우 
 		if(request.getParameter("pgc") != null || !pageCountCookieExist){
 			pageCount = param.defaultIntValue(request, "pgc", "10");
@@ -56,8 +75,8 @@ public class DeptController extends HttpServlet {
 		Cookie cookie = new Cookie("pageCount", String.valueOf(pageCount));
 		response.addCookie(cookie);
 
-		List<DeptDTO> datas = null;
 		
+		List<DeptDTO> datas = null;
 		// 데이터 확인하기
 		if(search == null || search.equals("")) { // 만약 데이터가 null 이거나 빈문자열이라면
 			datas = service.getPage(page, pageCount); // 전체 목록 리스트 가져오기

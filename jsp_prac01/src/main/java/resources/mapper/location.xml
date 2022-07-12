@@ -17,4 +17,18 @@
 		SELECT * FROM LOCATIONS
 		 WHERE LOCATION_ID = #{id}
 	</select>
+	<!-- // 국가를 select로 해서 COUNTRIES에 있는 국가들을 option으로 보여주려 했는데 오류뜸
+	<select id="selectCtyId" resultMap="list">
+		SELECT COUNTRY_NAME FROM COUNTRIES; 
+	</select>
+	 -->
+	 <select id="checkCtyId" resultType="_int">
+	 	SELECT COUNT(*)
+		 FROM COUNTRIES
+		WHERE COUNTRY_ID = #{id} 
+	 </select>
+	 <insert id="insertLocs" parameterType="locsDto">
+	 	INSERT INTO LOCATIONS
+		VALUES (#{locId},#{stAddr},#{postal},#{city},#{state},#{ctyId})
+	 </insert>
 </mapper>

@@ -1,6 +1,7 @@
 package common.util;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public class Parameter {
 // 몇 페이지로 이동할지, 한 페이지에 몇 행으로 할지 정하는 클래스임
@@ -12,6 +13,17 @@ public class Parameter {
 		result = result.matches("\\d+") ? result : defValue;	// 숫자 형식이 맞는지 확인 -> 숫자 형식이 아니라면 defValue로 설정
 		return Integer.parseInt(result);	// 만약 맞다면 result 를 형변환해서 전달
 		// 페이지 설정 과정 -> 몇 페이지로 설정할지
+	}
+	
+	public int defaultSessionIntValue(HttpServletRequest request, String paramName, String defValue) {
+		HttpSession session = request.getSession();
+		String defSession = session.getAttribute(paramName) == null ? defValue : session.getAttribute(paramName).toString();
+		String result = request.getParameter(paramName) == null ? defValue : request.getParameter(paramName);
+		result = result.isEmpty() ? defSession : result;
+		result = result.matches("\\d+") ? result : defSession;
+		
+		session.setAttribute(paramName, result);
+		return Integer.parseInt(result);
 	}
 }
 	

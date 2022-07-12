@@ -1,0 +1,8 @@
+@charset "UTF-8";
+
+nav{
+	display: flex;
+}
+.style-none {
+	list-style: none;
+}

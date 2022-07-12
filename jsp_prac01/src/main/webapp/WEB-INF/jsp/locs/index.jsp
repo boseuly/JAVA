@@ -1,17 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page import="locs.model.*, java.util.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>지역 조회</title>
+	<meta charset="UTF-8">
+	<title>지역 조회</title>
+	<%@ include file="../module/head.jsp"%>
 </head>
 <body>
-	<h1>지역 조회</h1>
-	<hr>
+	<%@include file="../module/navigation.jsp"%>
 	<div>
-		<button type="button" onclick="location.href='./dept'">부서 조회로 이동</button>
+		<button type="button" onclick="location.href='${pageContext.request.contextPath}/locs/add'">지역 추가</button>
 	</div>
 	<form action="./locs" method="get">
 		<input type="text" name="search">
@@ -19,28 +22,25 @@
 	</form>
 	<table>
 		<tr>
-			<th>LocId</th>
-			<th>StAddr</th>
-			<th>Postal</th>
-			<th>City</th>
-			<th>State</th>
-			<th>Country</th>
+			<th>지역ID</th>
+			<th>주소</th>
+			<th>우편</th>
+			<th>시</th>
+			<th>주</th>
+			<th>국가</th>
 		</tr>
-	<%
-		List<LocsDTO> datas =(List<LocsDTO>) request.getAttribute("datas");
-		for(LocsDTO data : datas){
-	%>
-		<tr>
-			<td><%=data.getLocId() %></td>
-			<td><%=data.getStAddr() %></td>
-			<td><%=data.getPostal() %></td>
-			<td><%=data.getCity() %></td>
-			<td><%=data.getState() %></td>
-			<td><%=data.getCtyId() %></td>
-		</tr>
-	<%
-		}
-	%>
+		<c:if test="${not empty datas}"> <!-- datas가 존재한다면 -->
+			<c:forEach items="${datas}" var="data">
+				<tr>
+					<td>${data.locId}</td>
+					<td>${data.stAddr}</td>
+					<td>${data.postal}</td>
+					<td>${data.city}</td>
+					<td>${data.state}</td>
+					<td>${data.ctyId}</td>
+				</tr>
+			</c:forEach>
+		</c:if>
 	</table>
 	
 </body>

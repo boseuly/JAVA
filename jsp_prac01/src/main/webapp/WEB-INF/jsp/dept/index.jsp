@@ -4,20 +4,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>부서 조회</title>
+	<meta charset="UTF-8">
+	<title>부서 조회</title>
+	<%@ include file="../module/head.jsp"%>
 </head>
 <body>
-	<div>
-	
-		<div>
-			<h1>부서 조회</h1>
-		</div>
-		<div>
+<%@ include file="../module/navigation.jsp"%>
+	<div class="outside-controller">
+		<div class="add-button-">
 			<button type="button" onclick="location.href='./dept/add'">부서 추가</button> 
 		</div>
 		<form action="./dept" method="get">
@@ -62,7 +59,7 @@
 			</c:when>
 			<c:otherwise> <!--  만약 pageList 가 존재하지 않는다면 -> search 즉, 특정 id를 검색한 경우 -->
 				<div>
-					<button type="button" onclick="location.href='${pageContext.request.contextPath}/dept'">전체보기</button>
+					<button type="button" onclick="location.href='${pageContext.request.contextPath}/locs'">전체보기</button>
 				</div>
 			</c:otherwise>
 		</c:choose>
