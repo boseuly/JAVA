@@ -54,16 +54,6 @@
 				<button type="submit">추가</button>
 			</div>
 		</form>
-		<c:choose>
-			<c:when test="${not empty pageList}"> <!-- 해당 pageList라는 -->
-				<%@include file="../module/paging.jsp" %> <!-- 페이지 리스트이다. -->
-			</c:when>
-			<c:otherwise> 
-				<div>
-					<button type="button" onclick="location.href='${pageContext.request.contextPath}/dept'">전체보기</button>
-				</div>
-			</c:otherwise>
-		</c:choose>
 	</div>
 </body>
 </html>

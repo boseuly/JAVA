@@ -88,16 +88,13 @@ public class DeptDAO {
 		
 		List<DeptDTO> datas = new ArrayList<DeptDTO>();
 		Iterator<DeptDTO> iter = cursor.iterator();	// 요소 하나하나 읽어오기 위한 Iterator 객체
-		while(iter.hasNext()) {
+		
+		if(iter.hasNext()) {
 			datas.add(iter.next());
 		}
 		return datas;
 	}
 	
-	public List<DeptDTO> searchPage(Map<String, Integer> page) {
-		List<DeptDTO> datas = session.selectList("deptMapper.deptSelectPage", page);
-		return datas;
-	}	
 	
 	// 총 행 개수 찾기
 	public int totalRow() {

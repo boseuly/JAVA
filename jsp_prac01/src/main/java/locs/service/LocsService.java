@@ -1,7 +1,7 @@
 package locs.service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import locs.model.LocsDAO;
 import locs.model.LocsDTO;
@@ -59,7 +59,26 @@ public class LocsService {
 		return 0;
 	}
 	public List<LocsDTO> getPage(int page, int pageCount) {
+		dao = new LocsDAO();
+		int pageNumber = page;	
+		int start, end;
 		
-		return null;
+		start = (pageNumber -1) * pageCount;
+		end = pageCount;
+		
+		List<LocsDTO> datas = dao.searchPage(start, end);
+		dao.close();
+		return datas;
+	}
+	public List<Integer> getpageList(int pageCount) {
+		dao = new LocsDAO();
+		List<Integer> pageList = new ArrayList<Integer>();
+		int totalRow = dao.totalRow();	// 전체 행수
+		
+		for(int i =0; i <= (totalRow - 1) / pageCount ; i++) {
+			pageList.add(i + 1);	// 전체행수 -1 을 하는 이유 : 인덱스와 길이의 차이를 없애기 위해
+		}
+		dao.close();
+		return pageList;
 	}
 }

@@ -17,7 +17,7 @@ public class DeptAddController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String view = "/WEB-INF/jsp/dept/add.jsp";
 		request.getRequestDispatcher(view).forward(request, response);
-		
+	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

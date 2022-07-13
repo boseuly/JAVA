@@ -16,14 +16,14 @@
 					<a href="#">keyboard_arrow_left</a> <!-- #은 클릭시 이벤트가 발생하지 않도록 하기 위함이다.(현재 페이지를 유지하기 위함) -->
 				</c:when>
 				<c:otherwise>
-					<a href="./dept?page=${prevPage}">keyboard_arrow_left</a> 
+					<a href="${pageUrl}?page=${prevPage}">keyboard_arrow_left</a>  <!-- url 변수를 이용해서 해당 페이지를 보여줘야 한다. -->
 				</c:otherwise>
 			</c:choose>
 		</li>
 		<!-- 페이지 선택 --> <!-- pageList의 타입 List<Integer> -->
 		<c:forEach items="${pageList}" var="item"><!-- 페이지 리스트의 요소 하나하나를 item에 저장한다. -->
 			<li>
-				<a href="./dept?page=${item}">${item}</a>
+				<a href="${pageUrl}?page=${item}">${item}</a>
 			</li>
 		</c:forEach>
 		
@@ -34,7 +34,7 @@
 					<a href="#">keyboard_arrow_left</a> <!-- #은 클릭시 이벤트가 발생하지 않도록 하기 위함이다.(현재 페이지를 유지하기 위함) -->
 				</c:when>
 				<c:otherwise>
-					<a href="./dept?page=${nextPage}">keyboard_arrow_left</a> 
+					<a href="${pageUrl}?page=${nextPage}">keyboard_arrow_right</a> 
 				</c:otherwise>
 			</c:choose>
 		</li>

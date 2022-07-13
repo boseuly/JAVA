@@ -14,11 +14,11 @@ public class DeptService {
 	
 	// 한 페이지에 들어갈 내용들을 가져오는 것
 	public List<DeptDTO> getPage(int page, int pageCount){	// pageCount : 몇 행씩 보여줄지
+		dao = new DeptDAO();
 		int pageNumber = page;	// page : 현재 몇 페이지인지
 		int start, end;			// 시작페이지와 끝페이지
 		start = (pageNumber - 1) * pageCount;	// 만약 현재 1페이지이면 0 * pageCount = 0 
 		end = pageCount;		// 
-		dao = new DeptDAO();
 		List<DeptDTO> datas = dao.searchPage(start, end);
 		dao.close();
 		return datas;
@@ -35,6 +35,7 @@ public class DeptService {
 		for(int num = 0; num <= (total - 1) / pageCount; num++) {	// pageCount = 한페이지에 들어가는 행 수  
 			pageList.add(num + 1);			// 총 페이지 수에서 -1을 한 뒤 한 페이지에 넣을 
 		}
+		dao.close();
 		return pageList;
 	}
 	

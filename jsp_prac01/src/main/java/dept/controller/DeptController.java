@@ -10,6 +10,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import common.util.Parameter;
 import dept.model.DeptDTO;
@@ -30,19 +31,20 @@ public class DeptController extends HttpServlet {
 		 * 3. 페이지를 바꾸기 위해 page를 재설정하는 건가 -> pageCount 는 그대로 page는 변경
 		 * 4. 처음 페이지를 요청한 경우	-> pageCount 와 page는 기본 10과 1로 설정
 		 */
-		
+	
 		// 쿠키를 저장하는 과정 (pageCount -> 행수)
 		String search = request.getParameter("search");
 		int page = param.defaultIntValue(request, "page","1");	// 페이지를 기본 1로 설정한다.
 		int pageCount =0;
 		boolean pageCountCookieExist = false; //해당 쿠키가 존재하지 않는 경우는 페이지를 처음 요청한 경우
-/*		
+		
+		
 		// 세션 이용
 		HttpSession session = request.getSession();
 		
 		// 만약 이전에 pageCount를 설정한 session이 있다면
-		if(session.getAttribute("pageCount") != null) {
-			pageCount = Integer.parseInt(session.getAttribute("pageCount").toString());
+		if(session.getAttribute("pageCount") != null) {	// session은 서버에 저장되기 때문에 getAttribute를 통해 바로 값을 가져올 수 있다.
+			pageCount = Integer.parseInt(session.getAttribute("pageCount").toString());	// 쿠키는 반복문을 사용해야 한다
 			pageCountCookieExist = true;
 		}
 		// pgc 요청이 없거나 pageCount쿠키가 존재하지 않는다면 기본 10으로 설정해라
@@ -52,9 +54,8 @@ public class DeptController extends HttpServlet {
 		// 세션에 저장하기
 		session.setAttribute("pageCount", pageCount);
 		request.setAttribute("page", page);
-*/		
 		
-//		쿠키 사용하기
+/*		쿠키 사용하기
 		Cookie[] cookies = request.getCookies();
 		for(Cookie c: cookies) {
 			if(c.getName().equals("pageCount")) {	// 만약 pageCount가 존재한다면
@@ -74,7 +75,7 @@ public class DeptController extends HttpServlet {
 		
 		Cookie cookie = new Cookie("pageCount", String.valueOf(pageCount));
 		response.addCookie(cookie);
-
+*/
 		
 		List<DeptDTO> datas = null;
 		// 데이터 확인하기

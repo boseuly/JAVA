@@ -10,6 +10,21 @@
 		<result property="state" column="STATE_PROVINCE" />
 		<result property="ctyId" column="COUNTRY_ID" />
 	</resultMap>
+	<select id="rowCount" resultType="_int">
+		SELECT COUNT(*) FROM LOCATIONS
+	</select>
+	<select id="pageList" resultMap="locsDtoMap"> <!-- 한페이지에 가져올 데이터를 가져온다. -->
+		SELECT * 
+		  FROM (SELECT ROWNUM AS NUM
+					 , LOCATION_ID
+			 		 , STREET_ADDRESS
+					 , POSTAL_CODE
+			 		 , CITY
+			 		 , STATE_PROVINCE
+			 		 , COUNTRY_ID
+				  FROM LOCATIONS)
+		WHERE NUM BETWEEN #{start} AND #{end}
+	</select>
 	<select id="locsSelectAll" resultMap="locsDtoMap">
 		SELECT * FROM LOCATIONS
 	</select>
@@ -31,4 +46,5 @@
 	 	INSERT INTO LOCATIONS
 		VALUES (#{locId},#{stAddr},#{postal},#{city},#{state},#{ctyId})
 	 </insert>
+	 
 </mapper>
