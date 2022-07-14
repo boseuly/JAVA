@@ -8,7 +8,8 @@
 	<c:set var="currentPage" value="${page}"/>	<!-- 변수설정 -->
 	<c:set var="prevPage" value="${currentPage -1}"/>
 	<c:set var="nextPage" value="${currentPage + 1}"/>
-	<ul>
+	<c:set var="maxPage" value="${pageList.get(pageList.size() -1)}"/> <!-- 가장 마지막 페이지를 알아낸다. -->
+	<ul> <!-- mapPage를 넘지 않도록 조정해주면 된다. -> 안 그러면 인덱스를 넘어버림 -->
 		<!-- 이전페이지로 이동하기 링크 -->
 		<li>
 			<c:choose>
@@ -20,10 +21,11 @@
 				</c:otherwise>
 			</c:choose>
 		</li>
-		<!-- 페이지 선택 --> <!-- pageList의 타입 List<Integer> -->
-		<c:forEach items="${pageList}" var="item"><!-- 페이지 리스트의 요소 하나하나를 item에 저장한다. -->
+		<!-- 페이지 선택 --> <!-- pageList의 타입 List<Integer> -->	<!-- 최대 페이지 수를 넘지 않도록 해준다. -->
+		<c:forEach begin="${currentPage -2 <= 0 ? 1 : currentPage -2}" end="${currentPage + 2 > maxPage ? maxPage : currentPage + 2}" var="item"><!-- 페이지 리스트의 요소 하나하나를 item에 저장한다. -->
 			<li>
-				<a href="${pageUrl}?page=${item}">${item}</a>
+				<a href="${pageUrl}?page=${pageList.get(item-1)}">
+				${pageList.get(item-1)}</a><!-- pageList하나하나 가져오는데 -->
 			</li>
 		</c:forEach>
 		
