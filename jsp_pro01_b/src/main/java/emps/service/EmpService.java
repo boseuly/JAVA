@@ -5,6 +5,7 @@ import java.util.List;
 
 import emps.model.EmpDAO;
 import emps.model.EmpDTO;
+import emps.model.EmpDetailDTO;
 
 public class EmpService {
 
@@ -35,6 +36,38 @@ public class EmpService {
 		}
 		
 		return pageList;
+	}
+
+
+	public EmpDetailDTO getDetail(int empId) {
+		EmpDAO dao = new EmpDAO();
+		EmpDetailDTO data = dao.selectDetail(empId);
+		dao.close();
+		
+		return data;
+	}
+
+	public boolean setEmployee(EmpDTO updateEmpData, EmpDetailDTO updateEmpDetaileData) {
+		EmpDAO dao = new EmpDAO();
+		// 사용자가 @emp.com 이라고 이메일 주소도 포함시켜 작성했다면 이걸 빼줘야 한다. 
+		String email = updateEmpData.getEmail();
+		if(email.contains("@emp.com")) {
+			email = email.replace("@emp.com", "");
+			updateEmpData.setEmail(email);
+		}
+
+		boolean res1 = dao.updateEmployee(updateEmpData);
+		boolean res2 =dao.updateEmployeeDetail(updateEmpDetaileData);
+		
+		
+		if(res1 && res2) {
+			dao.commit();
+			dao.close();
+			return true;
+		}
+		dao.rollback();
+		dao.close();
+		return false;
 	}
 	
 }

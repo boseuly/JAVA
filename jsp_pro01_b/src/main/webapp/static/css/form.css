@@ -12,7 +12,8 @@
 }
 
 .input-form.wide .input-label,
-.input-form.wide .input-text {
+.input-form.wide .input-text ,
+.input-form.wide .select-form{
 	display: block;
 	margin: 0.4rem 0;
 	width: 100%;

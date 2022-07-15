@@ -45,10 +45,7 @@ public class NoticeListController extends HttpServlet {
 				noticeDTO notice = new noticeDTO(id, title,writerId, content, (java.sql.Date) regdate, hit, files);
 				
 				list.add(notice);
-			
 			}
-		
-			
 			rs.close();
 			st.close();
 			con.close();

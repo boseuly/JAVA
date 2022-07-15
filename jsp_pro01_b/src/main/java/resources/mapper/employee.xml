@@ -11,10 +11,31 @@
 		<result property="deptName" column="DEPARTMENT_NAME" />
 		<result property="deptId" column="DEPARTMENT_ID" />
 	</resultMap>
+	<update id="updateEmployee" parameterType="empDto">
+		UPDATE EMPLOYEES
+		   SET EMAIL = #{email}
+		 WHERE EMPLOYEE_ID = #{empId}
+	</update>
+	<update id="updateEmployeeDetail" parameterType="empDetailDto">
+		UPDATE EMPLOYEES
+		   SET PHONE_NUMBER = #{phone}
+		 WHERE EMPLOYEE_ID = #{empId}
+	</update>
+	<select id="selectDetail" parameterType="_int" resultType="empDetailDto">
+		SELECT EMPLOYEE_ID AS empId
+		 	 , PHONE_NUMBER AS phone
+		 	 , HIRE_DATE AS hireDate
+		 	 , SALARY AS salary
+		 	 , COMMISSION_PCT AS commission
+		 	 , MANAGER_ID AS mngId
+		  FROM EMPLOYEES
+		 WHERE EMPLOYEE_ID = #{id}
+	</select>
+	
 	<select id="selectAll" resultMap="empDtoMap">
 		SELECT EMPLOYEE_ID  
 			 , CONCAT(E.FIRST_NAME, ' ' || E.LAST_NAME) AS EMPLOYEE_NAME
-			 , CONCAT(E.EMAIL, '@emp.com') AS EMAIL
+			 , CONCAT(E.EMAIL, '@emp.com') AS EMAIL <!-- 애초에 sql 문에서 @emp.com 을 붙여서 반환을 했기 때문에 수정을 할때 @emp.com을 붙이면 중복된다. -->
 			 , J.JOB_TITLE
 			 , E.JOB_ID 
 			 , D.DEPARTMENT_NAME 

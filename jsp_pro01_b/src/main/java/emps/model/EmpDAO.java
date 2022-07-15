@@ -39,6 +39,25 @@ public class EmpDAO extends AbstractDAO{
 		return rowCount;
 	}
 	
+	public EmpDetailDTO selectDetail(int empId) {
+		String mapId = String.format(mapper, "selectDetail");
+		EmpDetailDTO data = session.selectOne(mapId, empId);
+		return data;
+	}
+
+	// 해당 정보의 객체가 따로 
+	public boolean updateEmployee(EmpDTO updateEmpData) {
+		String mapId = String.format(mapper, "updateEmployee");
+		int result = session.update(mapId, updateEmpData);
+		
+		return result == 1 ? true : false;
+	}
+
+	public boolean updateEmployeeDetail(EmpDetailDTO updateEmpDetaileData) {
+		String mapId = String.format(mapper, "updateEmployeeDetail");
+		int result = session.update(mapId, updateEmpDetaileData);
+		return result == 1 ? true : false;
+	}
 	
 
 	

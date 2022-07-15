@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%
 	String url = "";
 	if(request.getAttribute("url") != null) {		// 현재 나의 위치를 알아낸다. 
@@ -11,7 +13,7 @@
 	<nav class="top-nav center">
 		<ul class="nav">
 			<li class="nav-item dropdown<%=url.contains("/jsp_") ? " active" : "" %>"> <!--  contains를 통해서 /jsp_가 포함 되어있는지 확인 후 포함되어 있으면 해당 nav를 active 시키기 -->
-				<a class="nav-link" href="#">JSP/Servlet</a>
+				<a class="nav-link" href="/">JSP/Servlet</a>
 				<ul class="nav dropdown-nav">
 					<li class="nav-item">
 						<a class="nav-link" href="./jsp_script">스크립트 태그</a>
@@ -36,6 +38,12 @@
 			<li class="nav-item<%=url.contains("/emps") ? " active" : "" %>">
 				<a class="nav-link" href="./emps">직원</a>
 			</li>
+			<c:if test="${not empty session.loginData}">
+			<c:url var="logoutUrl" value="/logout"/>
+				<li class="nav-item">
+					<a class="nav-link" href="${logoutUrl}">로그아웃</a>
+				</li>
+			</c:if>
 		</ul>
 	</nav>
 </header>

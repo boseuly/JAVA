@@ -36,5 +36,6 @@
 	   	 	<mapper resource="resources/mapper/department.xml"/> <!-- 내가 저장한 mapper.xml의 경로 지정 -->
 	  		<mapper resource="resources/mapper/location.xml"/>
 	  		<mapper resource="resources/mapper/employee.xml"/>
+	  		<mapper resource="resources/mapper/login.xml"/>
 	  </mappers>
 </configuration>

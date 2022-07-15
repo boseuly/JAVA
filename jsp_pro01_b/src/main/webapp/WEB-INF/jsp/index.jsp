@@ -9,11 +9,102 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Welcome JSP/Servlet</title>	
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/default.css">		
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/navigation.css">
+	<%@ include file="./module/head.jsp" %>
 </head>
+<script type="text/javascript"> /*나중에는 파일 따로 만들어서 하기*/
+	 function sendAjax() {
+		$.ajax({ 					/*다 Object 타입이다.*/
+			type:"get", 			// get 아니면 post
+			url: "/ajax/test",	 	// ajax를 처리할 url은 서버 주소 
+			data : { /*data Object 타입  -> 서버에 전달하고 싶은 데이터를 적는다.*/
+				x: 1, y : "A"
+			}, 
+			dataType: "json", 		// 서버로부터 전달 받을 데이터 타입 json, text, xml, html 등의 타입으로 받을 수 있다. 
+			success: function(data, status){
+				// 응답이 성공적(응답코드 200인경우)으로 이루어졌을 때 동작할 함수
+				console.log("sucess: " + data); // JSON 양식을 받아오고 받아온 데이터의 
+				for(d of data){ // 만약 들어오는 값이 List라면 이렇게 for문을 돌려준다.
+					console.log("sucess: " + data.empId);		// msg와 
+					console.log("sucess: " + data.empName);		// kor 필드를 가지고 온다.
+					console.log("sucess: " + data.deptId);
+					console.log("sucess: " + data.deptName);
+					console.log("sucess: " + data.jobId);
+					console.log("sucess: " + data.jobName);
+				}
+			},
+			error: function(data, status){
+				// 응답코드 200이 아닌 모든 응답일 때 동작할 함수
+				console.log("error 발생");	
+				console.log(data);
+				console.log(status);
+			},
+			complete: function(){
+				// 성공 실패 유무와 상관없이 동작할 함수
+				console.log("complete 무조건 실행");
+			}, 
+			beforeSend: function() {
+				// 서버에 데이터를 전송하기 전에 동작할 함수
+				console.log("beforeSend 데이터 전송 전");
+			}
+		});
+	}
+</script>
 <body>
 	<%@ include file="./module/navigation.jsp" %>
+	<section class="container">
+		<div>
+			<button type="button" onclick="sendAjax()">전송</button>
+		</div>
+		<c:url var="loginUrl" value="/login"/>
+		<form action="${loginUrl}" method="post">
+			<div>
+				<label>직원ID</label>
+				<input type="text" name="empId" placeholder="직원 ID를 입력하세요." >
+				<c:if test="${not empty error}">
+					<label>${error}</label>
+				</c:if>
+			</div>
+			<div>
+				<label>부서명</label>
+				<select name="empId" data-required="부서명을 선택하세요." >
+					<c:forEach items="${deptList}" var="deptDto">
+						<option value="${deptDto.deptId}" ${deptDto.deptId == param.deptId ? selected : ""}>
+						[${deptDto.deptId}] ${deptDto.deptName}
+						</option>
+						<c:choose>
+							<c:when test="${empty error and cookie.check.value == deptDto.deptId}">
+								<option value="${deptDto.deptId}" selected>
+									[${deptDto.deptId}] ${deptDto.deptName}
+								</option>
+							</c:when>
+							<c:when test="${not empty error and param.deptId == deptDto.deptId}">
+								<option value="${deptDto.deptId}" selected>
+									[${deptDto.deptId}] ${deptDto.deptName}
+								</option>
+							</c:when>
+							
+							<c:otherwise>
+								<option value="${deptDto.deptId}">
+									[${deptDto.deptId}] ${deptDto.deptName}
+								</option>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</select>
+			</div>
+			<div>
+				<label>이름</label>
+				<input type="text" name="empName" value="${param.empName}" placeholder="직원명을 입력하세요." >
+				<c:if test="${not empty error}">
+					<label>${error}</label>
+				</c:if>
+			</div>
+			<div class="input-form wide form-right">
+				부서기억하기<input type="checkbox" name="ckeck">
+				<button type="submit">로그인</button>
+			</div>
+		</form>
+	</section>
 	
 	<div class="outside-container">
 		<div class="head-container">
@@ -53,7 +144,7 @@
 	<%
 		List<String> lst = new ArrayList<String>();
 		lst.add("a");	lst.add("b"); lst.add("c"); lst.add("d");
-		request.setAttribute("lsit", lst);
+		request.setAttribute("lst", lst);
 	%>
 	<br>
 	<ul>

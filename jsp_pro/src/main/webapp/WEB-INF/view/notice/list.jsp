@@ -3,6 +3,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     
 
 <!DOCTYPE html>
@@ -177,26 +179,17 @@
 						</tr>
 					</thead>
 					<tbody>
-					
-					
-					<%--<%
-					List<noticeDTO> list = (List<noticeDTO>)request.getAttribute("list");	
-					
-					for(noticeDTO n: list){
-						pageContext.setAttribute("n", n);	// ${} el에서의 n은 지역변수를 사용하는 녀석이 아니라 저장소에 담겨있는 키워드이기 때문에 그냥 n 을 사용할 수가 없다.  
-					%> --%>
-					<c:forEach var="n" items="${list} "> <!--  list에 있는 요소들을 하나씩 꺼내서 n에 저장해준다. -->
+					<c:forEach var="n" items="${list}"> <!--  list에 있는 요소들을 하나씩 꺼내서 n에 저장해준다. -->
 					<tr>
 						<td>${n.id}</td>
-						<td class="title indent text-align-left"><a href="detail?id=${n.id}">${n.title }</a></td>
+						<td class="title indent text-align-left"><a href="detail?id=${n.id}">${n.title}</a></td>
 						<td>${n.writerId }</td>
-						<td>${n.regdate }</td>
-						<td>${n.hit }</td>
+						<td>
+							<fmt:formatDate pattern="yyyy-MM-dd" value="${n.regdate}"/>
+						</td>
+						<td><fmt:formatNumber value="${n.hit}"></fmt:formatNumber></td>
 					</tr>
 					</c:forEach>
-					<%--<%
-					}
-					--%>
 					</tbody>
 				</table>
 			</div>
@@ -209,26 +202,37 @@
 			<div class="margin-top align-center pager">	
 		
 	<div>
-		
-		
-		<span class="btn btn-prev" onclick="alert('이전 페이지가 없습니다.');">이전</span>
-		
+	<c:set var="page" value="${(param.p == null) ? 1 : param.p}"/><!-- param.p가 null 이라면 1을 넣고 그렇지 않으면 param.pfmf value로 해라 -->
+	<c:set var="startNum" value="${page - (page-1) % 5}"/>
+	<c:set var="lastNum" value="23"/>	
+		<c:choose>
+			<c:when test="${startNum-1<=0}"> <!-- 시작페이지에서 -1을 했을 때 0보다 작다면 -->
+				<span class="btn btn-prev" onclick="alert('이전 페이지가 없습니다.');">이전</span>
+			</c:when>
+			<c:otherwise>
+				<a class="btn btn-prev" href="?p=${startNum-1}&t=&q=">이전</a>
+			</c:otherwise>
+		</c:choose>
 	</div>
 	<ul class="-list- center">
-		<li><a class="-text- orange bold" href="?p=1&t=&q=" >1</a></li>
+		<c:forEach var="i" begin="0" end="4">		<!--  시작 번호가 5인 경우에는 5,6,7,8 나오게 된다. -->
+			<li><a class="-text- orange bold" href="?p=${i+startNum}&t=&q=" >${i+startNum}</a></li>
+		</c:forEach>
 				
 	</ul>
-	<div>
+	<div>		<!-- 처음 시작 페이지에  -->
+		<c:choose>
+			<c:when test="${startNum+5<lastNum}"> <!-- 시작페이지+5가 마지막 페이지보다 작다면 아래를 실행해라 -->
+				<a href="?p=${startNum+5}&t=&q=" class="btn btn-next">다음</a>
+			</c:when>
+			<c:otherwise>
+				<span class="btn btn-next" onclick="alert('다음 페이지가 없습니다.');">다음</span>
+			</c:otherwise>
 		
-		
-			<span class="btn btn-next" onclick="alert('다음 페이지가 없습니다.');">다음</span>
-		
+		</c:choose>
 	</div>
-	
 			</div>
 		</main>
-		
-			
 		</div>
 	</div>
 

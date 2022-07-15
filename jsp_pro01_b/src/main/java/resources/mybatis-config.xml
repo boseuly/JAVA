@@ -14,7 +14,9 @@
 			<!--  vo 클래스 만들면 여기에 등록부터 해야 한다. -->
 			<typeAlias type="dept.model.DeptDTO" alias="deptDto"/> <!-- alias값으로 해당 파일을 사용할 수 있게 된다. -->
 			<typeAlias type="locs.model.LocsDTO" alias="locsDto"/>
-			<typeAlias type="emps.model.EmpDTO" alias="empDto"/> 
+			<typeAlias type="emps.model.EmpDTO" alias="empDto"/>
+			<typeAlias type="emps.model.EmpDetailDTO" alias="empDetailDto"/>
+			<typeAlias type="job.model.JobDTO" alias="jobDto"/> 
 	</typeAliases>
 	
 	<!--  여기 시험범위 (문제 나옴) value만 바꾸면 됨 -->
@@ -36,5 +38,7 @@
 	   	 	<mapper resource="resources/mapper/department.xml"/> <!-- 내가 저장한 mapper.xml의 경로 지정 -->
 	  		<mapper resource="resources/mapper/location.xml"/>
 	  		<mapper resource="resources/mapper/employee.xml"/>
+	  		<mapper resource="resources/mapper/job.xml"/>
+	  		<mapper resource="resources/mapper/login.xml"/>
 	  </mappers>
 </configuration>
