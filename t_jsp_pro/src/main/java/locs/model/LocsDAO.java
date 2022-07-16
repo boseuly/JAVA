@@ -35,4 +35,13 @@ public class LocsDAO extends AbstractDAO{
 		}
 		return false;
 	}
+
+	public boolean delLocs(LocsDTO data) {
+		// 해당 아이디를 찾아서 삭제 한다.
+		int result = session.delete("locsMapper.deleteLocs", data);
+		if(result == 1) {	// 만약 삭제 성공
+			return true;
+		}
+		return false;
+	}
 }

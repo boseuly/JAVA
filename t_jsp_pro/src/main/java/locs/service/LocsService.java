@@ -10,16 +10,15 @@ import locs.model.LocsDTO;
 public class LocsService {
 private LocsDAO dao;
 	
-	public LocsService() {
-		dao = new LocsDAO();
-	}
 
 	public List<LocsDTO> getAll() {
+		dao = new LocsDAO();
 		List<LocsDTO> datas = dao.searchAll();
 		return datas;
 	}
 	
 	public LocsDTO getId(String id) {
+		
 		return _getId(Integer.parseInt(id));
 	}
 	
@@ -32,6 +31,7 @@ private LocsDAO dao;
 	}
 	
 	private LocsDTO _getId(int id) {
+		dao = new LocsDAO();
 		LocsDTO data = dao.searchId(id);
 		return data;
 	}
@@ -58,21 +58,48 @@ private LocsDAO dao;
 			locIdOk = false;
 		}
 		// 만약 ctyId가 존재하지 않는다면
-		if(checkCtyId) {
+		if(!checkCtyId) {
 			data.setCtyId("-1");
 			ctyIdOk = false;
 		}
-		
+		// 굳이 세션에 저장할 필요가 없음
 		// 만약 ctyId와 locId 둘다 제약조건에 성립한다면 해당 데이터를 추가해야 한다.
 		if(locIdOk && ctyIdOk) {
 			dao.addLocs(data);
+			dao.commit();
 			dao.close();
 			return data;
 		}else {
 			// 만약 하나라도 성립하지 않는다면 세션에 저장하고 내보내야 한다
-			session.setAttribute("data", data); // 세션에 저장
+			dao.rollback();
 			dao.close();
 			return data;
 		}
+		
 	}
+
+	public boolean delLocs(String locId, String stAddr, String postal, String city, String state, String ctyId) {
+		// 원래는 locId가 숫자형식인지 matches를 통해서 확인 해야 하고, 해당 아이디가 존재하며 나머지 정보들과 매칭이 되는지 확인을 해야 한다.
+		// 하지만 여기서는 이미 조회된 정보리스트에서 삭제 페이지로 바로 넘어가는 거기 때문에 그럴 필요가 없다고 생각해서 확인 작업을 넘어간 거다 
+		dao = new LocsDAO();
+		LocsDTO data = new LocsDTO();
+		data.setLocId(Integer.parseInt(locId));
+		data.setStAddr(stAddr);
+		data.setPostal(postal);
+		data.setCity(city);
+		data.setState(state);
+		data.setCtyId(ctyId);
+		
+		boolean result = dao.delLocs(data);
+		if(result) {	// 삭제 성공
+			dao.commit();
+			dao.close();
+			return true;
+		}
+		dao.rollback();
+		dao.close();
+		return false;
+	}
+	
+	
 }

@@ -33,9 +33,11 @@ function sendElementDataValid(element, url) {
 		}
 	});
 }
+// 기본키(deptId) 확인
 function duplicateCheck(element) {
 	sendElementDataValid(element, "${ajaxDuplicateUrl}")
 }
+// 외래키(locId, mngId) 있는지 확인
 function existsCheck(element) {
 	sendElementDataValid(element, "${ajaxExistsUrl}")
 }
@@ -70,7 +72,7 @@ function setLabelState(element, code, message) { // 선택요소의 다음 요�
 			<div class="input-form wide">
 				<label class="input-label">관리자ID</label>
 				<input type="text" class="input-text" name="mngId" onblur="existsCheck(this);" 
-				value="${data.mngId}" data-required="관리자 ID를 입력하세요.">
+				value="${data.mngId == -1 ? '' : data.mngId}" data-required="관리자 ID를 입력하세요.">
 				<label class="input-label-error"></label>
 			</div>
 			<div class="input-form wide">

@@ -10,6 +10,30 @@
 	<title>지역 추가</title>
 	<%@include file="../module/head.jsp" %>
 </head>
+<!-- 서블릿 주소가 서로 다르다. -->
+<c:url value="/ajax/duplicate" var="duplicateUrl"/>
+<c:url value="/ajax/exists" var="existsUrl"/>
+
+<script type="text/javascript">
+function duplicateCheck(element) {
+	sendElementDataValid(element, "${duplicateUrl}");
+}
+function duplicateCheck(element) {
+	sendElementDataValid(element, "${existsUrl}");
+}
+
+function sendElementDataValid(element, url) {
+	$.ajax({
+		type: "get",
+		data: {
+			// 어떤 정보인지를 알려줘야 한다 -> locId or ctyId
+			name : element.name
+			value : 
+		}
+	});
+	
+}
+</script>
 <body>
 	<%@include file="../module/navigation.jsp" %>
 	<c:url value="/locs/add" var="addUrl"/>
@@ -35,13 +59,13 @@
 			</div>
 			<div class="input-form wide">
 				<label class="input-label">시</label>
-				<input type="text" class="input-text" name="city" onblur="existsCheck(this);" 
+				<input type="text" class="input-text" name="city" 
 				value="${data.city}" data-required="관리자 ID를 입력하세요.">
 				<label class="input-label-error"></label>
 			</div>
 			<div class="input-form wide">
 				<label class="input-label">주</label>
-				<input type="text" class="input-text" name="state" onblur="existsCheck(this);" 
+				<input type="text" class="input-text" name="state" 
 				value="${data.state}" data-required="지역 ID를 입력하세요.">
 				<label class="input-label-error"></label>
 			</div>

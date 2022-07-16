@@ -26,4 +26,8 @@
 		INSERT INTO LOCATIONS
 		VALUES (#{locId},#{stAddr},#{postal},#{city},#{state},#{ctyId})
 	</insert>
+	<delete id="deleteLocs" >
+		DELETE FROM LOCATIONS
+		WHERE LOCATION_ID = #{locId} 
+	</delete>
 </mapper>
