@@ -28,10 +28,28 @@ function sendElementDataValid(element, url) {
 		data: {
 			// 어떤 정보인지를 알려줘야 한다 -> locId or ctyId
 			name : element.name
-			value : 
+			value : element.value
+		},
+		success: function(data, status){
+			setLabelState(element.nextElementSibling, data.code, data.message);
+		},
+		complete: function() { // 만약 사용자가 값을 입력하지 않은 경우
+			if(element.value === "" || element.value === undefined){
+				element.nextElementSibling.innerText = "";
+			}
 		}
 	});
 	
+}
+
+function setLableState(element, code, message){ // 전달 받은 게 data.code 이기 때문에 그냥 code라고 해도 됨
+	if(code === "success"){	// 만약 
+		element.innerText = message;
+		element.setAttribute("class", "input-lable-ok");
+	}else {
+		element.innerText = message;
+		element.setAttribute("class", "input-lable-error");
+	}
 }
 </script>
 <body>

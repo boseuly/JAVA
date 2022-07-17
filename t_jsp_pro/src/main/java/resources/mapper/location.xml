@@ -30,4 +30,9 @@
 		DELETE FROM LOCATIONS
 		WHERE LOCATION_ID = #{locId} 
 	</delete>
+	<update id="updateLocs" parameterType="locsDto"> <!--  전달 받은 ctyId를 바꿔야 한다.  -->
+		UPDATE LOCATIONS
+		   SET COUNTRY_ID = #{ctyId}
+		 WHERE LOCATION_ID = #{locId}
+	</update>
 </mapper>

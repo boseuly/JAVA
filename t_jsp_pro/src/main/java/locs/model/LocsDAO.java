@@ -44,4 +44,12 @@ public class LocsDAO extends AbstractDAO{
 		}
 		return false;
 	}
+
+	public boolean modLoc(LocsDTO data) {
+		int result = session.update("locsMapper.updateLocs", data);
+		if(result == 1) {
+			return true;
+		}
+		return false;
+	}
 }

@@ -8,7 +8,8 @@ import locs.model.LocsDAO;
 import locs.model.LocsDTO;
 
 public class LocsService {
-private LocsDAO dao;
+	
+	private LocsDAO dao;
 	
 
 	public List<LocsDTO> getAll() {
@@ -18,11 +19,12 @@ private LocsDAO dao;
 	}
 	
 	public LocsDTO getId(String id) {
-		
+		dao = new LocsDAO();
 		return _getId(Integer.parseInt(id));
 	}
 	
 	public LocsDTO getId(int id) {
+		dao = new LocsDAO();
 		return _getId(id);
 	}
 	
@@ -100,6 +102,37 @@ private LocsDAO dao;
 		dao.close();
 		return false;
 	}
-	
+
+	public LocsDTO modLocs(String locId, String stAddr, String postal, String city, String state, String ctyId) {
+		// ctyId가 제약조건을 위배하는지 확인해야 한다.
+		dao = new LocsDAO();
+		LocsDTO data = new LocsDTO();
+		
+		data.setLocId(locId);
+		data.setState(stAddr);
+		data.setPostal(postal);
+		data.setCity(city);
+		data.setState(state);
+		data.setCtyId(ctyId);
+		
+		boolean checkCtyId = dao.checkCtyId(ctyId);
+		
+		if(!checkCtyId) { // 제약조건 위배
+			data.setCtyId("-1");
+			dao.close();
+			return data;	// 제약조건 확인 할 게 1개밖에 없기 때문에 위배되면 바로 return 시킴
+		}else { // 제약조건에 위배되지 않는다면 
+			boolean modLocs = dao.modLoc(data);
+			if(!modLocs) {	// 알 수 없는 오류로 수정이 안 됨
+				data.setLocId("-1"); // 알 수 없는 오류
+				dao.rollback();
+				dao.close();
+			}else {
+				dao.commit();
+				dao.close();
+			}
+		}
+		return data;
+	}
 	
 }

@@ -16,6 +16,10 @@ public class LocsDTO {
 		this.locId = locId;
 	}
 	
+	public void setLocId(String locId) {
+		this.locId = Integer.parseInt(locId);
+	}
+	
 	public String getStAddr() {
 		return stAddr;
 	}
