@@ -14,6 +14,26 @@
 function sendAjaxExists(element){
 	// 해당 데이터와 요청할 서블릿 url을 전달해야 한다. 
 	// 다른 곳에서는 확인 게 두 개여서 따로 분류했지만 여기서는 필요 없다.
+	// value와 name을 전달
+	$.ajax({
+		type : "get",
+		url : "${existsUrl}",
+		data : {
+			name : element.name,
+			value : element.value
+		},
+		success : function (data, status){
+			if(data.code === "success"){
+				element.innerText = data.message;
+				element.setAttribute("class", "input-lable-ok");
+			}else if(data.code === "error"){
+				element.innerText = data.message;
+				element.setAttribute("class", "input-lable-error");
+			}
+		}
+		
+		
+	});
 }
 </script>
 <body>

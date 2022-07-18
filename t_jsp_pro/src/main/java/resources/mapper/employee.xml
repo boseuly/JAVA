@@ -11,6 +11,9 @@
 		<result property="deptName" column="DEPARTMENT_NAME" />
 		<result property="deptId" column="DEPARTMENT_ID" />
 	</resultMap>
+	<select id="selectEmpId" resultMap="empDtoMap" resultType="_int">
+		SELECT COUNT(*) FROM EMPLOYEES WHERE EMPLOYEE_ID=#{id}
+	</select>
 	<select id="selectDetail" parameterType="_int" resultType="empDetailDto">
 		SELECT EMPLOYEE_ID AS empId
 		     , PHONE_NUMBER AS phone
@@ -44,4 +47,18 @@
 		  JOIN DEPARTMENTS D
 		    ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
 	</select>
+	<select id="existJob" resultType="_int">
+		SELECT COUNT(*)
+		  FROM JOBS 
+		 WHERE JOB_TITLE = #{id} 
+	</select>
+	<select id="existDept" resultType="_int">
+		SELECT COUNT(*)
+		  FROM DEPARTMENTS 
+		 WHERE DEPARTMENT_NAME = #{id} 
+	</select>
+	<insert id="insertEmps" >
+		INSERT INTO EMPLOYEES
+		VALUES (#{empId}, #{email}, #{jobName}, #{jobId}, #{deptId}, #{phone}, #{hireDate}, #{salary}, #{commission}, #{mngId})
+	</insert>
 </mapper>

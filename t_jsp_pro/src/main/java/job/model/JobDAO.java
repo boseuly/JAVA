@@ -17,4 +17,12 @@ public class JobDAO extends AbstractDAO {
 		return datas;
 	}
 
+	public JobDTO selectId(String jobName) {
+		String mapId =String.format(mapper, "selectId");
+		JobDTO data = session.selectOne(mapId, jobName);
+		
+		return data;
+	}
+	
+
 }

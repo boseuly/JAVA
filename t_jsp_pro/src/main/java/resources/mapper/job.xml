@@ -9,4 +9,16 @@
 		     , MAX_SALARY AS maxSalary
 		  FROM JOBS
 	</select>
+	<select id="checkJobName" resultType="_int">
+		SELECT COUNT(*)
+		  FROM JOBS 
+		 WHERE JOB_TITLE = #{id} 
+	</select>
+	<select id="selectId" resultType="jobDto">
+		SELECT JOB_ID AS jobId
+		     , JOB_TITLE AS jobName
+		     , MIN_SALARY AS minSalary
+		     , MAX_SALARY AS maxSalary
+		  FROM JOBS	
+	</select>
 </mapper>

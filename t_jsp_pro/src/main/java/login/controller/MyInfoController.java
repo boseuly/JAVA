@@ -32,9 +32,9 @@ public class MyInfoController extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("loginData") == null) {
-			response.sendRedirect(request.getContextPath() + "/login");
+			response.sendRedirect(request.getContextPath() + "/login"); 
 		} else {
-			EmpDTO empData = (EmpDTO)session.getAttribute("loginData");
+			EmpDTO empData = (EmpDTO)session.getAttribute("loginData"); // session을 통해서 로그인 한 정보를 가져온다.
 			
 			EmpDetailDTO empDetail = empService.getDetail(empData.getEmpId());
 			List<DeptDTO> deptDatas = deptService.getAll();

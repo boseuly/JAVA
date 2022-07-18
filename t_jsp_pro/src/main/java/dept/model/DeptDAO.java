@@ -51,10 +51,14 @@ public class DeptDAO {
 		DeptDTO data = session.selectOne("deptMapper.deptSelectId", id);
 		return data;
 	}
+	public DeptDTO NameToId(String deptName) { // 해당 부서 이름을 가진 부서 정보를 가지고 온다.
+		DeptDTO data = session.selectOne("deptMapper.NameToId", deptName);
+		return data;
+	}
 
 	public boolean insertDept(DeptDTO deptDto) {
 		int result = session.insert("deptMapper.deptInsert", deptDto);
-		if(result == 1) {
+		if(result == 1) { 
 			return true;
 		}
 		return false;

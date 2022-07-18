@@ -35,6 +35,16 @@ public class EmpDAO extends AbstractDAO {
 		
 		return datas;
 	}
+	public boolean getId(int empId) {
+		String mapId = String.format(mapper, "selectEmpId");
+		int result = session.selectOne(mapId, empId);
+		if(result >= 1) {
+			return true; // 존재하면 안 됨 -> 기본키 위배 
+		}
+		return false;
+	}
+	
+	
 
 	public int totalRow() {
 		String mapId = String.format(mapper, "totalRow");
@@ -47,5 +57,45 @@ public class EmpDAO extends AbstractDAO {
 		EmpDetailDTO data = session.selectOne(mapId, empId);
 		return data;
 	}
+
+	public boolean existjob(String jobName) {
+		String mapId = String.format(mapper, "existJob");
+		int result = session.selectOne(mapId, jobName);
+		if(result == 1) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean existDept(String deptName) {
+		String mapId = String.format(mapper, "existDept");
+		int result = session.selectOne(mapId,deptName);
+		if(result == 1) {
+			return true;
+		}
+		return false;
+	}
+
+
+	public boolean existMngId(int mngId) { // mngId가 있는지 확인을 해야 한다. -> EMPLOYEES테이블의 EMPLOYEE_ID 를 참조 
+		String mapId = String.format(mapper, "selectEmpId"); 
+		int result = session.selectOne(mapId, mngId);
+		
+		if(result == 1) {
+			return true;
+		}
+		return false;
+	}
+	
+	// 직원 추가
+	public boolean addEmps(EmpAllDTO data) {
+		String mapId = String.format(mapper, "insertEmps");
+		int result = session.update(mapId, data);
+		if(result == 1) {
+			return true;
+		}
+		return false;
+	}
+	
 
 }
