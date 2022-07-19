@@ -17,8 +17,7 @@
 			type:"get", 			// get 아니면 post
 			url: "/ajax/test",	 	// ajax를 처리할 url은 서버 주소 
 			data : { /*data Object 타입  -> 서버에 전달하고 싶은 데이터를 적는다.*/
-				x: 1, y : "A"
-			}, 
+				x: 1, y : "A" 
 			dataType: "json", 		// 서버로부터 전달 받을 데이터 타입 json, text, xml, html 등의 타입으로 받을 수 있다. 
 			success: function(data, status){
 				// 응답이 성공적(응답코드 200인경우)으로 이루어졌을 때 동작할 함수

@@ -13,7 +13,7 @@
 <body>
 	<c:url value="/emps/add" var="addUrl"/>
 	<section class="container">
-		<form class="small-form" action="addUrl" method="post">
+		<form class="small-form" action="${addUrl}" method="post">
 			<div class="input-form wide">
 				<label class="input-label">직원ID</label>	
 				<input type="text" class="input-text" name="empId" onblur="duplicateCheck(this);" 

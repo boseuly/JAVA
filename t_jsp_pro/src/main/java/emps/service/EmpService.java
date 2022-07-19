@@ -86,7 +86,6 @@ public class EmpService {
 		data.setDeptName(deptName); // select form where 을 사용하니까 이것만 보내도 됨
 		
 		data.setPhone(phone);
-		Date now = new Date();
 		LocalDate todayLocalDate = LocalDate.now( ZoneId.of( "Korea/Seoul" ) );
 		java.sql.Date sqlDate = java.sql.Date.valueOf( todayLocalDate );
 		data.setHireDate(sqlDate);
@@ -102,7 +101,8 @@ public class EmpService {
 		DeptDTO deptDto = deptDao.NameToId(deptName);
 		JobDTO jobDto = jobDao.selectId(jobName);
 		
-		
+		data.setDeptId(deptDto.getDeptId()); // id를 모르기 때문에 찾아서 넣어줌
+		data.setJobId(jobDto.getJobId());	
 		
 		
 		boolean result = dao.addEmps(data); 

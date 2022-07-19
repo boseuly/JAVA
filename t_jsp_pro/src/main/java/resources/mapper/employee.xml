@@ -12,7 +12,9 @@
 		<result property="deptId" column="DEPARTMENT_ID" />
 	</resultMap>
 	<select id="selectEmpId" resultMap="empDtoMap" resultType="_int">
-		SELECT COUNT(*) FROM EMPLOYEES WHERE EMPLOYEE_ID=#{id}
+		SELECT COUNT(*) 
+		  FROM EMPLOYEES 
+		 WHERE EMPLOYEE_ID=#{id}
 	</select>
 	<select id="selectDetail" parameterType="_int" resultType="empDetailDto">
 		SELECT EMPLOYEE_ID AS empId

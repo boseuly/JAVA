@@ -43,7 +43,19 @@ public class EmpsAddController extends HttpServlet {
 		int result = empService.addEmps(empId, empName, email, jobName, deptName, 
 				phone, hireDate, salary, commission, mngId);
 		
-		
+		if(result == -4) {
+			
+		}else if(result == -3) {
+			
+		}else if(result == -2) {
+			
+		}else if (result == -1) {
+			
+		}else if (result == 0) {
+			
+		}else if(result == 1) {
+			
+		}
 		
 	
 	}
