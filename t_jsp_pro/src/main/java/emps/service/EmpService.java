@@ -17,6 +17,13 @@ import job.model.JobDTO;
 
 public class EmpService {
 
+	
+	public EmpDTO getId(String empId) {
+		EmpDAO dao = new EmpDAO();
+		EmpDTO data = dao.selectId(Integer.parseInt(empId));
+		dao.close();
+		return data;
+	}
 	public List<EmpDTO> getEmpAll() {
 		EmpDAO dao = new EmpDAO();
 		List<EmpDTO> datas = dao.selectAll();
@@ -116,6 +123,21 @@ public class EmpService {
 		dao.rollback();
 		dao.close();
 		return 0; // 알 수 없는 오류로 실패
+	}
+	public boolean add(EmpDTO empData, EmpDetailDTO empDetailData) {
+		EmpDAO dao = new EmpDAO();
+		boolean res1 = dao.insertEmployee(empData);
+		boolean res2 = dao.updateEmployeeDetail(empDetailData);
+		
+		if(res1 && res2) {
+			dao.commit();
+			dao.close();
+			return true;
+		}else {
+			dao.rollback();
+			dao.close();
+			return false;
+		}
 	}
 
 

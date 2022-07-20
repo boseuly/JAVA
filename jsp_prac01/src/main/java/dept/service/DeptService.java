@@ -11,19 +11,29 @@ public class DeptService {
 	/* 페이징 공식
 	 [ ( page - 1) * count + 1 ] ~ [ (page -1) * count + count ]  
 	 */
-	
+/*	
 	// 한 페이지에 들어갈 내용들을 가져오는 것
 	public List<DeptDTO> getPage(int page, int pageCount){	// pageCount : 몇 행씩 보여줄지
 		dao = new DeptDAO();
 		int pageNumber = page;	// page : 현재 몇 페이지인지
 		int start, end;			// 시작페이지와 끝페이지
 		start = (pageNumber - 1) * pageCount;	// 만약 현재 1페이지이면 0 * pageCount = 0 
-		end = pageCount;		// 
+		end = pageCount;		// pageCount개가 나오도록 
 		List<DeptDTO> datas = dao.searchPage(start, end);
 		dao.close();
 		return datas;
 	}
-
+*/
+	public List<DeptDTO> getPage(int page, int pageCount) {
+		int pageNumber = page;
+		int start, end;
+		start = (pageNumber - 1) * pageCount;
+		end = pageCount;
+		dao = new DeptDAO();
+		List<DeptDTO> datas = dao.searchPage(start, end);
+		dao.close();
+		return datas;
+	}
 	
 	// 총 몇 페이지인지 알려준다. 
 	public List<Integer> getPageList(int pageCount){

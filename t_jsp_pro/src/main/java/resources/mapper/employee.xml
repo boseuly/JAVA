@@ -11,10 +11,44 @@
 		<result property="deptName" column="DEPARTMENT_NAME" />
 		<result property="deptId" column="DEPARTMENT_ID" />
 	</resultMap>
+	
+	<insert id="insertEmployee" parameterType="empDto">
+		INSERT INTO 
+		EMPLOYEES(EMPLOYEE_ID
+					   , FIRST_NAME
+					   , LAST_NAME
+					   , EMAIL
+					   , JOB_ID
+					   , DEPARTMENT_ID
+					   , HIRE_DATE)
+		VALUES (#{empId}
+			   , SUBSTR(#{empName}, 1,INSTR(' ')-1)
+			   , SUBSTR(#{empName}, INSTR(#{empName}, ' ') + 1, LENGTH(#{empName}))
+			   , SUBSTR(#{email}, 1, INSTR(#{email}, '@') -1 )
+			   , #{jobId}
+			   , #{deptId}
+			   , SYSDATE)
+	</insert>
+	
 	<select id="selectEmpId" resultMap="empDtoMap" resultType="_int">
 		SELECT COUNT(*) 
 		  FROM EMPLOYEES 
 		 WHERE EMPLOYEE_ID=#{id}
+	</select>
+	<select id="selectId" resultMap="empDtoMap">
+		SELECT E.EMPLOYEE_ID
+		     , CONCAT(E.FIRST_NAME, ' ' || E.LAST_NAME) AS EMPLOYEE_NAME
+		     , CONCAT(E.EMAIL, '@emp.com') AS EMAIL
+		     , J.JOB_TITLE
+		     , E.JOB_ID
+		     , D.DEPARTMENT_NAME
+		     , E.DEPARTMENT_ID
+		  FROM EMPLOYEES E
+		  JOIN JOBS J
+		    ON E.JOB_ID = J.JOB_ID
+		  JOIN DEPARTMENTS D
+		    ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
+		 ORDER BY E.EMPLOYEE_ID
 	</select>
 	<select id="selectDetail" parameterType="_int" resultType="empDetailDto">
 		SELECT EMPLOYEE_ID AS empId

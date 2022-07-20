@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +31,7 @@ public class DeptController extends HttpServlet {
 		 * 3. 페이지를 바꾸기 위해 page를 재설정하는 건가 -> pageCount 는 그대로 page는 변경
 		 * 4. 처음 페이지를 요청한 경우	-> pageCount 와 page는 기본 10과 1로 설정
 		 */
-	
+
 		// 쿠키를 저장하는 과정 (pageCount -> 행수)
 		String search = request.getParameter("search");
 		int page = param.defaultIntValue(request, "page","1");	// 페이지를 기본 1로 설정한다.
@@ -38,6 +39,7 @@ public class DeptController extends HttpServlet {
 		boolean pageCountCookieExist = false; //해당 쿠키가 존재하지 않는 경우는 페이지를 처음 요청한 경우
 		
 		
+
 		// 세션 이용
 		HttpSession session = request.getSession();
 		
@@ -53,8 +55,8 @@ public class DeptController extends HttpServlet {
 		// 세션에 저장하기
 		session.setAttribute("pageCount", pageCount);
 		request.setAttribute("page", page);
-		
-/*		쿠키 사용하기
+/*		
+//	쿠키 사용하기
 		Cookie[] cookies = request.getCookies();
 		for(Cookie c: cookies) {
 			if(c.getName().equals("pageCount")) {	// 만약 pageCount가 존재한다면
@@ -96,6 +98,6 @@ public class DeptController extends HttpServlet {
 
 		String view = "/WEB-INF/jsp/dept/index.jsp";
 		request.getRequestDispatcher(view).forward(request, response);
-	
+
 	}
 }

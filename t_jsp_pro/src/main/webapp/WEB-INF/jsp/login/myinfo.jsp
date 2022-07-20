@@ -8,6 +8,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>내 정보</title>
+	
 	<%@ include file="../module/head.jsp" %>
 </head>
 <script type="text/javascript">

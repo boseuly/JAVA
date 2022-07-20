@@ -43,8 +43,6 @@ public class EmpDAO extends AbstractDAO {
 		}
 		return false;
 	}
-	
-	
 
 	public int totalRow() {
 		String mapId = String.format(mapper, "totalRow");
@@ -95,6 +93,19 @@ public class EmpDAO extends AbstractDAO {
 			return true;
 		}
 		return false;
+	}
+
+	public EmpDTO selectId(int parseInt) {
+		String mapId = String.format(mapper, "selectId");
+		EmpDTO data = session.selectOne(mapId);
+		return data;
+	}
+
+	public boolean insertEmployee(EmpDTO empData) {
+		String mapId = String.format(mapper, "insertEmployee");
+		int result = session.insert(mapId, empData);
+		
+		return result == 1 ? true : false;
 	}
 	
 
