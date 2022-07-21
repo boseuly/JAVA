@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import dept.model.DeptDTO;
 import dept.service.DeptService;
@@ -44,13 +45,46 @@ public class MyInfoController extends HttpServlet {
 			request.setAttribute("deptDatas", deptDatas);
 			request.setAttribute("jobDatas", jobDatas);
 			
+			String imagePath = empService.getProfileImage(request, "/static/img/emp/", empData);
+			request.setAttribute("imagePath", imagePath); // 받은 이미지 경로를 저장한다.
+			
 			RequestDispatcher rd = request.getRequestDispatcher(view);
 			rd.forward(request, response);
 		}
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		EmpDTO empData = (EmpDTO)session.getAttribute("loginData");
 		
+		String email = request.getParameter("email"); // EmpDTO
+		String phone = request.getParameter("phone"); // EmpDetailDTO
+		
+		int empId = empData.getEmpId();
+		EmpDTO updateEmpData = new EmpDTO();
+		updateEmpData.setEmpId(empId);
+		updateEmpData.setEmail(email);
+		
+		EmpDetailDTO updateEmpDetailData = new EmpDetailDTO();
+		updateEmpDetailData.setEmpId(empId);
+		updateEmpDetailData.setPhone(phone);
+		
+		boolean result = empService.setEmployee(updateEmpData, updateEmpDetailData);
+		
+		if(result) {
+			// 수정 작업 성공
+			Part part = request.getPart("uploadImage");
+			
+			if(!part.getSubmittedFileName().isEmpty()) {
+				String realPath = request.getServletContext().getRealPath("/static/img/emp/");
+				part.write(realPath + empData.getEmpId() + ".png");
+			}
+			
+			response.sendRedirect(request.getContextPath() + "/logout");
+			session.invalidate();
+		} else {
+			doGet(request, response);
+		}
 	}
 
 }

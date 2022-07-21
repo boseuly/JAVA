@@ -48,6 +48,7 @@
 		    ON E.JOB_ID = J.JOB_ID
 		  JOIN DEPARTMENTS D
 		    ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
+		 WHERE E.EMPLOYEE_ID = #{id}
 		 ORDER BY E.EMPLOYEE_ID
 	</select>
 	<select id="selectDetail" parameterType="_int" resultType="empDetailDto">
@@ -97,4 +98,20 @@
 		INSERT INTO EMPLOYEES
 		VALUES (#{empId}, #{email}, #{jobName}, #{jobId}, #{deptId}, #{phone}, #{hireDate}, #{salary}, #{commission}, #{mngId})
 	</insert>
+	<update id="updateEmployee" parameterType="empDto">
+		UPDATE EMPLOYEES
+		   SET EMAIL = #{email}
+		   	 , JOB_ID = #{jobId} 
+		   	 , DEPARTMENT_ID = #{deptId}
+		   	 , FIRST_NAME = SUBSTR(#{empName}, 1,INSTR(' ')-1)
+		   	 , LAST_NAME = SUBSTR(#{empName}, INSTR(#{empName}, ' ') + 1, LENGTH(#{empName}))
+		 WHERE EMPLOYEE_ID = #{empId}
+	</update>
+	<update id="updateEmployeeDetail" parameterType="empDetailDto">
+		UPDATE EMPLOYEES  <!--  이어서 작업 7.21 -->
+		   SET PHONE_NUMBER = 
+		   , HIRE_DATE
+		   , SALARY
+		   , COMMISSION 
+	</update>
 </mapper>

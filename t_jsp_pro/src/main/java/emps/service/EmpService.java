@@ -1,10 +1,12 @@
 package emps.service;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import dept.model.DeptDAO;
 import dept.model.DeptDTO;
@@ -139,6 +141,30 @@ public class EmpService {
 			return false;
 		}
 	}
+	
+	// 프로필 사진 
+	public String getProfileImage(HttpServletRequest request, String imagePath, EmpDTO data) { // 실제 경로도 알아야 한다. 그 위치에 있는지 확인 해야 함
+		String realPath = request.getServletContext().getRealPath(imagePath);
+		File file = new File(realPath + data.getEmpId() + ".png"); // 진짜 경로에 파일을 저장해 준다.
+		
+		if(file.exists()) {
+			return "/static/img/emp/" + data.getEmpId()+".png";
+		}else {
+			return "/static/img/emp/default.png";
+		}
+	}
 
+	public String getProfileImage(HttpServletRequest request,  String imagePath, int id) {
+		EmpDTO data = new EmpDTO();
+		data.setEmpId(id);
+		return getProfileImage(request, imagePath, null);
+	}
+	public boolean setEmployee(EmpDTO empData, EmpDetailDTO empDetailData) {
+		 // 여기도 작성해야 함 7.21
+		return false;
+	} 
+	public String setProfileImage(HttpServletRequest request, String imagePath, EmpDTO data) {
+		return null;
+	}
 
 }

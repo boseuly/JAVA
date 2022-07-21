@@ -95,9 +95,9 @@ public class EmpDAO extends AbstractDAO {
 		return false;
 	}
 
-	public EmpDTO selectId(int parseInt) {
+	public EmpDTO selectId(int empId) {
 		String mapId = String.format(mapper, "selectId");
-		EmpDTO data = session.selectOne(mapId);
+		EmpDTO data = session.selectOne(mapId, empId);
 		return data;
 	}
 
