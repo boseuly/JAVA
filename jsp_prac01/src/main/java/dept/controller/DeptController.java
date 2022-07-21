@@ -33,15 +33,14 @@ public class DeptController extends HttpServlet {
 		 */
 
 		// 쿠키를 저장하는 과정 (pageCount -> 행수)
-		String search = request.getParameter("search");
-		int page = param.defaultIntValue(request, "page","1");	// 페이지를 기본 1로 설정한다.
-		int pageCount =0;
-		boolean pageCountCookieExist = false; //해당 쿠키가 존재하지 않는 경우는 페이지를 처음 요청한 경우
-		
-		
 
 		// 세션 이용
 		HttpSession session = request.getSession();
+		String search = request.getParameter("search");
+		int page = param.defaultIntValue(request, "page","1");	// 페이지를 기본 1로 설정한다.
+		int pageCount =param.defaultSessionIntValue(request, "pageCount", "10");
+		
+		boolean pageCountCookieExist = false; //해당 쿠키가 존재하지 않는 경우는 페이지를 처음 요청한 경우
 		
 		// 만약 이전에 pageCount를 설정한 session이 있다면
 		if(session.getAttribute("pageCount") != null) {	// session은 서버에 저장되기 때문에 getAttribute를 통해 바로 값을 가져올 수 있다.
@@ -50,7 +49,7 @@ public class DeptController extends HttpServlet {
 		}
 		// pgc 요청이 없거나 pageCount쿠키가 존재하지 않는다면 기본 10으로 설정해라
 		if(request.getParameter("pgc") != null || !pageCountCookieExist) {
-			pageCount = param.defaultIntValue(request, "pageCount", "10");
+			pageCount = param.defaultIntValue(request, "pgc", "10");
 		}
 		// 세션에 저장하기
 		session.setAttribute("pageCount", pageCount);
@@ -80,7 +79,7 @@ public class DeptController extends HttpServlet {
 		
 		List<DeptDTO> datas = null;
 		// 데이터 확인하기
-		if(search == null || search.equals("")) { // 만약 데이터가 null 이거나 빈문자열이라면
+		if(search == null) { // 만약 데이터가 null 이거나 빈문자열이라면
 			datas = service.getPage(page, pageCount); // 전체 목록 리스트 가져오기
 			request.setAttribute("pageList", service.getPageList(pageCount));	// 여기서 pageList는 List<Integer> 객체임 -> 몇 페이지로 이동할지 설정
 		}else { // 만약 search 파라미터가 존재한다면 해당 아이디 객체만 전달해주면 되니까 getId만해주면 된다.

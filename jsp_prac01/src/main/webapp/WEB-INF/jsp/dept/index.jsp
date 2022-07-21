@@ -18,15 +18,15 @@
 			<div class="add-button-">
 				<button type="button" onclick="location.href='./dept/add'">부서 추가</button> 
 			</div>
-			<form action="./d" method="get">
+			<form action="./dept" method="get">
 				<div>
 					<input type="text" name="search" data-required="부서코드를 입력하세요.">
 					<button type="submit">조회</button>
 					<select onchange="location.href='./dept?pgc=' + this.value">
-						<option value="5" ${pageCount == 5 ? 'selected' : ''}>5개</option>
-						<option value="10" ${pageCount == 10 ? 'selected' : ''}>10개</option>
-						<option value="15" ${pageCount == 15 ? 'selected' : ''}>15개</option>
-						<option value="20" ${pageCount == 20 ? 'selected' : ''}>20개</option>
+						<option value="5" ${sessionScope.pageCount == 5 ? 'selected' : ''}>5개</option>
+						<option value="10" ${sessionScope.pageCount == 10 ? 'selected' : ''}>10개</option>
+						<option value="15" ${sessionScope.pageCount == 15 ? 'selected' : ''}>15개</option>
+						<option value="20" ${sessionScope.pageCount == 20 ? 'selected' : ''}>20개</option>
 					</select>
 				</div>
 			</form>
