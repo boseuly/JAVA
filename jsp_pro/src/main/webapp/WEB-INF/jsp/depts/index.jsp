@@ -17,6 +17,8 @@
 			<div>
 				<input type="text" name="search" data-required="부서 아이디 입력">
 				<button type="submit">조회</button>
+				<c:url var="deptAddUrl" value="./depts/add"/>
+				<button type="button" onclick="location.href='${deptAddUrl}'">추가</button>
 				<select onchange="location.href='${deptUrl}?pgc=' + this.value">
 					<option value="5" ${sessionScope.pageCount == 5 ? 'selected' : ''}>5</option>
 					<option value="10" ${sessionScope.pageCount == 10 ? 'selected' : ''}>10</option>

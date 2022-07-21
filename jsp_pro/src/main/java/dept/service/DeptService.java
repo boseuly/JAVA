@@ -1,5 +1,6 @@
 package dept.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dept.model.DeptDAO;
@@ -36,6 +37,19 @@ public class DeptService {
 		List<DeptDTO> datas = dao.searchPage(start, end);
 		dao.close();
 		return datas;
+	}
+
+	public List<Integer> getPageList(int pageCount) {
+		dao = new DeptDAO();
+		
+		List<Integer> pageList = new ArrayList<Integer>();
+		int total = dao.totalRow();
+		
+		for(int num = 0; num <= (total - 1) / pageCount; num++) {
+			pageList.add(num + 1); // 인덱스는 0부터 시작하는데 pageList는 1부터 시작해야 하기 때문에 +1을 해줌
+		}
+		dao.close();
+		return pageList;
 	}
 
 }

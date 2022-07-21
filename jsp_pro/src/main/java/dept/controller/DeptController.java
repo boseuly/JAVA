@@ -58,6 +58,7 @@ public class DeptController extends HttpServlet {
 		List<DeptDTO> deptDatas = new ArrayList<DeptDTO>();
 		if(search == null) { // 전체
 			deptDatas = deptService.getPage(page, pageCount); // row수, 현재 페이지 전달
+			request.setAttribute("pageList", deptService.getPageList(pageCount)); // 페이지 리스트에 들어가는 숫자를 가져온다.
 		}else {  // 조회를 목적으로 한 경우
 			DeptDTO data = deptService.getId(search);
 			if(data == null) { // 이거 숫자형 아닌 경우
@@ -73,11 +74,6 @@ public class DeptController extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);
 		
-	}
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	
-	
 	}
 
 }

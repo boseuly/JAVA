@@ -40,7 +40,6 @@
 						<col class="col-240">
 						<col class="col-240">
 						<col class="col-240">
-						<col class="col-120">
 					</colgroup>
 					<thead>
 						<tr>
@@ -53,21 +52,14 @@
 					</thead>
 					<tbody>		<!--  List<DeptDTO> datas로 넘김 -->
 						<c:if test="${not empty datas}">
+							<c:url var="detailUrl" value="/emps/detail"/>
 							<c:forEach var="data" items="${datas}"><!-- datas로 sevlet에서 저장했기 때문에 items는 해당 속성명이다. -->
-									<tr>
+									<tr onclick="location.href='${detailUrl}?id=${data.empId}'">
 										<td>${data.empId}</td>
 										<td>${data.empName}</td>
 										<td>${data.email}</td>
 										<td>${data.jobName}</td>
 										<td>${data.deptName}</td>
-										<c:url var="modUrl" value="./emps/mod">
-											<c:param name="id" value="${data.empId}"/>
-										</c:url>
-										<td><button type="button" onclick="location.href='${modUrl}'">수정</button></td>
-										<c:url var="delUrl" value="./emps/del">
-											<c:param name="id" value="${data.empId}"/>
-										</c:url>
-										<td><button type="button" onclick="location.href='${delUrl}'">삭제</button></td>
 									</tr>
 							</c:forEach>
 						</c:if>

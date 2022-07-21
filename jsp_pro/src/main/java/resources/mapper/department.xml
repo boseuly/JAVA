@@ -23,4 +23,7 @@
 		  FROM DEPARTMENTS
 		 WHERE DEPARTMENT_ID = #{id}
 	</select>
+	<select id="deptTotalRow" resultType="_int">
+		SELECT COUNT(*) FROM DEPARTMENTS
+	</select>
 </mapper>

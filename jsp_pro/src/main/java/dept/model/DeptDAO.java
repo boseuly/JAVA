@@ -41,4 +41,10 @@ public class DeptDAO extends AbstractDAO {
 		return datas;
 	}
 
+	public int totalRow() {
+		
+		int rowCount = session.selectOne("deptMapper.deptTotalRow");
+		return rowCount;
+	}
+
 }
