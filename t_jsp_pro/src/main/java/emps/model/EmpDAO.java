@@ -107,6 +107,18 @@ public class EmpDAO extends AbstractDAO {
 		
 		return result == 1 ? true : false;
 	}
+
+	public boolean updateEmployeeDetail(EmpDetailDTO empDetailData) {
+		
+		return false;
+	}
+
+	public boolean deleteId(int id) {
+		String mapId = String.format(mapper, "deleteId");
+		int result = session.delete(mapId, id);
+		
+		return result == 1 ? true : false;
+	}
 	
 
 }

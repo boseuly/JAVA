@@ -69,8 +69,6 @@ public class EmpsAddController extends HttpServlet {
 			if(!part.getSubmittedFileName().isEmpty()){
 				String realPath = request.getServletContext().getRealPath("/static/");
 				
-			}else if () {
-				
 			}
 		}
 	}

@@ -108,10 +108,10 @@
 		 WHERE EMPLOYEE_ID = #{empId}
 	</update>
 	<update id="updateEmployeeDetail" parameterType="empDetailDto">
-		UPDATE EMPLOYEES  <!--  이어서 작업 7.21 -->
-		   SET PHONE_NUMBER = 
-		   , HIRE_DATE
-		   , SALARY
-		   , COMMISSION 
+		
 	</update>
+	<delete id="deleteId">
+		DELETE FROM EMPLOYEES 
+		 WHERE EMPLOYEE_ID = #{id} 
+	</delete>
 </mapper>

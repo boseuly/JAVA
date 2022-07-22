@@ -9,6 +9,12 @@
 	<%@ include file="../module/head.jsp" %>
 	<meta charset="UTF-8">
 	<title>직원 추가</title> <!--  여기 완성 안 됨 7.21 -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" 
+	rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 </head>
 <body>
 	<%@ include file="../module/navigation.jsp" %>
@@ -95,9 +101,74 @@
 					<c:param name="id" value="${data.empId}"/>
 				</c:url>
 				<button class="btn btn-outline btn-ok" type="button" onclick="location.href='${empModUrl}'">수정</button>
-				<button class="btn btn-outline btn-ok disable" type="button" onclick="location.href='${empDelUrl}'">삭제</button>
+				<button class="btn btn-outline btn-ok disable" type="button"onclick="location.href='${empDelUrl}'"  data-bs-tartget="#deleteModal" data-bs-toggle="modal" >삭제</button>
 			</div>
 		</div>
-	</section>
+	</section> <!--  삭제 버튼에 대한  -->
+	<div class="modal" tabindex="-1" id="deleteModal">
+		  <div class="modal-dialog modal-dialog-centered"> <!-- 화면 가운데 나오도록 함 -->
+			    <div class="modal-content">
+				      <div class="modal-header">
+					        <h5 class="modal-title">직원 삭제</h5>
+					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				      </div>
+				      <div class="modal-body">
+				       	 	<p>해당 직원의 정보를 삭제하시겠습니까?</p> 
+				      </div>
+				      <div class="modal-footer">
+					  		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+					        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="empDelete(${data.empId});">삭제</button>
+				      </div>
+			    </div>
+		  </div>
+	</div>
+	
+	<div class="modal" tabindex="-1" id="resultModal">
+		  <div class="modal-dialog modal-dialog-centered"> <!-- 화면 가운데 나오도록 함 -->
+			    <div class="modal-content">
+				      <div class="modal-header">
+					        <h5 class="modal-title">직원 삭제</h5>
+					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				      </div>
+				      <div class="modal-body">
+				       	 	<p>해당 직원의 정보를 삭제하시겠습니까?</p> 
+				      </div>
+				      <div class="modal-footer">
+					  		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='/emps'">확인</button> <!-- 확인 버튼을 누르면 emp 페이지로 이동 -->
+				      </div>
+			    </div>
+		  </div>
+	</div>
 </body>
+<script type="text/javascript">
+function empDelete(empId) {
+	$.ajax({
+		type: "post", 
+		url : "/ajax/delete",
+		data : {
+			id : empId, 
+			type : "emp"
+		},
+		dataType : "json", // 안 써도 됨
+		success : function (data) {  // myModal의 속성을 알고 싶으면 complete로 바꾸고 콘솔에 찍어보기
+			var myModal = new Bootstrap.Modal(document.getElementById("resultModal"), {
+				keyboard : false
+			});
+			var title = myModal._element.querySelector(".modal-title");
+			var body = myModal._element.querySelector(".modal-body");
+			
+			console.log(myModal.)
+			
+			// 우선 잘 되는지 확인 -> 한 번에 하는 것보다는 단계단계 확인 하면서 하기
+//			title.innerText = "값 변경 확인"; 
+//			body.innerHTML = "<p>" + "데이터 변경 확인을 하였습니다." + "</p>"
+			
+			// 잘 되는지 확인 후에는 서버에서 전달한 메시지를 body에 넣는다. 
+			title.innerText = data.title;
+			body.innerHTML = "<p>" + data.message + "</p>"
+			myModal.show();
+		}
+	})
+}
+</script>
 </html>

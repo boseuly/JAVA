@@ -166,5 +166,18 @@ public class EmpService {
 	public String setProfileImage(HttpServletRequest request, String imagePath, EmpDTO data) {
 		return null;
 	}
+	public boolean removeId(String id) {
+		EmpDAO dao = new EmpDAO();
+		boolean result = dao.deleteId(Integer.parseInt(id));
+		
+		if(result) { 	// 삭제 성공
+			dao.commit();
+		}else {			// 삭제 실패
+			dao.rollback();
+		}
+		
+		dao.close();
+		return result;
+	}
 
 }
