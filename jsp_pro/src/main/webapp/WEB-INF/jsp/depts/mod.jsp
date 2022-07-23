@@ -6,58 +6,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>부서 추가</title>
-	<%@include file="../module/head.jsp" %>
+<meta charset="UTF-8">
+<title>부서 수정</title>
 </head>
-<c:url var="ajaxDuplicateUrl" value="/ajax/duplicate"/>	<!-- 이건 기본키 검사 -->
-<c:url var="ajaxExistsUrl" value="/ajax/exists"/> <!-- 이건 제약 조건 검사 -->
-<script type="text/javascript">
-
-function sendElementDataValid(element, url) {
-	$.ajax({
-		type: "get",
-		url: url,
-		data: {
-			name: element.name,
-			value: element.value
-		},
-		success: function(data, status) {
-			setLabelState(element.nextElementSibling, data.code, data.message);
-		},
-		complete: function() {
-			if(element.value === "" || element.value === undefined) {
-				element.nextElementSibling.innerText = "";
-			}
-		}
-	});
-}
-function duplicateCheck(element, url) {
-	sendElementDataValid(element, url)
-}
-function existsCheck(element, url) {
-	sendElementDataValid(element, url)
-}
-function setLabelState(element, code, message) {
-	if(code === "success") {
-		element.innerText = message;
-		element.setAttribute("class", "input-label-ok");
-	} else if(code === "error") {
-		// 오류 메시지
-		element.innerText = message;
-		element.setAttribute("class", "input-label-error");
-	}
-}
-</script>
-
 <body>
 	<section>
-		<c:url var="deptAddUrl" value="/depts/add"/>
-		<form  action="${deptAddUrl}" method="post">
+		<c:url var="deptModUrl" value="/depts/mod"/>
+		<form  action="${deptModUrl}" method="post">
 			<div>
 				<label class="input-label">부서 ID</label> <!-- 여기서 url도 전달해줘야 한다. js 에서는 el 사용 불가 -->
-				<input type="text" name="deptId" onblur="duplicateCheck(this, '${ajaxDuplicateUrl}');" 
-				value="${deptData.deptId == -1 ? '' : deptData.deptId}" data-required="부서 ID를 입력하세요." >
+				<input type="text" name="deptId" value="${deptData.deptId}" readonly >
 				<label class="error-label"></label>
 			</div>
 			<div>

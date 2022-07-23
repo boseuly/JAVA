@@ -56,10 +56,10 @@
 			</table>
 			<c:choose>
 				<c:when test="${not empty pageList}"> <!--  pageList 가 존재한다면 즉 전체 페이지라면 -->
-					<c:url var="pageUrl" value="./depts"/>
 					<%@include file="../module/paging.jsp" %>
 				</c:when>
 				<c:otherwise> <!--  만약 전체페이지가 아니라면 pageList는 필요 없음 -->
+					<c:url var="pageUrl" value="/depts"/> <!-- 얘가 너무 멀리 있으면 적용이 안 됨,,, 왜인지는 몰겠음 -->
 					<button type="button" onclick="location.href='${pageUrl}'">전체보기</button>
 				</c:otherwise>
 			</c:choose>

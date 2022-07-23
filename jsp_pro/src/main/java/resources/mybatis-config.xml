@@ -11,6 +11,8 @@
 	</settings>
 	<typeAliases>
 		<typeAlias type="dept.model.DeptDTO" alias="deptDto"/>
+		<typeAlias type="locs.model.LocsDTO" alias="locsDto"/>
+		<typeAlias type="emp.model.LocsDTO" alias="empDto"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -27,5 +29,6 @@
 	</environments>
 	<mappers>
 		<mapper resource="resources/mapper/department.xml" />
+		<mapper resource="resources/mapper/employee.xml" />
 	</mappers>
 </configuration>

@@ -47,4 +47,43 @@ public class DeptDAO extends AbstractDAO {
 		return rowCount;
 	}
 
+	// mng 제약조건
+	public boolean existMngId(int mngId) {
+		// EMPLOYEES테이블 - EMPLOYEE_ID에 해당 mngId가 존재하는지
+		String mapId = String.format(mapper,"existMngId");
+		int result = session.selectOne(mapId,mngId);
+		if (result == 1) {
+			return true;
+		}
+		return false;
+	}
+	public boolean existLocId(int locId) {
+		// EMPLOYEES테이블 - EMPLOYEE_ID에 해당 mngId가 존재하는지
+		String mapId = String.format(mapper,"existLocId");
+		int result = session.selectOne(mapId,locId);
+		if (result == 1) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean deptAdd(DeptDTO data) {
+		String mapId= String.format(mapper, "insertDept");
+		int result = session.insert(mapId, data);
+		return result == 1 ? true : false;
+	}
+
+	public boolean deptMod(DeptDTO data) {
+		String mapId= String.format(mapper, "updateDept");
+		int result = session.update(mapId, data);
+		return result == 1 ? true : false;
+	}
+
+	public boolean deptDel(int deptId) {
+		String mapId = String.format(mapper, "deleteDept");
+		int result = session.delete(mapId, deptId);
+		return result == 1 ? true : false;
+		
+	}
+
 }

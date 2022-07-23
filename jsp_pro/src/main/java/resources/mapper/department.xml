@@ -26,4 +26,25 @@
 	<select id="deptTotalRow" resultType="_int">
 		SELECT COUNT(*) FROM DEPARTMENTS
 	</select>
+	<select id="existMngId" resultType="_int">
+		SELECT COUNT(*) FROM EMPLOYEES WHERE EMPLOYEE_ID = #{id}
+	</select>
+	<select id="existLocId" resultType="_int">
+		SELECT COUNT(*) FROM LOCATIONS WHERE LOCATION_ID = #{id}
+	</select>
+	<insert id="insertDept" parameterType="deptDto">
+		INSERT INTO DEPARTMENTS 
+		VALUES (#{deptId}, #{deptName}, #{mngId}, #{locId})
+	</insert>
+	<update id="updateDept" parameterType="deptDto">
+		UPDATE DEPARTMENTS
+		   SET DEPARTMENT_ID = #{deptId}
+		     , DEPARTMENT_NAME = #{deptName}
+		     , MANAGER_ID = #{mngId}
+		     , LOCATION_ID = #{locId}
+		 WHERE DEPARTMENT_ID = #{deptId}
+	</update>
+	<delete id="deleteDept">
+		DELETE FROM DEPARTMENTS WHERE DEPARTMENT_ID = #{id} 
+	</delete>
 </mapper>
