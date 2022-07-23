@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import common.util.Parameter;
 import dept.model.DeptDTO;
 import dept.service.DeptService;
+import login.model.PermDTO;
 
 @WebServlet("/depts")
 public class DeptController extends HttpServlet {
@@ -23,6 +24,26 @@ public class DeptController extends HttpServlet {
 	private DeptService service = new DeptService();
 	private Parameter param = new Parameter();
 
+/*	PermFilter 필터로 이동시킴
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// 
+//		req.getMethod(); // 어떤 메소드로 보냈는지 알 수 있다. get post
+		HttpSession session = req.getSession();			// map 형식 -> 
+		PermDTO perm = ((Map<String, PermDTO>)session.getAttribute("permData")).get("departments"); // map으로 만듦
+//		//perm.ispAdd();		// 해당 권한이 있는지 확인  
+//		perm.ispDelete();	
+//		perm.ispRead();
+//		perm.ispUpdate();
+		
+		if (perm.ispRead()) {
+			super.service(req, resp); // super.service 해주면 알아서 doGet, doPost 구분해서 보내준다.
+		}else {
+			resp.sendError(HttpServletResponse.SC_FORBIDDEN);		// 권한 없다는 에러(403에러랑 같음) 
+		}
+		// service() 사용자가 요청할 때마다 실행 
+	}
+*/	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String search = request.getParameter("search");
 		int page = param.defaultIntValue(request, "page", "1");
@@ -33,7 +54,7 @@ public class DeptController extends HttpServlet {
 		
 		if(session.getAttribute("pageCount") != null) {
 			pageCount = Integer.parseInt(session.getAttribute("pageCount").toString());
-			pageCountCookieExist = true;
+			pageCountCookieExist = true;	
 		}
 		
 		if(request.getParameter("pgc") != null || !pageCountCookieExist) {

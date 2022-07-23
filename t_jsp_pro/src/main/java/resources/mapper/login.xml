@@ -11,6 +11,11 @@
 		<result property="deptName" column="DEPARTMENT_NAME" />
 		<result property="deptId" column="DEPARTMENT_ID" />
 	</resultMap>
+	<select id="selectPermission" resultType="permDto">
+		SELECT * FROM PERMISSIONS <!--  대소문자 구분 안 했을 때 컬럼명이 똑같아서 그냥 써도 된다. -->
+		 WHERE EMPID = #{id}		<!--  y, n 로 하면 true false 구분 한다. 원래 sql 에는 true, false 자료형ㅇ 없음  -->
+	</select>
+	
 	<select id="selectEmployee" parameterType="map" resultMap="empDtoMap">
 		SELECT E.EMPLOYEE_ID
 		     , CONCAT(E.FIRST_NAME, ' ' || E.LAST_NAME) AS EMPLOYEE_NAME

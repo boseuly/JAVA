@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import emps.model.EmpDTO;
 import login.model.LoginDAO;
+import login.model.PermDTO;
 
 public class LoginService {
 
@@ -31,8 +32,14 @@ public class LoginService {
 		if(data == null) {
 			return false;
 		} else {
-			session.setAttribute("loginData", data);
-			return true;
+			Map<String, PermDTO> permData = new HashMap<String, PermDTO>();
+			for(PermDTO perm : dao.selectPermission(data.getEmpId())) {
+				permData.put(perm.getTablename(), perm);
+			}
+//			System.out.println(permData); // 데이터 구조 확인
+			session.setAttribute("permData",permData); // 권한 리스트 가져오기
+			session.setAttribute("loginData", data); // 로그인 데이터 설정
+			return true; 
 		}
 	}
 	

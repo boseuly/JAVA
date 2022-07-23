@@ -157,7 +157,7 @@ function empDelete(empId) {
 			var title = myModal._element.querySelector(".modal-title");
 			var body = myModal._element.querySelector(".modal-body");
 			
-			console.log(myModal.)
+			console.log(myModal._element); // 이렇게 찍어보면서 확인을 한 다음에 내가 어디에 메시지를 넣을 건지 정해야 한다.
 			
 			// 우선 잘 되는지 확인 -> 한 번에 하는 것보다는 단계단계 확인 하면서 하기
 //			title.innerText = "값 변경 확인"; 

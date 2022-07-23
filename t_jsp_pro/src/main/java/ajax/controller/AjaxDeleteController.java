@@ -19,7 +19,7 @@ public class AjaxDeleteController extends HttpServlet {
 		response.setContentType("application/json; chrset=utf-8");
 		String type = request.getParameter("type");
 		String id = request.getParameter("id");
-		boolean res;
+		boolean res = false;
 		switch (type) {
 		case "emp" : 
 			EmpService empService = new EmpService();

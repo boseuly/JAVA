@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import dept.model.DeptDAO;
 import dept.model.DeptDTO;
@@ -32,19 +33,23 @@ public class EmpService {
 		dao.close();
 		return datas;
 	}
-
-	public List<EmpDTO> getEmpPage(int page, int count) {
+	// 권한 
+	public List<EmpDTO> getEmpPage(HttpSession session, int page, int count) {
 		EmpDAO dao = new EmpDAO();
-		List<EmpDTO> datas = dao.selectPage((page - 1) * count, count);
+		EmpDTO loginUser = (EmpDTO)session.getAttribute("loginData"); // session 정보에서 loginData 뽑아내고(현재 로그인 한 사람이 누구인지 중요 -> 권한 때문에 )
+		
+		
+		List<EmpDTO> datas = dao.selectPage(loginUser, (page - 1) * count, count);
 		dao.close();
 		return datas;
 	}
 
-	public List<Integer> getPageList(int pageCount) {
+	public List<Integer> getPageList(HttpSession session, int pageCount) {
 		EmpDAO dao = new EmpDAO();
 		List<Integer> pageList = new ArrayList<Integer>();
+		EmpDTO loginUser = (EmpDTO)session.getAttribute("loginData"); // session 정보에서 loginData 뽑아내고(현재 로그인 한 사람이 누구인지 중요 -> 권한 때문에 )
 		
-		int total = dao.totalRow();
+		int total = dao.totalRow(loginUser);
 		
 		for(int num = 0; num <= (total - 1) / pageCount; num++) {
 			pageList.add(num + 1);
