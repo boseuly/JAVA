@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import common.util.Parameter;
 import emps.model.EmpDTO;
@@ -29,11 +30,12 @@ public class EmpsController extends HttpServlet {
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		int page = param.defaultIntValue(request, "page", "1");
 		int pageCount = param.defaultSessionIntValue(request, "pageCount", "10");
 		
-		List<EmpDTO> datas = service.getEmpPage(page, pageCount);
-		List<Integer> pageList = service.getPageList(pageCount);
+		List<EmpDTO> datas = service.getEmpPage(session, page, pageCount); // 권한 제한 하기 위해 session을 추가로 전달해줌 7.22
+		List<Integer> pageList = service.getPageList(session, pageCount);			// 사용자 정보를 전달하기 위해서 session을 전달한 거임
 		
 		request.setAttribute("datas", datas);
 		request.setAttribute("page", page);
