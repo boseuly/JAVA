@@ -12,8 +12,8 @@
 </head>
 <c:url var="ajaxDuplicateUrl" value="/ajax/duplicate"/>	<!-- 이건 기본키 검사 -->
 <c:url var="ajaxExistsUrl" value="/ajax/exists"/> <!-- 이건 제약 조건 검사 -->
-<script type="text/javascript">
 
+<script type="text/javascript">
 function sendElementDataValid(element, url) {
 	$.ajax({
 		type: "get",

@@ -4,6 +4,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/default.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/form.css">
-<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.6.0.min.js"></script>
+<c:url value="/static/css" var="cssUrl"/>
+<c:url value="/static/js" var="jsUrl"/>
+<link rel="stylesheet" type="text/css" href="${cssUrl}/default.css">
+<link rel="stylesheet" type="text/css" href="${cssUrl}/form.css">
+<script type="text/javascript" src="${jsUrl}/default.js"></script>
+<script type="text/javascript" src="${jsUrl}/jquery-3.6.0.min.js"></script>
