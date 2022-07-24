@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import dept.model.DeptDTO;
 import dept.service.DeptService;
@@ -29,6 +30,7 @@ public class MyInfoController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(); // 로그인 한 사람의 정보를 가져와야 하기 때문에
+		
 		
 		EmpDTO empData = (EmpDTO)session.getAttribute("loginData"); // session에 저장된 loginData를 가져온다. 
 		
@@ -56,6 +58,7 @@ public class MyInfoController extends HttpServlet {
 		HttpSession session = request.getSession();
 		EmpDTO empData = (EmpDTO)session.getAttribute("loginData");
 		
+		
 		String email = request.getParameter("email"); // EmpDTO
 		String phone = request.getParameter("phone"); // EmpDetailDTO
 		
@@ -68,7 +71,25 @@ public class MyInfoController extends HttpServlet {
 		updateEmpDetailData.setEmpId(empId);
 		updateEmpDetailData.setPhone(phone);
 		
+		System.out.println(updateEmpData);
+		System.out.println(updateEmpDetailData);
+		
 		boolean result = empService.setEmployee(updateEmpData, updateEmpDetailData); // 저장하는 거임
+		
+		if(result) {
+			// 수정 작업 성공시 이미지를 수정해준다.
+			Part part = request.getPart("uploadImage");
+			
+			// 해당 파일 이름이 있다면
+			if(!part.getSubmittedFileName().isEmpty()) { // getSubmittedFileName -> 업로드한 파일의 이름을 구한다.
+				String realPath = request.getServletContext().getRealPath("/static/img/emp/");
+				part.write(realPath + empData.getEmpId() + ".png");  
+			}
+			response.sendRedirect(request.getContextPath() + "/logout"); // 정보를 수정하면 다시 로그아웃을 시킨다. 
+			session.invalidate();
+		}else {
+			doGet(request, response);
+		}
 	}
 
 }

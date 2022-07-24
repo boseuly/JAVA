@@ -64,9 +64,9 @@
 		   SET EMAIL = #{email}
 		     , JOB_ID = #{jobId}
 		     , DEPARTMENT_ID = #{deptId}
-		     , FIRST_NAME = SUBSTR(#{empName}, 1, )
-		     , LAST_NAME = 
-		 WHERE EMPLOYEE_ID = #{} 
+		     , FIRST_NAME = SUBSTR(#{empName}, 1, INSTR(#{empName}, ' ') -1)
+		     , LAST_NAME = SUBSTR(#{empName}, INSTR(#{empName}, ' ') + 1, LENGTH(#{empName}))
+		 WHERE EMPLOYEE_ID = #{empId} 
 	</update>
 	<update id="updateEmployeeDetail" parameterType="empDetailDto">
 		UPDATE EMPLOYEES
