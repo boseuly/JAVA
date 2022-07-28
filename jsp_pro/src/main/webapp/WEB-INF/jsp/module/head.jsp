@@ -4,8 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<c:url value="/static/css" var="cssUrl"/>
-<c:url value="/static/js" var="jsUrl"/>
+<c:url value="/static/bs5/css" var="cssUrl"/>
+<c:url value="/static/bs5/js" var="jsUrl"/>
 <link rel="stylesheet" type="text/css" href="${cssUrl}/default.css">
 <link rel="stylesheet" type="text/css" href="${cssUrl}/form.css">
 <script type="text/javascript" src="${jsUrl}/default.js"></script>

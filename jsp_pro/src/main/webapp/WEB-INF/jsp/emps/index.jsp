@@ -6,8 +6,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>직원</title>
+	<meta charset="UTF-8">
+	<title>직원</title>
+	<%@include file="../module/head.jsp"%>
 </head>
 <body>
 	<section>
