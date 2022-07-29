@@ -16,6 +16,7 @@
 		<typeAlias type="emp.model.EmpDetailDTO" alias="empDetailDto"/>
 		<typeAlias type="job.model.JobDTO" alias="jobDto"/>
 		<typeAlias type="board.model.EmpBoardDTO" alias="empBoardDto"/>
+		<typeAlias type="board.model.EmpBoardStatisDTO" alias="empBoardStatisDto"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">

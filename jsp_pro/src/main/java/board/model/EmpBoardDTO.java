@@ -8,6 +8,9 @@ public class EmpBoardDTO {
 	private String content;
 	private int empId;
 	private Date createDate;
+	private int viewCnt;
+	private int like;
+	
 	public int getId() {
 		return id;
 	}
@@ -38,9 +41,23 @@ public class EmpBoardDTO {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
+	
+	public int getViewCnt() {
+		return viewCnt;
+	}
+	public void setViewCnt(int viewCnt) {
+		this.viewCnt = viewCnt;
+	}
+	public int getLike() {
+		return like;
+	}
+	public void setLike(int like) {
+		this.like = like;
+	}
 	@Override
 	public String toString() {
 		return "EmpBoardDTO [id=" + id + ", title=" + title + ", content=" + content + ", empId=" + empId
-				+ ", createDate=" + createDate + "]";
+				+ ", createDate=" + createDate + ", viewCnt=" + viewCnt + ", like=" + like + "]";
 	}
+	
 }

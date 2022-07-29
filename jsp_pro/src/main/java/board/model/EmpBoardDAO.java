@@ -27,6 +27,11 @@ public class EmpBoardDAO {
 		return result;
 	}
 	
+	public EmpBoardDTO selectData(int id) {
+		EmpBoardDTO data = session.selectOne("empBoardsMapper.selectData", id);
+		
+		return data;
+	}
 	
 	public void commit() {
 		this.session.commit();
@@ -37,6 +42,35 @@ public class EmpBoardDAO {
 	public void close() {
 		this.session.close();
 	}
+
+	public boolean updateViewCnt(EmpBoardDTO data) {
+		int result = session.update("empBoardsMapper.updateViewCnt", data);
+		return result == 1 ? true : false;
+	}
+
+	public boolean updateLike(EmpBoardDTO data) {
+		int result = session.update("empBoardsMapper.updateLike", data);
+		return result == 1 ? true : false;
+	}
+	// 방문 내역이 있는지 확인
+	public EmpBoardStatisDTO selectStatis(EmpBoardDTO data) {
+		EmpBoardStatisDTO result = session.selectOne("empBoardsMapper.selectStatis", data);
+		return result;
+	}
+
+	// 방문 기록
+	public boolean insertStatis(EmpBoardDTO data) {
+		int result = session.insert("empBoardsMapper.insertStatis", data); // 방문 기록을 추가해주기
+		return result == 1 ? true : false;
+	}
+
+	// 7일 후 방문한 기록 수정 
+	public boolean updateStatis(EmpBoardStatisDTO statisData) {
+		int result = session.update("empBoardsMapper.updateStatis", statisData); // 방문 기록을 추가해주기
+		return result == 1 ? true : false;
+		
+	}
+
 
 	
 }
