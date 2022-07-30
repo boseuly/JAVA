@@ -35,7 +35,7 @@ public class EmpBoardDetailController extends HttpServlet {
 		if (data != null) {
 			EmpService empService = new EmpService();
 			EmpDTO empData = empService.getId("" + data.getEmpId()); // 사원 아이디에 따른 이름을 가져오기 위해서 
-			
+
 			request.setAttribute("data", data);
 			request.setAttribute("empData", empData);
 			

@@ -48,7 +48,7 @@
  			 , LATEST_DATE2 AS latestLike
  		  FROM EMP_BOARDS_STATISTICS
  		 WHERE EMPID = #{empId}
- 		   AND BID = #{bId}
+ 		   AND BID = #{id}
  	</select>
  	<insert id="insertStatis" parameterType="empBoardDto">
  		INSERT INTO EMP_BOARDS_STATISTICS
