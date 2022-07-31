@@ -34,7 +34,7 @@ public class LoginService {
 		if(data == null ) { // 해당 직원이 없음 
 			return false;
 		}else { // 사용자가 입력한 조건에 맞는 직원이 존재한다면 -> 로그인 성공 -> session에 저장 
-			session.setAttribute("loginData", data);
+			session.setAttribute("loginData", data); // 세션에 저장
 			return true;
 		}
 	}

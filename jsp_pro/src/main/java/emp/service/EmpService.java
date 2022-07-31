@@ -81,7 +81,7 @@ public class EmpService {
 		EmpDAO dao = new EmpDAO();
 		
 		// 이메일 형식
-		String email = updateEmpData.getEmail(); // 이슈!! 이메일이 존재하지 않아서 자꾸 nullpointexception 
+		String email = updateEmpData.getEmail(); // 이슈!! 이메일이 존재하지 않아서 자꾸 nullpointexception
 		if(email.contains("@emp.com")) { // 만약 이걸 포함하고 있다면 추가할 때는 없애고 넣어야 한다.
 			email = email.replace("@emp.com", ""); // 빈문자열로 바꿔준다.
 			updateEmpData.setEmail(email);

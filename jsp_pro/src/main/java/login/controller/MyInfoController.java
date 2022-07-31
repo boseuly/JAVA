@@ -50,6 +50,7 @@ public class MyInfoController extends HttpServlet {
 		String imagePath = empService.getProfileImage(request, "/static/img/emp/", empData); 
 		request.setAttribute("imagePath", imagePath);
 		
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/login/myinfo.jsp");
 		rd.forward(request, response);
 	}
@@ -57,10 +58,11 @@ public class MyInfoController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		EmpDTO empData = (EmpDTO)session.getAttribute("loginData");
+		System.out.println(empData);
 		
-		
-		String email = request.getParameter("email"); // EmpDTO
+		String email = request.getParameter("email"); // EmpDTO -> 여기서 자꾸 nullPointException이 발생한다.
 		String phone = request.getParameter("phone"); // EmpDetailDTO
+		
 		
 		int empId = empData.getEmpId();
 		EmpDTO updateEmpData = new EmpDTO();
@@ -71,8 +73,6 @@ public class MyInfoController extends HttpServlet {
 		updateEmpDetailData.setEmpId(empId);
 		updateEmpDetailData.setPhone(phone);
 		
-		System.out.println(updateEmpData);
-		System.out.println(updateEmpDetailData);
 		
 		boolean result = empService.setEmployee(updateEmpData, updateEmpDetailData); // 저장하는 거임
 		
