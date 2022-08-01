@@ -31,11 +31,13 @@ public class EmpBoardDetailController extends HttpServlet {
 		String id = request.getParameter("id");
 		
 		EmpBoardDTO data = service.getData(Integer.parseInt(id));
+		service.incViewCnt(request.getSession(),data); // 조회수를 올려야 한다.
 		
 		if (data != null) {
 			EmpService empService = new EmpService();
 			EmpDTO empData = empService.getId("" + data.getEmpId()); // 사원 아이디에 따른 이름을 가져오기 위해서 
-
+			
+			
 			request.setAttribute("data", data);
 			request.setAttribute("empData", empData);
 			
@@ -59,8 +61,9 @@ public class EmpBoardDetailController extends HttpServlet {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");
 		if(data != null) {
-			service.incLike(data);
-			sb.append(String.format("\"%s\": \"%s\"", "code", "success"));
+			service.incLike(request.getSession(), data);
+			sb.append(String.format("\"%s\": \"%s\",", "code", "success"));
+			sb.append(String.format("\"%s\": %d", "likeCnt", data.getLike()));
 		}
 		sb.append("}");
 		
