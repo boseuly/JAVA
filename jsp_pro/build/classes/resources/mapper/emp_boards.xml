@@ -2,9 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="empBoardsMapper">
- 
+ 	<resultMap type="empBoardDto" id="empBoardMap">
+ 		<constructor>
+ 			<idArg column="ID" javaType="_int"/>
+ 		</constructor>
+ 		<id column="ID" property="id"/>
+ 		<result column="TITLE" property="title"/>
+ 		<result column="EMPID" property="empId"/>
+ 		<result column="CREATEDATE" property="createDate"/>
+ 		<result column="VIEW" property="view"/>
+ 		<result column="LIKE" property="like"/>
+ 		<association property="empObj" javaType="empDto">
+ 			<id column="EMPID" property="empId"/>
+			<result column="EMPNAME" property="empName"/>
+ 		</association>
+ 	</resultMap>
+ 	
  	<select id="getNextSeq" resultType="_int"> <!-- 이렇게 시퀀스 번호를 가져와서 empId를 해당 시퀀스 번호로 저장해준다. -->
  		SELECT EMP_BOARDS_SEQ.NEXTVAL FROM DUAL			
+ 	</select>
+ 	<select id="selectBoardAll" resultType="empBoardDto">
+ 		SELECT ID
+ 			 , TITLE
+ 			 , CONTENT
+ 			 , EMPID
+ 			 , CREATEDATE
+ 			 , VIEW_CNT AS viewCnt
+ 			 , "LIKE"
+ 		FROM EMP_BOARDS
  	</select>
  	<insert id="insertDataAutoSeq" parameterType="empBoardDto" useGeneratedKeys="true"
  			keyProperty="id" keyColumn="ID" >
@@ -16,7 +41,7 @@
  		INSERT INTO EMP_BOARDS(ID, TITLE, CONTENT, EMPID, CREATEDATE)
 		VALUES(#{id}, #{title}, #{content}, #{empId}, SYSDATE)
  	</insert>
- 	<select id="selectData" resultType="EmpBoardDto">
+ 	<select id="selectData" resultType="empBoardDto">
  		SELECT ID
  			 , TITLE
  			 , CONTENT
@@ -34,11 +59,11 @@
  	</update>
  	<update id="updateLike" parameterType="empBoardDto">
  		UPDATE EMP_BOARDS
- 		   SET "LIKE" = #{like} + 1
+ 		   SET "LIKE" = #{like}
  		 WHERE ID = #{id}
  	</update>
  	
- 	<select id="selectStatis" resultType="empBoardStatisDto" parameterType="empBoardDto">
+ 	<select id="selectStatis" resultType="empBoardStatisDto" parameterType="empBoardStatisDto">
  		SELECT ID
  			 , EMPID
  			 , BID
@@ -48,9 +73,9 @@
  			 , LATEST_DATE2 AS latestLike
  		  FROM EMP_BOARDS_STATISTICS
  		 WHERE EMPID = #{empId}
- 		   AND BID = #{id}
+ 		   AND BID = #{bId}
  	</select>
- 	<insert id="insertStatis" parameterType="empBoardDto">
+ 	<insert id="insertStatis" parameterType="empBoardStatisDto">
  		INSERT INTO EMP_BOARDS_STATISTICS
  		VALUES (EMP_BOARDS_STATISTICS_SEQ.NEXTVAL
  			  , #{empId}, #{bId}, 'Y', SYSDATE, 'N', NULL) <!-- EMP -->
@@ -59,6 +84,21 @@
  		UPDATE EMP_BOARDS_STATISTICS
  		   SET LATEST_DATE1 = SYSDATE
  		 WHERE EMPID = #{empId}
- 		   AND BID = #{bId} 
+ 		   AND BID = #{bId}  <!-- bId는 게시글 번호임 -->
+ 	</update>
+ 	<!-- 추천에 대한 변경 업데이트 -->
+ 	<update id="updateLikeStatis" parameterType="empBoardStatisDto">
+ 		UPDATE EMP_BOARDS_STATISTICS
+ 		   SET LATEST_DATE2 = SYSDATE
+ 		   <choose>
+ 		   		<when test="like"> <!-- like가 true라면 -->
+ 		   		 	, ISLIKE = 'Y' 
+ 		   		</when>
+ 		   		<otherwise>			<!-- like가 false라면 -->
+	 		   	 	, ISLIKE = 'N'
+ 		   		</otherwise>
+ 		   </choose>
+ 		 WHERE EMPID = #{empId}
+ 		   AND BID = #{bId}  <!-- bId는 게시글 번호임 -->
  	</update>
  </mapper>

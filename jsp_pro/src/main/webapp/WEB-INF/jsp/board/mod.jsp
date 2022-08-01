@@ -1,11 +1,13 @@
-<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>게시글 제목 : ${data.title}</title>
+	<title>게시글 수정</title>
 	<link rel="stylesheet" type="text/css" href="/static/bs5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 	<script type="text/javascript" src="/static/bs5/js/bootstrap.min.js"></script>
@@ -16,7 +18,7 @@
 	<section class="container">
 		<div class="mt-3">
 			<div class="mb-1 border-bottom border-2 border-secondary">
-				<h1>${data.title}</h1>
+				<input type="text" name="title" value="${data.title}">
 			</div>
 			<div class="mb-3">
 				<label class="pe-3 text-secondary text-opacity-75">${empData.empName}</label>
@@ -25,10 +27,10 @@
 				<label class="pe-3 text-secondary text-opacity-75">조회수: ${data.viewCnt}</label>
 			</div>
 			<div class="mb-1 border-bottom border-2 border-secondary">
-				<p>${data.content}</p>
+				<input type="text" value="${data.content}">
 			</div>
 			<div class="mb-1">
-				<div onclick="incLike(id_like, ${data.id});"><!-- id_like 는 아래 label의 id임 -->
+				<div>
 					<i class="bi bi-hand-thumbs-up text-secondary text-opacity-50"></i>
 					<label id="id_like" class="text-secondary text-opacity-75">${data.like}</label>
 				</div>
@@ -48,23 +50,5 @@
 		</div>
 	</section>
 	<footer></footer>
-	<script type="text/javascript">
-		function incLike(element, id){ // 여기서 element는 label임 
-			$.ajax({
-				url : "/board/detail", // 이번에는 ajax 전용 서블릿을 만들지 않고 그냥 /board/detail로 보냄
-				type : "post",
-				data : {
-					id : id // 데이터를 바꿀 아이디를 전달
-				}, 
-				success : function (data){
-					if(data.code === "success"){ // 성공이면 +1
-						element.innerText = data.likeCnt; 
-					}
-				}
-			});
-		}
-		
-		
-	</script>
 </body>
 </html>

@@ -49,14 +49,16 @@
 						</c:forEach>
 					</select>
 				</div>
-				<div class="input-form inline">
+			</div>
+			<div class="input-form inline">
+				<div class="input-form">
 					<label class="input-label w-100">이메일</label>
 					<input class="input-text w-auto" type="text" name="email" value="">
 				</div>
 			</div>
 			<div class="input-form inline">
-				<div>
-					<fmt:formatDate value="now" value="<%=new java.util.Date() %>" pattern="YYYY-MM-dd"/>
+				<div class="input-form">
+					<fmt:formatDate var="now" value="<%=new java.util.Date() %>" pattern="YYYY-MM-dd"/>
 					<label class="input-label w-100">입사일</label>
 					<input class="input-text w-auto" type="date" name="hireDate" value="${now}">
 				</div>

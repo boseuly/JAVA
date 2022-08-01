@@ -7,6 +7,10 @@
 	<nav class="top-nav">
 		<ul class="nav">
 			<c:if test="${not empty sessionScope.loginData}"> <!--  로그인 한 사람들한테만 보이도록 한다. -->
+				<li class="nav-item ${fn:contains(url, '/board') ? 'active' : '' }">
+					<c:url var="m5" value="/board" />
+					<a class="nav-link" href="${m5}">게시판</a>
+				</li>
 				<li class="nav-item ${fn:contains(url, '/emps') ? 'active' : '' }">
 					<c:url var="m5" value="/emps" />
 					<a class="nav-link" href="${m5}">직원</a>

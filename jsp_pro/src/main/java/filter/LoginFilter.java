@@ -29,7 +29,7 @@ public class LoginFilter extends HttpFilter implements Filter {
 		if(session.getAttribute("loginData") != null) {
 			chain.doFilter(request, response);
 		} else {
-			((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath() + "login");
+			((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath() + "/login");
 		}
 	}
 	

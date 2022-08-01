@@ -2,11 +2,14 @@ package board.model;
 
 import java.sql.Date;
 
+import emp.model.EmpDTO;
+
 public class EmpBoardDTO {
-	private int id;
+	private int id;			// 게시글 id
 	private String title;
 	private String content;
-	private int empId;
+	private int empId;		// 작성자 id
+	private EmpDTO empObj; 	// emp객체를 넣어줌 -> 해당 게시글을 누가 봤는지 알아야 할 때 자꾸 
 	private Date createDate;
 	private int viewCnt;
 	private int like;

@@ -1,6 +1,10 @@
 package board.model;
 
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 
 import conn.db.DBConn;
@@ -33,16 +37,6 @@ public class EmpBoardDAO {
 		return data;
 	}
 	
-	public void commit() {
-		this.session.commit();
-	}
-	public void rollback() {
-		this.session.rollback();
-	}
-	public void close() {
-		this.session.close();
-	}
-
 	public boolean updateViewCnt(EmpBoardDTO data) {
 		int result = session.update("empBoardsMapper.updateViewCnt", data);
 		return result == 1 ? true : false;
@@ -53,24 +47,50 @@ public class EmpBoardDAO {
 		return result == 1 ? true : false;
 	}
 	// 방문 내역이 있는지 확인
-	public EmpBoardStatisDTO selectStatis(EmpBoardDTO data) {
+	public EmpBoardStatisDTO selectStatis(EmpBoardStatisDTO data) {
 		EmpBoardStatisDTO result = session.selectOne("empBoardsMapper.selectStatis", data);
 		return result;
 	}
 
 	// 방문 기록
-	public boolean insertStatis(EmpBoardDTO data) {
+	public boolean insertStatis(EmpBoardStatisDTO data) {
 		int result = session.insert("empBoardsMapper.insertStatis", data); // 방문 기록을 추가해주기
 		return result == 1 ? true : false;
 	}
 
 	// 7일 후 방문한 기록 수정 
-	public boolean updateStatis(EmpBoardStatisDTO statisData) {
-		int result = session.update("empBoardsMapper.updateStatis", statisData); // 방문 기록을 추가해주기
+	public boolean updateStatis(EmpBoardStatisDTO data) {
+		int result = session.update("empBoardsMapper.updateStatis", data); // 방문 기록을 추가해주기
 		return result == 1 ? true : false;
 		
 	}
+	// like 수정
+	public boolean updateStatis(EmpBoardStatisDTO data, String type) {
+		if(type.equals("like")) {
+			int result = session.update("empBoardsMapper.updateLikeStatis", data);
+			return result == 1 ? true : false;
+		}else {
+			return updateStatis(data);
+		}
+		
+	}
 
+	// 게시글 전부 가져오기
+	public List<EmpBoardDTO> selectBoardAll() {
+		List<EmpBoardDTO> datas = session.selectList("empBoardsMapper.selectBoardAll");
+		return datas;
+	}
+
+
+	public void commit() {
+		this.session.commit();
+	}
+	public void rollback() {
+		this.session.rollback();
+	}
+	public void close() {
+		this.session.close();
+	}
 
 	
 }

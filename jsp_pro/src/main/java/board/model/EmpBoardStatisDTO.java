@@ -4,9 +4,9 @@ import java.sql.Date;
 
 // 방문 내역을 담은 데이터 DTO
 public class EmpBoardStatisDTO {
-	private int id;
-	private int empId;
-	private int bId;
+	private int id;	
+	private int empId; 	// 방문한 사람의 id
+	private int bId;	// 방문한 게시글 id
 	private boolean view;
 	private Date latestView;
 	private boolean like;
