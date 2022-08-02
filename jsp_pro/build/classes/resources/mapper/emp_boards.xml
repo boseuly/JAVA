@@ -52,6 +52,17 @@
  		FROM EMP_BOARDS
  		WHERE ID = #{id}
  	</select>
+ 	<update id="modifyBoard" parameterType="empBoardDto">
+ 		UPDATE EMP_BOARDS
+ 		   SET TITLE = #{title}
+ 		   	 , CONTENT = #{content}
+ 		 WHERE ID = #{id} <!-- 게시물의 아이디 -->
+ 	</update>
+ 	
+ 	<delete id="deleteBoard">
+ 		DELETE FROM EMP_BOARDS WHERE ID = #{id}
+ 	</delete>
+ 	
  	<update id="updateViewCnt" parameterType="empBoardDto">
  		UPDATE EMP_BOARDS
  		   SET VIEW_CNT = #{viewCnt} + 1

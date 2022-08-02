@@ -44,6 +44,29 @@ public class EmpBaordModController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 파라미터 값으로 값을 변경해줘야 한다.
+		String content = request.getParameter("content");
+		String title = request.getParameter("title");
+		String id = request.getParameter("id");
+		
+		// 수정된 내용을 저장하기 전에 이전에 내용을 가져 와야 한다.
+		
+		
+		EmpBoardDTO boardData = new EmpBoardDTO();
+		boardData.setContent(content); 	// 수정된 내용
+		boardData.setTitle(title);		// 수정된 제목
+		boardData.setId(Integer.parseInt(id)); // id 저장
+		// 값을 저장해줘야 한다.
+		boolean result = boardService.modifyBoard(boardData);
+		
+		if(result) { 
+			// 수정 성공 -> 리다이렉트로 수정된 게시글을 보여준다.
+			response.sendRedirect(request.getContextPath() + "/board/detail?id=" + id);
+		}else {
+			// 수정 실패
+			System.out.println("수정 실패");
+		}
+	
 	}
 
 }

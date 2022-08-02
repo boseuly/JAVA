@@ -16,38 +16,41 @@
 <body>
 	<header></header>
 	<section class="container">
-		<div class="mt-3">
-			<div class="mb-1 border-bottom border-2 border-secondary">
-				<input type="text" name="title" value="${data.title}">
-			</div>
-			<div class="mb-3">
-				<label class="pe-3 text-secondary text-opacity-75">${empData.empName}</label>
-				<fmt:formatDate value="${data.createDate}" var="createDate" dateStyle="long"/>
-				<label class="pe-3 text-secondary text-opacity-75">${createDate}</label>
-				<label class="pe-3 text-secondary text-opacity-75">조회수: ${data.viewCnt}</label>
-			</div>
-			<div class="mb-1 border-bottom border-2 border-secondary">
-				<input type="text" value="${data.content}">
-			</div>
-			<div class="mb-1">
-				<div>
-					<i class="bi bi-hand-thumbs-up text-secondary text-opacity-50"></i>
-					<label id="id_like" class="text-secondary text-opacity-75">${data.like}</label>
+		<form action="/board/mod" method="post">
+			<div class="mt-3">
+				<div class="mb-1 border-bottom border-2 border-secondary">
+					<input type="text" name="title" value="${data.title}">
 				</div>
-			</div>			<!-- 작성자  =  로그인 유저 -> 수정 가능하도록 해야 함  -->
-			<div class="mb-1 text-end">
-			<c:url value="/board" var="boardUrl"/>
-			<button class="btn btn-primary" type="button" onclick="location.href='${boardUrl}'">목록</button>
-			<c:if test="${data.empId eq sessionScope.loginData.empId}">
+				<div class="mb-3">
+					<label class="pe-3 text-secondary text-opacity-75">${empData.empName}</label>
+					<fmt:formatDate value="${data.createDate}" var="createDate" dateStyle="long"/>
+					<label class="pe-3 text-secondary text-opacity-75">${createDate}</label>
+					<label class="pe-3 text-secondary text-opacity-75">조회수: ${data.viewCnt}</label>
+					<input type="text" name="id" value="${data.id}" hidden="">
+				</div>
+				<div class="mb-1 border-bottom border-2 border-secondary">
+					<textarea name="content" cols="150" rows="20">${data.content}</textarea>
+				</div>
+				<div class="mb-1">
+					<div>
+						<i class="bi bi-hand-thumbs-up text-secondary text-opacity-50"></i>
+						<label id="id_like" class="text-secondary text-opacity-75">${data.like}</label>
+					</div>
+				</div>			<!-- 작성자  =  로그인 유저 -> 수정 가능하도록 해야 함  -->
+				<div class="mb-1 text-end">
+				<c:url value="/board" var="boardUrl"/>
+				<button class="btn btn-primary" type="button" onclick="location.href='${boardUrl}'">목록</button>
 				<c:url value="/board/mod" var="boardModUrl">
 					<c:param name="id" value="${data.id}"/> <!-- 게시글 id 전달 -->
 				</c:url>
-				<c:url value="/board/del" var="boardDelUrl"/>
-				<button class="btn btn-primary" type="button" onclick="location.href='${boardModUrl}'">수정</button> 
+				<c:url value="/board/del" var="boardDelUrl">
+					<c:param name="id" value="${data.id}"/> <!-- 게시글 id 전달 -->
+				</c:url>
+				<button class="btn btn-primary" type="submit">저장</button> 
 				<button class="btn btn-primary" type="button" onclick="location.href='${boardDelUrl}'">삭제</button>
-			</c:if>
+				</div>
 			</div>
-		</div>
+		</form>
 	</section>
 	<footer></footer>
 </body>

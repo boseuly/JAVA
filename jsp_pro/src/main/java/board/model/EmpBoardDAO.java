@@ -92,5 +92,16 @@ public class EmpBoardDAO {
 		this.session.close();
 	}
 
+	public boolean modifyBoard(EmpBoardDTO boardUpdateData) {
+		int result = session.update("empBoardsMapper.modifyBoard", boardUpdateData);
+		
+		return result == 1 ? true : false;
+	}
+
+	public boolean boardDelete(int boardId) {
+		int result = session.delete("empBoardsMapper.deleteBoard", boardId);
+		return result == 1 ? true : false;
+	}
+
 	
 }

@@ -44,6 +44,20 @@ public class EmpBoardService {
 		dao.close();
 		return data;
 	}
+	
+	// 게시글 수정
+	public boolean modifyBoard(EmpBoardDTO boardUpdateData) { // update될 내용이 담긴 객체 
+		EmpBoardDAO dao = new EmpBoardDAO();
+		boolean result = dao.modifyBoard(boardUpdateData); // 게시글 수정
+		if(result) {
+			dao.commit();
+		}else {
+			dao.rollback();
+		}
+		dao.close();
+		return result;
+		
+	}
 
 	// 조회수 올리기 -> 제한 기능도 구현
 	public void incViewCnt(HttpSession session, EmpBoardDTO data) {
@@ -122,6 +136,20 @@ public class EmpBoardService {
 			dao.rollback();
 		}
 		dao.close();
+	}
+
+	public boolean boardDelete(int boardId) {
+		EmpBoardDAO dao = new EmpBoardDAO();
+		boolean result = dao.boardDelete(boardId);
+		if(result) { // 삭제가 성공한 경우
+			dao.commit();
+		}else {
+			dao.rollback();
+		}
+		
+		dao.close();
+		
+		return result;
 	}
 
 	
