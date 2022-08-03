@@ -105,7 +105,7 @@
 			</div>
 		</div>
 	</section> <!--  삭제 버튼에 대한  -->
-	<div class="modal" tabindex="-1" id="deleteModal">
+	<div class="modal fade" tabindex="-1" id="deleteModal">
 		  <div class="modal-dialog modal-dialog-centered"> <!-- 화면 가운데 나오도록 함 -->
 			    <div class="modal-content">
 				      <div class="modal-header">
@@ -127,11 +127,11 @@
 		  <div class="modal-dialog modal-dialog-centered"> <!-- 화면 가운데 나오도록 함 -->
 			    <div class="modal-content">
 				      <div class="modal-header">
-					        <h5 class="modal-title">직원 삭제</h5>
+					        <h5 class="modal-title">결과 확인</h5>
 					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				      </div>
 				      <div class="modal-body">
-				       	 	<p>해당 직원의 정보를 삭제하시겠습니까?</p> 
+				       	 	<p>삭제되었습니다.</p> 
 				      </div>
 				      <div class="modal-footer">
 					  		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='/emps'">확인</button> <!-- 확인 버튼을 누르면 emp 페이지로 이동 -->

@@ -63,6 +63,11 @@
  		DELETE FROM EMP_BOARDS WHERE ID = #{id}
  	</delete>
  	
+ 	<delete id="deleteStatisData">
+ 		DELETE FROM EMP_BOARDS_STATISTICS WHERE BID = #{id}
+ 	</delete>
+ 	
+ 	
  	<update id="updateViewCnt" parameterType="empBoardDto">
  		UPDATE EMP_BOARDS
  		   SET VIEW_CNT = #{viewCnt} + 1
@@ -112,4 +117,19 @@
  		 WHERE EMPID = #{empId}
  		   AND BID = #{bId}  <!-- bId는 게시글 번호임 -->
  	</update>
+ 	<!-- 페이징 -->
+ 	<select id="getTotalRows" resultType="_int">
+		SELECT COUNT(*) FROM EMP_BOARDS
+	</select>
+	<select id="selectPage" resultMap="empBoardMap">
+		SELECT B.ID, B.TITLE
+		     , B.EMPID
+		     , E.FIRST_NAME || ' ' || E.LAST_NAME AS EMPNAME
+		     , B.CREATEDATE
+		     , B.VIEW_CNT AS viewCnt, B."LIKE"
+		  FROM EMP_BOARDS B
+		  JOIN EMPLOYEES E
+		    ON B.EMPID = E.EMPLOYEE_ID
+		 ORDER BY ID DESC
+	</select>
  </mapper>

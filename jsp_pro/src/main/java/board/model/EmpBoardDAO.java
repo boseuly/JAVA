@@ -3,10 +3,11 @@ package board.model;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
+import org.apache.ibatis.cursor.Cursor;
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
+import common.util.Paging;
 import conn.db.DBConn;
 
 public class EmpBoardDAO {
@@ -98,10 +99,26 @@ public class EmpBoardDAO {
 		return result == 1 ? true : false;
 	}
 
-	public boolean boardDelete(int boardId) {
-		int result = session.delete("empBoardsMapper.deleteBoard", boardId);
+	public boolean boardDelete(EmpBoardDTO data) {
+		int result = session.delete("empBoardsMapper.deleteBoard", data.getId());
 		return result == 1 ? true : false;
 	}
+	public boolean deleteStatisdata(EmpBoardDTO data) {
+		int result = session.delete("empBoardsMapper.deleteStatisData", data.getId());
+		return result >= 0 ? true : false; // 해당 게시물을 다른 사람들이 본 기록이 있다면 기록을 다 지워라 -> 없을 수도 있고 여러 개일 수도 있다. 
+	}
+
+	// 페이징
+	public int getTotalRows() {
+		int result = session.selectOne("empBoardsMapper.getTotalRows");
+		return result;
+	}
+	public void selectPage(Paging paging) { // 매개변수를 통해서 paging객체의 주소를 전달한다. -> 주소를 참조하니까 매개변수를 수정하면 getPage() 즉, 호출한 곳에서의 paging 객체도 수정됨
+		RowBounds rb = new RowBounds(paging.getOffset(), paging.getLimit());
+		Cursor<Object> cursor = session.selectCursor("empBoardsMapper.selectPage", null, rb);
+		paging.setPageDatas(cursor.iterator());
+	}
+
 
 	
 }

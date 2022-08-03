@@ -50,8 +50,8 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:if test="${not empty datas}">
-					<c:forEach items="${datas}" var="data">
+				<c:if test="${not empty datas.pageDatas}"> <!-- paging.java 객체 안에 있는 pageDatas를 가져온다. -> 한 페이지내에 나와야할 객체 정보들 -->
+					<c:forEach items="${datas.pageDatas}" var="data">
 						<c:url var="detailUrl" value="/board/detail">
 							<c:param name="id" value="${data.id}" /> <!-- 게시판 id로 게시판 상세 이동 -->
 						</c:url>
@@ -67,17 +67,10 @@
 				</c:if>
 			</tbody>
 		</table>
-		<c:choose>
-			<c:when test="${not empty pageList}">
-				<c:url var="pageUrl" value="./board" />
-				<%@ include file="../module/paging.jsp" %>
-			</c:when>
-			<c:otherwise>
-				<div class="input-form wide form-left">
-					<button class="btn btn-outline btn-ok" type="button" onclick="location.href='${pageContext.request.contextPath}/board'">전체보기</button>
-				</div>				
-			</c:otherwise>
-		</c:choose>
+		<nav>
+			<c:url var="pageUrl" value="/board"/>
+			<%@include file="../module/paging.jsp" %>
+		</nav>
 	</section>
 </body>
 </html>

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import board.model.EmpBoardDAO;
 import board.model.EmpBoardDTO;
 import board.model.EmpBoardStatisDTO;
+import common.util.Paging;
 import emp.model.EmpDTO;
 
 public class EmpBoardService {
@@ -138,18 +139,30 @@ public class EmpBoardService {
 		dao.close();
 	}
 
-	public boolean boardDelete(int boardId) {
+	public boolean boardDelete(EmpBoardDTO data) {
 		EmpBoardDAO dao = new EmpBoardDAO();
-		boolean result = dao.boardDelete(boardId);
-		if(result) { // 삭제가 성공한 경우
+		boolean result1 = dao.deleteStatisdata(data);
+		boolean result2 = dao.boardDelete(data);
+		if(result1 && result2) { // 삭제가 성공한 경우
 			dao.commit();
+			dao.close();
+			return true;
 		}else {
 			dao.rollback();
+			dao.close();
+			return false;
 		}
+	}
+
+	// 페이징 
+	public Paging getPage(String page, String limit) {
+		EmpBoardDAO dao = new EmpBoardDAO();
 		
-		dao.close();
+		int totalRows = dao.getTotalRows();
 		
-		return result;
+		Paging paging = new Paging(Integer.parseInt(page), Integer.parseInt(limit), totalRows);
+		dao.selectPage(paging); // selectPage()에 paging을 매개변수로 주고 selectPage()에서 수정된 paging을 return한다.
+		return paging;
 	}
 
 	

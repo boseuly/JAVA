@@ -37,6 +37,7 @@ public class EmpBoardDetailController extends HttpServlet {
 			EmpService empService = new EmpService();
 			EmpDTO empData = empService.getId("" + data.getEmpId()); // 사원 아이디에 따른 이름을 가져오기 위해서 
 			
+			data.setContent(data.getContent().replace("\r\n", "<br>")); // \r : 캐리지 리턴 , \n : 뉴라인
 			
 			request.setAttribute("data", data);
 			request.setAttribute("empData", empData);

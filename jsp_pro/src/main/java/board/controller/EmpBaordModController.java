@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import board.model.EmpBoardDTO;
 import board.service.EmpBoardService;
@@ -23,12 +24,17 @@ public class EmpBaordModController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String id = request.getParameter("id"); // 게시글 id를 가져온다. -> 게시글 정보를 가져와야 한다.
+		HttpSession session = request.getSession();
 		
+		// delete 했던 것처럼 작성자와 
+
 		EmpBoardDTO data = boardService.getData(Integer.parseInt(id)); // 게시글 정보를 가져온다. 
+		// 작성자와 수정요청한 사람이 동일 인물이라면 수정 페이지를 보여준다.
+		EmpDTO empData = (EmpDTO) session.getAttribute("loginData");
+
 		
-		if (data != null) {	// 만약 게시글 id에 맞는 게시글 정보가 있다면 
-			EmpService empService = new EmpService();
-			EmpDTO empData = empService.getId("" + data.getEmpId()); // 사원 아이디에 따른 이름을 가져오기 위해서 
+		
+		if (data.getEmpId() == empData.getEmpId()) {	// 만약 게시글 id에 맞는 게시글 정보가 있다면 
 			
 			request.setAttribute("data", data);
 			request.setAttribute("empData", empData);
