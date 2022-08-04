@@ -113,10 +113,23 @@ public class EmpBoardDAO {
 		int result = session.selectOne("empBoardsMapper.getTotalRows");
 		return result;
 	}
+	
+	public int getTotalRows(String search) {
+		int result = session.selectOne("empBoardsMapper.getTotalRows", search);
+		return result;
+	}
+	// 파라미터 없음
 	public void selectPage(Paging paging) { // 매개변수를 통해서 paging객체의 주소를 전달한다. -> 주소를 참조하니까 매개변수를 수정하면 getPage() 즉, 호출한 곳에서의 paging 객체도 수정됨
 		RowBounds rb = new RowBounds(paging.getOffset(), paging.getLimit());
 		Cursor<Object> cursor = session.selectCursor("empBoardsMapper.selectPage", null, rb);
 		paging.setPageDatas(cursor.iterator());
+	}
+	// 파라미터 있음 
+	public void selectPage(Paging paging, String search) {
+		RowBounds rb = new RowBounds(paging.getOffset(), paging.getLimit());
+		Cursor<Object> cursor = session.selectCursor("empBoardsMapper.selectPage", search, rb);
+		paging.setPageDatas(cursor.iterator());
+		
 	}
 
 

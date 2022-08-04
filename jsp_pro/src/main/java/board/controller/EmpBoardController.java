@@ -26,12 +26,35 @@ public class EmpBoardController extends HttpServlet {
 		HttpSession session = request.getSession();
 		// 게시글을 불러와야 한다. 게시글 정보는 그냥 datas라고 저장하기
 		String page = request.getParameter("page");
-		String limit = (String)session.getAttribute("pageCount");
+		
+		String limit = null;
+		if(request.getParameter("pgc") != null) { 		// 사용자가 따로 요청한 게 있으면 사용자가 요청한 값으로 해야한다.
+			limit = request.getParameter("pgc");
+			session.setAttribute("pageCount", limit); 	// 사용자가 요청한 값 세션에 저장하기
+		}else {
+			limit = (String)session.getAttribute("pageCount"); 
+			if(session.getAttribute("pageCount") == null) { // 만약 처음 들어오는 경우라면 
+				limit = "5";								// 기본 5개씩 보여지도록 설정해준다. 
+			}
+		}
+		
 		
 		if(page == null) page = "1";
-		if(limit == null) limit = "5";
 		
-		Paging pageData = service.getPage(page, limit);
+		Paging pageData = null;
+		if(request.getParameter("search")== null) { // 만약 search 하지 않았다면
+			pageData = service.getPage(page, limit);
+		}else {	// 만약 검색을 했다면 
+			if(request.getParameter("search").isEmpty()) { 
+				pageData = service.getPage(page, limit); // 만약 빈문자열이 들어왔다면 그냥 전체 검색
+			}else {
+				pageData = service.getPage(page, limit, request.getParameter("search"));	
+			}
+		}
+		
+		if (pageData.getPageDatas().size() <= 0) {
+			pageData = service.getPage("1", limit);
+		}
 		
 		request.setAttribute("datas", pageData);
 		RequestDispatcher rd = request.getRequestDispatcher(view);

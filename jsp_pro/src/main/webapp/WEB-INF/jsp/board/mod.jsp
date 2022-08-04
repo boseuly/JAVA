@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 	<script type="text/javascript" src="/static/bs5/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/static/bs5/js/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript" src="/static/ckeditor/ckeditor.js"></script>
 </head>
 <body>
 	<header></header>
@@ -53,5 +54,10 @@
 		</form>
 	</section>
 	<footer></footer>
+	<script type="text/javascript">
+		CKEDITOR.replace("content", {
+			filebrowserUploadUrl : "/image/upload?type=image" 
+		});			// 이미지 처리하는 url을 알려주면 여기에 이미지가 전달이 된다.
+	</script>
 </body>
 </html>

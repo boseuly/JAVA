@@ -165,6 +165,16 @@ public class EmpBoardService {
 		return paging;
 	}
 
+	public Paging getPage(String page, String limit, String search) {
+		EmpBoardDAO dao = new EmpBoardDAO();
+		
+		int totalRows = dao.getTotalRows(search); // 무엇을 검색할지 정보를 넣어줌
+		
+		Paging paging = new Paging(Integer.parseInt(page), Integer.parseInt(limit), totalRows);
+		dao.selectPage(paging, search); // selectPage()에 paging을 매개변수로 주고 selectPage()에서 수정된 paging을 return한다.
+		return paging;
+	}
+
 	
 
 }

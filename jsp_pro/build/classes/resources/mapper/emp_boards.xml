@@ -10,7 +10,7 @@
  		<result column="TITLE" property="title"/>
  		<result column="EMPID" property="empId"/>
  		<result column="CREATEDATE" property="createDate"/>
- 		<result column="VIEW" property="view"/>
+ 		<result column="VIEW_CNT" property="viewCnt"/>
  		<result column="LIKE" property="like"/>
  		<association property="empObj" javaType="empDto">
  			<id column="EMPID" property="empId"/>
@@ -118,18 +118,25 @@
  		   AND BID = #{bId}  <!-- bId는 게시글 번호임 -->
  	</update>
  	<!-- 페이징 -->
- 	<select id="getTotalRows" resultType="_int">
-		SELECT COUNT(*) FROM EMP_BOARDS
+ 	<select id="getTotalRows" resultType="_int" parameterType="string">
+		SELECT COUNT(*) 
+		FROM EMP_BOARDS
+		<if test="search != null">
+			WHERE TITLE LIKE '%' || #{search} || '%'
+		</if>
 	</select>
-	<select id="selectPage" resultMap="empBoardMap">
+	<select id="selectPage" resultMap="empBoardMap" parameterType="string">
 		SELECT B.ID, B.TITLE
 		     , B.EMPID
 		     , E.FIRST_NAME || ' ' || E.LAST_NAME AS EMPNAME
 		     , B.CREATEDATE
-		     , B.VIEW_CNT AS viewCnt, B."LIKE"
+		     , B.VIEW_CNT, B."LIKE"
 		  FROM EMP_BOARDS B
 		  JOIN EMPLOYEES E
 		    ON B.EMPID = E.EMPLOYEE_ID
+		    <if test="search != null">
+			WHERE TITLE LIKE '%' || #{search} || '%'
+			</if>
 		 ORDER BY ID DESC
 	</select>
  </mapper>

@@ -37,7 +37,9 @@ public class EmpBoardDetailController extends HttpServlet {
 			EmpService empService = new EmpService();
 			EmpDTO empData = empService.getId("" + data.getEmpId()); // 사원 아이디에 따른 이름을 가져오기 위해서 
 			
-			data.setContent(data.getContent().replace("\r\n", "<br>")); // \r : 캐리지 리턴 , \n : 뉴라인
+			// data.setContent(data.getContent().replace("\r\n", "<br>")); // \r : 캐리지 리턴 , \n : 뉴라인
+			// 자바코드에서는 \n으로 저장되기 때문에 html코드로 바꿔줘야 한다. 그래야 화면으로 봤을 때 개행이 됨
+			// 이건 ckeditor 사용하면 사용할 필요 없음
 			
 			request.setAttribute("data", data);
 			request.setAttribute("empData", empData);
