@@ -7,8 +7,10 @@ public class CommentDTO {
 	private int bId;
 	private String content;
 	private int empId;
+	private String empName;
 	private Date createDate;
 	private String deleted;
+	
 	
 	public int getId() {
 		return id;
@@ -16,17 +18,9 @@ public class CommentDTO {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public void setId(String id) {
-		this.id = Integer.parseInt(id);
-	}
-	
 	public int getbId() {
 		return bId;
 	}
-	public void setbId(String bId) {
-		this.bId = Integer.parseInt(bId);
-	}
-	
 	public void setbId(int bId) {
 		this.bId = bId;
 	}
@@ -42,8 +36,11 @@ public class CommentDTO {
 	public void setEmpId(int empId) {
 		this.empId = empId;
 	}
-	public void setEmpId(String empId) {
-		this.empId = Integer.parseInt(empId);
+	public String getEmpName() {
+		return empName;
+	}
+	public void setEmpName(String empName) {
+		this.empName = empName;
 	}
 	public Date getCreateDate() {
 		return createDate;
@@ -59,8 +56,8 @@ public class CommentDTO {
 	}
 	@Override
 	public String toString() {
-		return "CommnetDTO [id=" + id + ", bId=" + bId + ", content=" + content + ", empId=" + empId + ", createDate="
-				+ createDate + ", deleted=" + deleted + "]";
+		return "CommentDTO [id=" + id + ", bId=" + bId + ", content=" + content + ", empId=" + empId + ", empName="
+				+ empName + ", createDate=" + createDate + ", deleted=" + deleted + "]";
 	}
 	
 	

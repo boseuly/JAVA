@@ -39,7 +39,7 @@ public class EmpBoardController extends HttpServlet {
 		}
 		
 		
-		if(page == null) page = "1";
+		if(page == null) page = "1"; // 몇 페이지인지 확인 
 		
 		Paging pageData = null;
 		if(request.getParameter("search")== null) { // 만약 search 하지 않았다면

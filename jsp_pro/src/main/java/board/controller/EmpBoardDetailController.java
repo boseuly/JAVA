@@ -2,20 +2,18 @@ package board.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.EmpBoardDTO;
 import board.service.EmpBoardService;
+import comment.service.CommentService;
+import common.util.Paging;
 import emp.model.EmpDTO;
 import emp.service.EmpService;
 
@@ -24,6 +22,7 @@ public class EmpBoardDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private EmpBoardService service = new EmpBoardService();
+	private CommentService commentService = new CommentService();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String view = "/WEB-INF/jsp/board/detail.jsp";
@@ -31,18 +30,25 @@ public class EmpBoardDetailController extends HttpServlet {
 		String id = request.getParameter("id");
 		
 		EmpBoardDTO data = service.getData(Integer.parseInt(id));
+		String page = request.getParameter("page"); // 댓글 페이지 받아오기
+		page = page == null ? "1" : page; // 만약 page가 없으면 그냥 1페이지로 설정 
+		String limit = "5";
+		Paging commentPage = commentService.getCommentPage(page, limit, data.getId());
+		
 		service.incViewCnt(request.getSession(),data); // 조회수를 올려야 한다.
 		
 		if (data != null) {
 			EmpService empService = new EmpService();
-			EmpDTO empData = empService.getId("" + data.getEmpId()); // 사원 아이디에 따른 이름을 가져오기 위해서 
 			
+			EmpDTO empData = empService.getId("" + data.getEmpId()); // 사원 아이디에 따른 이름을 가져오기 위해서 
+//			List<CommentDTO> commentDatas = commentService.getDatas(data.getId()); // 댓글 조회하기
 			// data.setContent(data.getContent().replace("\r\n", "<br>")); // \r : 캐리지 리턴 , \n : 뉴라인
 			// 자바코드에서는 \n으로 저장되기 때문에 html코드로 바꿔줘야 한다. 그래야 화면으로 봤을 때 개행이 됨
 			// 이건 ckeditor 사용하면 사용할 필요 없음
 			
 			request.setAttribute("data", data);
 			request.setAttribute("empData", empData);
+			request.setAttribute("commentPage", commentPage);
 			
 			RequestDispatcher rd = request.getRequestDispatcher(view);
 			rd.forward(request, response);
@@ -69,8 +75,6 @@ public class EmpBoardDetailController extends HttpServlet {
 			sb.append(String.format("\"%s\": %d", "likeCnt", data.getLike()));
 		}
 		sb.append("}");
-		
-	
 		
 		out.append(sb.toString());
 		out.flush();
