@@ -22,7 +22,7 @@
 		<c:forEach begin="${currentPage - 2 <= 0 ? 1 : currentPage - 2}" end="${currentPage + 2 > maxPage ? maxPage : currentPage + 2}" var="item">
 			<li class="page-item">
 				<a class="page-link ${currentPage == pageList.get(item-1) ? ' active' : ''}"
-					href="${pageUrl}?page=${pageList.get(item-1)}">${pageList.get(item-1)}</a>
+					href="${pageUrl}?page=${pageList.get(item-1)}">${pageList.get(item-1)}</a> <!-- 여기서 page 전달해줌 -> parameter로 가져온다. -->
 			</li>
 		</c:forEach>
 		<li class="page-item">

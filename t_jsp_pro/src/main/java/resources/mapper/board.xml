@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardMapper">
+	<select id="boardTotalRow" resultType="_int" parameterType="string">	
+		SELECT COUNT(*)
+		  FROM EMP_BOARDS
+		  <if test="search != null"> <!-- search가 존재한다면 -->
+		  	WHERE TITLE LIKE '%' || #{search} || '%'  
+		  </if>
+	</select>
+	<select id="selectBoardPage" parameterType="string" resultType="BoarDto" > <!-- paging 객체 -->
+		SELECT ID 
+			 , TITLE
+			 , CONTENT
+			 , EMPID
+			 , 
+			 , CREATEDATE
+			 , VIEW_CNT AS viewCnt
+			 , LIKE
+		
+		<if test="search != null">
+		  WHERE TITLE LIKE '%' || #{search} || '%'
+		</if>
+	</select>
+</mapper>
