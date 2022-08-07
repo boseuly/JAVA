@@ -2,23 +2,32 @@ package board.model;
 
 import java.sql.Date;
 
+import emps.model.EmpDTO;
+
 public class BoardDTO {
 	private int id;		// 게시글 id
 	private String title;	// 게시글 제목
 	private String content;	// 게시글 내용 
 	private int empId;		// 작성자 id
-	private String empName;	// 작성자명
+	private EmpDTO empDto;	// empDto 게시글 상세 페이지 구현할 때 자주 필요
 	private Date createDate;	// 작성날짜
 	private int viewCnt;		// 조회수
 	private int like;			// 추천수
 	
+	public BoardDTO() {
+	}
 	
-	public String getEmpName() {
-		return empName;
+	public BoardDTO(int id) {
+		this.id = id;
 	}
-	public void setEmpName(String empName) {
-		this.empName = empName;
+	
+	public EmpDTO getEmpDto() {
+		return empDto;
 	}
+	public void setEmpDto(EmpDTO empDto) {
+		this.empDto = empDto;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -75,9 +84,10 @@ public class BoardDTO {
 	}
 	@Override
 	public String toString() {
-		return "BoardDTO [id=" + id + ", title=" + title + ", content=" + content + ", empId=" + empId + ", empName="
-				+ empName + ", createDate=" + createDate + ", viewCnt=" + viewCnt + ", like=" + like + "]";
+		return "BoardDTO [id=" + id + ", title=" + title + ", content=" + content + ", empId=" + empId + ", empDto="
+				+ empDto + ", createDate=" + createDate + ", viewCnt=" + viewCnt + ", like=" + like + "]";
 	}
+	
 	
 	
 }

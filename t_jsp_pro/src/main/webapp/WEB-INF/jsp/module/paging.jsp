@@ -3,37 +3,39 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<div class="paging">
-	<c:set var="currentPage" value="${page}" />
-	<c:set var="prevPage" value="${currentPage - 1}" />
-	<c:set var="nextPage" value="${currentPage + 1}" />
-	<c:set var="maxPage" value="${pageList.get(pageList.size() - 1)}" />
-	<ul class="page center">
-		<li class="page-item">
-			<c:choose>
-				<c:when test="${prevPage <= 0}">
-					<a class="page-link disabled material-symbols-outlined" href="#">keyboard_arrow_left</a>
-				</c:when>
-				<c:otherwise>
-					<a class="page-link material-symbols-outlined" href="${pageUrl}?page=${prevPage}">keyboard_arrow_left</a>
-				</c:otherwise>
-			</c:choose>
+	
+<ul class="pagination justify-content-center">
+	<li class="page-item">
+		<c:choose>
+			<c:when test="${datas.hasPrevPage()}"> <!-- 함수를 사용할 때는 이런 식으로 사용한다. (getter는 제외 )-->
+				<li class="page-item disabled">
+					<a class="page-link bi bi-caret-left-fill" href="#"></a>
+				</li>
+			</c:when>
+			<c:otherwise>
+				<li class="page-item disabled">
+					<a class="page-link disabled bi bi-caret-left-fill" href="${pageUrl}?page=${datas.prevPage}"></a>
+				</li>
+			</c:otherwise>
+		</c:choose>
+	</li>
+	<c:forEach items="${datas.getPages(datas.currentPage - 2,datas.currentPage + 2)}" var="item"> <!-- 현재 페이지에서 -2한 값부터, 현재 페이지에서 +2한 값까지 리스트를 불러와라 -->
+		<li class="page-item ${datas.currentPage == item ? ' active' : ''}"> 
+			<a class="page-link" href="${pageUrl}?page=${item}">${item}</a>
 		</li>
-		<c:forEach begin="${currentPage - 2 <= 0 ? 1 : currentPage - 2}" end="${currentPage + 2 > maxPage ? maxPage : currentPage + 2}" var="item">
-			<li class="page-item">
-				<a class="page-link ${currentPage == pageList.get(item-1) ? ' active' : ''}"
-					href="${pageUrl}?page=${pageList.get(item-1)}">${pageList.get(item-1)}</a> <!-- 여기서 page 전달해줌 -> parameter로 가져온다. -->
-			</li>
-		</c:forEach>
-		<li class="page-item">
-			<c:choose>
-				<c:when test="${nextPage > pageList.size()}">
-					<a class="page-link disabled material-symbols-outlined" href="#">keyboard_arrow_right</a>
-				</c:when>
-				<c:otherwise>
-					<a class="page-link material-symbols-outlined" href="${pageUrl}?page=${nextPage}">keyboard_arrow_right</a>
-				</c:otherwise>
-			</c:choose>
-		</li>
-	</ul>
-</div>
+	</c:forEach>
+	<li class="page-item">
+		<c:choose>
+			<c:when test="${datas.hasNextPage()}"> 
+				<li class="page-item disabled">
+					<a class="page-link bi bi-caret-right-fill" href="${pageUrl}?page=${datas.nextPage}"></a>
+				</li>
+			</c:when>
+			<c:otherwise>
+				<li class="page-item disabled">
+					<a class="page-link bi bi-caret-right-fill" href="#"></a>
+				</li>
+			</c:otherwise>
+		</c:choose>
+	</li>
+</ul>

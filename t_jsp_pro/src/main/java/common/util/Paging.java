@@ -7,7 +7,7 @@ import java.util.List;
 public class Paging {
 	private int offset;
 	private int limit;
-	private List<Integer> pages;	// 총 몇 페이지인지
+	private List<Integer> pages;	// 한 화면에 들어갈 페이지 리스트 
 	private List<Object> pageDatas;	// 한 페이지에 들어갈 객체 -> Obejct인 이유는
 	private int currentPage; 		// 현재 페이지
 	private int nextPage;			// 다음 페이지 

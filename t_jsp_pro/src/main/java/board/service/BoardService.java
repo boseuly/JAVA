@@ -31,10 +31,4 @@ public class BoardService {
 		return paging;
 	}
 
-	// 하단 페이지 리스트 구하기
-	public List<Integer> getPageList(String limit) {
-		
-		return null;
-	}
-	
 }

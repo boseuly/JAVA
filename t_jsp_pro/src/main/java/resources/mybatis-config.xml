@@ -13,7 +13,8 @@
 		<typeAlias type="dept.model.DeptDTO" alias="deptDto"/>
 		<typeAlias type="locs.model.LocsDTO" alias="locsDto"/>
 		<typeAlias type="emps.model.EmpDTO" alias="empDto"/>
-		<typeAlias type="emps.model.PermDTO" alias="permDto"/>
+		<typeAlias type="emps.model.EmpDetailDTO" alias="empDetailDto"/>
+		<typeAlias type="login.model.PermDTO" alias="permDto"/>
 		<typeAlias type="board.model.BoardDTO" alias="boardDto"/>
 	</typeAliases>
 	<environments default="development">

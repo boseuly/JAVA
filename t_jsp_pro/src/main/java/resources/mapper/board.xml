@@ -2,6 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="boardMapper">
+	<resultMap type="boardDto" id="empBoardMap">
+		<constructor> <!-- 생성자에 해당 한다.  -->
+			<idArg column="ID" javaType="_int"/> <!-- 기본키 속성을 의미 -->
+		</constructor>
+		<id column="ID" property="id"/> 
+		<result column="TITLE" property="title"/>
+		
+	</resultMap>
 	<select id="boardTotalRow" resultType="_int" parameterType="string">	
 		SELECT COUNT(*)
 		  FROM EMP_BOARDS
@@ -9,18 +17,20 @@
 		  	WHERE TITLE LIKE '%' || #{search} || '%'  
 		  </if>
 	</select>
-	<select id="selectBoardPage" parameterType="string" resultType="BoarDto" > <!-- paging 객체 -->
-		SELECT ID 
-			 , TITLE
-			 , CONTENT
-			 , EMPID
-			 , 
-			 , CREATEDATE
-			 , VIEW_CNT AS viewCnt
-			 , LIKE
-		
+	<select id="selectBoardPage" resultMap="empBoardMap" parameterType="string" > <!-- paging 객체 -->
+		SELECT B.ID 
+			 , B.TITLE
+			 , B.EMPID
+			 , E.FIRST_NAME || ' ' || E.LAST_NAME AS EMPNAME
+			 , B.CREATEDATE	<!-- 게시글 상세 페이지가 아니기 때문에 CONTENT 내용은 필요없다. -->
+			 , B.VIEW_CNT 
+			 , B."LIKE"
+		  FROM EMP_BOARDS B
+		  JOIN EMPLOYEES E
+		    ON B.EMPID = E.EMPLOYEE_ID
 		<if test="search != null">
 		  WHERE TITLE LIKE '%' || #{search} || '%'
 		</if>
+		ORDER BY ID DESC 
 	</select>
 </mapper>
