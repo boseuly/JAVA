@@ -30,5 +30,23 @@ public class BoardService {
 		dao.close();
 		return paging;
 	}
+	public int boardAdd(BoardDTO data) { // boardId를 반환해준다.
+		// update할 데이터들 
+		BoardDAO dao = new BoardDAO();
+		int boardId = dao.nextSeq(); // 다음 번호를 알아냄 -> 그냥 넣어준다.
+		data.setId(boardId); 	 // upate할 데이터에 다음 boardId를 넣어준다.
+		boolean result = dao.insertBoard(data);
+		
+		if(result) {
+			dao.commit();
+			dao.close();
+			return data.getId();
+		}else {
+			dao.rollback();
+			dao.close();
+		}
+		
+		return 0; // 만약 실패하면 boardId를 0으로 반환
+	}
 
 }

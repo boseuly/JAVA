@@ -40,6 +40,19 @@ public class BoardDAO extends AbstractDAO{
 		paging.setPageDatas(cursor.iterator()); // setPageDatas에서 값을 넣어준다.
 	}
 	
+	// boardId가 시퀀스로 되어 있어서 다음 번호가 무엇인지 알아내야 한다.
+	public int nextSeq() {
+		int nextNumber = session.selectOne("boardMapper.nextSeq");
+		return nextNumber;
+	}
+	
+	// 게시글 추가
+	public boolean insertBoard(BoardDTO data) {
+		// 해당 board 번호를 알아낸다. 
+		int result = session.insert("boardMapper.insertBoard", data);
+		
+		return result == 1 ? true : false;
+	}
 	
 	public void commit() {
 		session.commit();

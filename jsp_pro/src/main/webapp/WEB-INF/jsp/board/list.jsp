@@ -8,45 +8,58 @@
 <head>
 	<meta charset="UTF-8">
 	<title>게시판</title>
-	<%@include file="../module/head.jsp" %>
+	<link rel="stylesheet" type="text/css" href="/static/bs5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+	<script type="text/javascript" src="/static/bs5/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/static/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 	<%@include file="../module/navigation.jsp" %>
 	<section class="container">
-		<div>
+		<div class="mt-3 mb-1">
 			<form action="./board" method="get">
-				<div class="input-form form-left">
-					<button class="btn btn-outline" type="button" onclick="location.href='./board/add'">추가</button>
+				<div class="row g-1">
+					<div class="col-8">
+						<c:url value="/board/add" var="boardAddUrl"/>
+						<button class="btn btn-outline" type="button" onclick="location.href='${boardAddUrl}'">추가</button>
+					</div>
 				</div>
-				<div class="input-form form-right">
-					<input class="input-text" type="text" name="search" data-required="조회할 게시판 어쩌고">
-					<button class="btn btn-outline" type="submit">조회</button>
-					<select class="select-form" onchange="location.href='./emps?pageCount=' + this.value">
-						<option value="5" ${sessionScope.pageCount == 5 ? 'selected' : ''}>5 개</option>
-						<option value="10" ${sessionScope.pageCount == 10 ? 'selected' : ''}>10 개</option>
-						<option value="15" ${sessionScope.pageCount == 15 ? 'selected' : ''}>15 개</option>
-						<option value="20" ${sessionScope.pageCount == 20 ? 'selected' : ''}>20 개</option>
-					</select>
+				<div class="col-3">
+					<div>
+						<input class="input-text" type="text" name="search" data-required="조회할 게시판 어쩌고">
+						<button class="btn btn-outline" type="submit">조회</button>
+						<c:url value="/board" var="boardUrl">
+							<c:param name="pgc"/>
+						</c:url>
+					</div>
+					<div class="col-1">
+						<select class="select-form" onchange="location.href='./board?pageCount=' + this.value">
+							<option value="5" ${sessionScope.pageCount == 5 ? 'selected' : ''}>5 개</option>
+							<option value="10" ${sessionScope.pageCount == 10 ? 'selected' : ''}>10 개</option>
+							<option value="15" ${sessionScope.pageCount == 15 ? 'selected' : ''}>15 개</option>
+							<option value="20" ${sessionScope.pageCount == 20 ? 'selected' : ''}>20 개</option>
+						</select>
+					</div>
 				</div>
 			</form>
 		</div>
-		<table class="table wide vertical-hidden hover">
+		<table class="table table-hover">
 			<colgroup>
+				<col class="col-60">
+				<col class="col-auto">
 				<col class="col-120">
-				<col class="col-480">
+				<col class="col-60">
 				<col class="col-60">
 				<col class="col-120">
-				<col class="col-60">
-				<col class="col-60">
 			</colgroup>
 			<thead>
 				<tr>
-					<th>번호</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>작성일</th>
-					<th>조회수</th>
-					<th>추천수</th>
+					<th class="col-1">번호</th>
+					<th class="col-5">제목</th>
+					<th class="col-2">작성자</th>
+					<th class="col-2">작성일</th>
+					<th class="col-1">조회수</th>
+					<th class="col-1">추천수</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -55,7 +68,7 @@
 						<c:url var="detailUrl" value="/board/detail">
 							<c:param name="id" value="${data.id}" /> <!-- 게시판 id로 게시판 상세 이동 -->
 						</c:url>
-						<tr onclick="location.href='${detailUrl}'">
+						<tr style="cursor: pointer;" onclick="location.href='${detailUrl}'">
 							<td>${data.id}</td>
 							<td>${data.title}</td>
 							<td>${data.empId}</td>

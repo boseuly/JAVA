@@ -17,8 +17,8 @@ public class Paging {
 	public Paging() {}
 	
 	public Paging(int page, int limit, int totalRows) {
-		this.offset = limit * (page - 1);
-		this.limit = limit;
+		this.offset = limit * (page - 1); // row수에서 현재 내 페이지 - 1을 한 값을 offset으로 설정 -> 그럼 만약 내가 현재 1페이지라면 offset은 0인 거,,
+		this.limit = limit;	// 내가 몇 페이지까지 원하는지 -> limit가 10이면 아마 
 		this.currentPage = page;
 		this.nextPage = page + 1;
 		this.prevPage = page - 1;

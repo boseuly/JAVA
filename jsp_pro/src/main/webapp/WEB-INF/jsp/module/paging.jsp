@@ -21,7 +21,7 @@
 	</li>
 	<c:forEach items="${datas.getPages(datas.currentPage - 2, datas.currentPage + 2)}" var="item">
 		<li class="page-item ${datas.currentPage ==item ? ' active' : ''}">
-			<a class="page-link" href="${pageUrl}?page=${item}">${item}</a>
+			<a class="page-link" href="${pageUrl}?page=${item}">${item}</a> <!-- 여기서 page를 전달해준다. -->
 		</li>
 	</c:forEach>
 	<c:choose>

@@ -29,7 +29,7 @@
 	<header></header>
 	<section class="container">
 		<div class="mt-3">
-			<form action="" method="post">
+			<form action="/board/add" method="post">
 				<div class="mb-3">
 					<input class="form-control" id="id_title" name="title" placeholder="제목을 입력하세요." value="${param.title}">
 				</div>

@@ -162,6 +162,8 @@ public class EmpBoardService {
 		
 		Paging paging = new Paging(Integer.parseInt(page), Integer.parseInt(limit), totalRows);
 		dao.selectPage(paging); // selectPage()에 paging을 매개변수로 주고 selectPage()에서 수정된 paging을 return한다.
+		
+		dao.close();
 		return paging;
 	}
 
@@ -172,6 +174,8 @@ public class EmpBoardService {
 		
 		Paging paging = new Paging(Integer.parseInt(page), Integer.parseInt(limit), totalRows);
 		dao.selectPage(paging, search); // selectPage()에 paging을 매개변수로 주고 selectPage()에서 수정된 paging을 return한다.
+		
+		dao.close();
 		return paging;
 	}
 

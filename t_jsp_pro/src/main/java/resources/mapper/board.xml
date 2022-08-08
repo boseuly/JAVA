@@ -33,4 +33,11 @@
 		</if>
 		ORDER BY ID DESC 
 	</select>
+	<select id="nextSeq" resultType="_int">
+		SELECT EMP_BOARDS_SEQ.NEXTVAL FROM DUAL
+	</select>
+	<insert id="insertBoard" parameterType="boardDto">
+		INSERT INTO EMP_BOARDS(ID, TITLE, CONTENT, EMPID, CREATEDATE) 
+		VALUES (#{id}, #{title}, #{content}, #{empId}, SYSDATE)
+	</insert>
 </mapper>
