@@ -11,8 +11,8 @@
 	<%@ include file="./module/head.jsp" %>
 </head>
 <body>
-	<%-- <%@ include file="./module/navigation.jsp" --%>
-	
+	<%@ include file="./module/navigation.jsp" %>
+	<header class="mb-3"></header>
 	<section class="container">
 		<c:if test="${empty sessionScope.loginData}"> 
 			<%@ include file="./login/login_m.jsp" %>
@@ -23,15 +23,3 @@
 	</section>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-

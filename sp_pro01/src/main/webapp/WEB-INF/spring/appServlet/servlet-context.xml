@@ -21,7 +21,8 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.myhome.web" /> <!-- context:component-scan 명시해주고 클래스에 @Component어노테이션을 작성해주면 context:annotation-config를 작성할 필요가 없음  -->
+	<context:component-scan base-package="com.myhome.web" /> 
+	<!-- context:component-scan 명시해주고 클래스에 @Component어노테이션을 작성해주면 context:annotation-config를 작성할 필요가 없음  -->
 	
 	<!-- 데이터베이스 설정 -->
 	<beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">

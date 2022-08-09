@@ -12,7 +12,7 @@ public class EmpDTO {
 	private String empLastName;
 	
 	
-	private void EmpDTO() {}
+	public EmpDTO() {}
 	
 	public EmpDTO(int empId, String empName) {
 		this.empId = empId;
