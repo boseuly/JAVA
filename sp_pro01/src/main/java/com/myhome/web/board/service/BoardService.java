@@ -2,44 +2,35 @@ package com.myhome.web.board.service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.myhome.web.board.controller.BoardController;
 import com.myhome.web.board.model.BoardDAO;
 import com.myhome.web.board.model.BoardDTO;
-import com.myhome.web.board.model.BoardStatisDTO;
+import com.myhome.web.board.vo.BoardVO;
+import com.myhome.web.common.util.Paging;
 import com.myhome.web.emp.model.EmpDTO;
 
 
 @Service
 public class BoardService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+	
 	@Autowired
 	private BoardDAO dao;
 	// 게시글을 전부 가져오기
 	
 	public List<BoardDTO> getBoardAll() {
+		logger.info("getBoardAll()");
+		
 		List<BoardDTO> datas = dao.selectBoardAll();
 		
 		return datas;
-	}
-	
-	public int add(BoardDTO data) {
-		
-		int seq = dao.getNextSeq();
-		data.setId(seq);
-		
-		boolean result = dao.insertData(data);
-		
-		if(result) {
-			dao.commit();
-			dao.close();
-			return data.getId();
-		}
-		dao.rollback();
-		dao.close();
-		return 0;
 	}
 
 	public BoardDTO getData(int id) {
@@ -47,17 +38,63 @@ public class BoardService {
 		return data;
 	}
 	
-	// 게시글 수정
-	public boolean modifyBoard(BoardDTO boardUpdateData) { // update될 내용이 담긴 객체 
-		boolean result = dao.modifyBoard(boardUpdateData); // 게시글 수정
-		if(result) {
-			dao.commit();
-		}else {
-			dao.rollback();
-		}
-		return result;
+
+	// 조회 없는 페이징 
+	@Transactional
+	public Paging getPage(int page, int limit) {
+		logger.info("getPage()");
 		
+		int totalRows = dao.getTotalRows();
+		
+		Paging paging = new Paging(page,limit, totalRows);
+		dao.selectPage(paging); // selectPage()에 paging을 매개변수로 주고 selectPage()에서 수정된 paging을 return한다.
+		
+		return paging;
 	}
+	
+	 
+	public int add(EmpDTO empDto, BoardVO data) {
+		BoardDTO boardDto = new BoardDTO();
+		boardDto.setTitle(data.getTitle());
+		boardDto.setContent(data.getContent());
+		boardDto.setEmpId(empDto.getEmpId());
+		
+		int seq = dao.getNextSeq();
+		data.setId(seq);
+		
+		boolean result = dao.insertData(boardDto); // 얘는 여기서 한번만 dao를 불렀다가 종료하는 것이기 때문에 굳이 transaction을 할 필요가 없다.
+		
+		if(result) {
+			return data.getId();
+		}
+		return 0;
+	}
+	
+	// 게시글 수정
+		public boolean modifyBoard(BoardDTO boardUpdateData) { // update될 내용이 담긴 객체 
+			boolean result = dao.modifyBoard(boardUpdateData); // 게시글 수정
+			return result;
+			
+		}
+	
+	
+	
+/*	
+	// 조회 페이징
+	public Paging getPage(int page, int limit, String search) {
+		
+		int totalRows = dao.getTotalRows(search); // 무엇을 검색할지 정보를 넣어줌
+		
+		Paging paging = new Paging(page ,limit, totalRows);
+		dao.selectPage(paging, search); // selectPage()에 paging을 매개변수로 주고 selectPage()에서 수정된 paging을 return한다.
+		
+		return paging;
+	}
+	
+	
+
+	
+	
 
 	// 조회수 올리기 -> 제한 기능도 구현
 	public void incViewCnt(HttpSession session, BoardDTO data) {
@@ -104,7 +141,7 @@ public class BoardService {
 					 EMP_BOARDS에서 추천수 + 1을 한다.
 				2-2. 찾은 기록에서 ISLIKE 컬럼의 값이 Y이면 N으로 변경 후 
 					 EMP_BOARDS에서 추천수 - 1을 한다.  
-		*/
+	
 
 		boolean result = false;
 		BoardStatisDTO statisData = new BoardStatisDTO();
@@ -146,27 +183,6 @@ public class BoardService {
 		}
 	}
 
-	// 페이징 
-//	public Paging getPage(String page, String limit) {
-//		
-//		int totalRows = dao.getTotalRows();
-//		
-//		Paging paging = new Paging(Integer.parseInt(page), Integer.parseInt(limit), totalRows);
-//		dao.selectPage(paging); // selectPage()에 paging을 매개변수로 주고 selectPage()에서 수정된 paging을 return한다.
-//		
-//		return paging;
-//	}
-//
-//	public Paging getPage(String page, String limit, String search) {
-//		
-//		int totalRows = dao.getTotalRows(search); // 무엇을 검색할지 정보를 넣어줌
-//		
-//		Paging paging = new Paging(Integer.parseInt(page), Integer.parseInt(limit), totalRows);
-//		dao.selectPage(paging, search); // selectPage()에 paging을 매개변수로 주고 selectPage()에서 수정된 paging을 return한다.
-//		
-//		return paging;
-//	}
-
-	
+*/
 
 }

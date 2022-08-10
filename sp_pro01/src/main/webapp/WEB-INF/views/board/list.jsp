@@ -29,6 +29,14 @@
 							<c:param name="pgc"/>
 						</c:url>
 					</div>
+					<div class="col-1">
+						<select class="select-form" onchange="location.href='./board?pageCount=' + this.value">
+							<option value="5" ${sessionScope.pageCount == 5 ? 'selected' : ''}>5 개</option>
+							<option value="10" ${sessionScope.pageCount == 10 ? 'selected' : ''}>10 개</option>
+							<option value="15" ${sessionScope.pageCount == 15 ? 'selected' : ''}>15 개</option>
+							<option value="20" ${sessionScope.pageCount == 20 ? 'selected' : ''}>20 개</option>
+						</select>
+					</div>
 				</div>
 			</form>
 		</div>
@@ -69,6 +77,12 @@
 				</c:if>
 			</tbody>
 		</table>
+		<nav>
+			<c:url value="/board" var="boardUrl"/>
+			<jsp:include page="../module/paging.jsp">
+				<jsp:param value="${boardUrl}" name="url"/> 
+			</jsp:include>
+		</nav>
 	</section>
 </body>
 </html>
