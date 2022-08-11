@@ -1,6 +1,9 @@
 package com.myhome.web.board.service;
 
+import java.sql.SQLDataException;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.myhome.web.board.controller.BoardController;
 import com.myhome.web.board.model.BoardDAO;
 import com.myhome.web.board.model.BoardDTO;
+import com.myhome.web.board.model.BoardStatisDTO;
 import com.myhome.web.board.vo.BoardVO;
 import com.myhome.web.common.util.Paging;
 import com.myhome.web.emp.model.EmpDTO;
@@ -52,8 +56,10 @@ public class BoardService {
 		return paging;
 	}
 	
-	 
+	 // 게시글 추가 
+	@Transactional
 	public int add(EmpDTO empDto, BoardVO data) {
+		logger.info("add(empDto={}, data={})", empDto, data);
 		BoardDTO boardDto = new BoardDTO();
 		boardDto.setTitle(data.getTitle());
 		boardDto.setContent(data.getContent());
@@ -62,7 +68,7 @@ public class BoardService {
 		int seq = dao.getNextSeq();
 		data.setId(seq);
 		
-		boolean result = dao.insertData(boardDto); // 얘는 여기서 한번만 dao를 불렀다가 종료하는 것이기 때문에 굳이 transaction을 할 필요가 없다.
+		boolean result = dao.insertData(boardDto); 
 		
 		if(result) {
 			return data.getId();
@@ -71,36 +77,27 @@ public class BoardService {
 	}
 	
 	// 게시글 수정
-		public boolean modifyBoard(BoardDTO boardUpdateData) { // update될 내용이 담긴 객체 
-			boolean result = dao.modifyBoard(boardUpdateData); // 게시글 수정
-			return result;
-			
-		}
-	
-	
-	
-/*	
-	// 조회 페이징
-	public Paging getPage(int page, int limit, String search) {
+	public boolean modifyBoard(BoardDTO boardUpdateData) { // update될 내용이 담긴 객체 
+		boolean result = dao.modifyBoard(boardUpdateData); // 게시글 수정
+		return result;
 		
-		int totalRows = dao.getTotalRows(search); // 무엇을 검색할지 정보를 넣어줌
-		
-		Paging paging = new Paging(page ,limit, totalRows);
-		dao.selectPage(paging, search); // selectPage()에 paging을 매개변수로 주고 selectPage()에서 수정된 paging을 return한다.
-		
-		return paging;
 	}
-	
-	
+	// 게시글 삭제 
+	@Transactional
+	public boolean boardDelete(BoardDTO data) {
+		boolean result1 = dao.deleteStatisdata(data);  	// 얘를 수행한 다음
+		boolean result2 = dao.boardDelete(data);		// 얘도 수행해야 함
+		if(result1 && result2) { // 삭제가 성공한 경우			// 하나의 트랜젝션에 해당 -> @Transactional
+			return true;
+		}else {
+			return false;
+		}
+	}
 
-	
-	
 
 	// 조회수 올리기 -> 제한 기능도 구현
-	public void incViewCnt(HttpSession session, BoardDTO data) {
-		EmpDTO empData = (EmpDTO)session.getAttribute("loginData"); // 본 사람이 누구인지 알아야 하니까 현재 로그인 한 사람의 정보를 session에서 불러온다.
-		
-		
+	@Transactional
+	public void incViewCnt(EmpDTO empData, BoardDTO data) {
 		boolean result = false;
 		BoardStatisDTO statisData = new BoardStatisDTO();
 		statisData.setbId(data.getId());	// bId는 게시물의 id이다. 즉 ,EmpBoardDTO의 id에 해당한다.
@@ -126,13 +123,16 @@ public class BoardService {
 		
 		if(result) { //조회수 + 1을 성공적으로 했다면 
 			data.setViewCnt(data.getViewCnt() + 1); // db는 변경이 됐을지 몰라도 자바에서 불러온 데이터는 이전 데이터이기 때문에
-			dao.commit();							// 자바에서도 기존의 viewCnt에서 + 1을 해줘야 한다. 안 그럼 증가 X
-		}else {
-			dao.rollback();
 		}
+		
+//		throw new RuntimeException("RuntimeException을 발생시키면 롤백"); -> 이렇게 하면 이전 트랜젝션 상태로 돌아가게 된다.
 	}
+	
+	
 	// 추천수 올리기
-	public void incLike(HttpSession session, BoardDTO data) {
+	@Transactional(rollbackFor = SQLDataException.class) // SQLDataException이 발생하면 롤백해줘라
+	public void incLike(HttpSession session, BoardDTO data) throws SQLDataException {
+		logger.info("incLike(data={})",data);
 		EmpDTO empData = (EmpDTO)session.getAttribute("loginData"); // 로그인 사원 정보 가져오기
 		
 		/* 	1. EMP_BOARDS_STATISTICS 테이블에서 추천 했던 기록을 찾는다.
@@ -141,12 +141,12 @@ public class BoardService {
 					 EMP_BOARDS에서 추천수 + 1을 한다.
 				2-2. 찾은 기록에서 ISLIKE 컬럼의 값이 Y이면 N으로 변경 후 
 					 EMP_BOARDS에서 추천수 - 1을 한다.  
-	
+		 */
 
 		boolean result = false;
 		BoardStatisDTO statisData = new BoardStatisDTO();
 		
-		statisData.setbId(data.getId());	// bId는 게시물의 id이다. 즉 ,EmpBoardDTO의 id에 해당한다.
+		statisData.setbId(data.getId());		// bId는 게시물의 id이다. 즉 ,EmpBoardDTO의 id에 해당한다.
 		statisData.setEmpId(empData.getEmpId());// 방문한 사람의 id
 		
 		statisData = dao.selectStatis(statisData);
@@ -159,30 +159,34 @@ public class BoardService {
 			statisData.setLike(true); 	// 추천 한다로 변경
 			data.setLike(data.getLike() + 1);	// 게시글 추천수 + 1
 		}
-		dao.updateStatis(statisData, "like"); 	 
-		result = dao.updateLike(data);
 		
+		result = dao.updateStatis(statisData, "like"); 	 
+		if(!result) {
+			throw new SQLDataException("BoardService.incLike - 추천 통계 업데이트 중 문제 발생");
+		}
+		
+		result = dao.updateLike(data);
+		if(!result) {
+			throw new RuntimeException("BoardService.incLike - 추천 통계 업데이트 중 문제 발생");
+		}
 		
 		if(result) {
 			data.setViewCnt(data.getLike() + 1); // db는 변경이 됐을지 몰라도 자바에서 불러온 데이터는 이전 데이터이기 때문에
-			dao.commit();							// 자바에서도 기존의 like에서 + 1을 해줘야 한다. 안 그럼 증가 X
-		}else {
-			dao.rollback();
 		}
 	}
-
-	public boolean boardDelete(BoardDTO data) {
-		boolean result1 = dao.deleteStatisdata(data);
-		boolean result2 = dao.boardDelete(data);
-		if(result1 && result2) { // 삭제가 성공한 경우
-			dao.commit();
-			return true;
-		}else {
-			dao.rollback();
-			return false;
-		}
+/*	
+	// 조회 페이징
+	public Paging getPage(int page, int limit, String search) {
+		
+		int totalRows = dao.getTotalRows(search); // 무엇을 검색할지 정보를 넣어줌
+		
+		Paging paging = new Paging(page ,limit, totalRows);
+		dao.selectPage(paging, search); // selectPage()에 paging을 매개변수로 주고 selectPage()에서 수정된 paging을 return한다.
+		
+		return paging;
 	}
-
+	
+	
 */
 
 }

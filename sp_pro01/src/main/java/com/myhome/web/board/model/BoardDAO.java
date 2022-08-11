@@ -84,45 +84,51 @@ public class BoardDAO {
 		return result == 1 ? true : false;
 	}
 	
-/*	
-	// 파라미터 있음 
-	public void selectPage(Paging paging, String search) {
-		RowBounds rb = new RowBounds(paging.getOffset(), paging.getLimit());
-		Cursor<Object> cursor = session.selectCursor("empBoardsMapper.selectPage", search, rb);
-		paging.setPageDatas(cursor.iterator());
-	}
-	
-	
-	
-	
-	
-	public boolean updateViewCnt(BoardDTO data) {
-		int result = session.update("empBoardsMapper.updateViewCnt", data);
+	// 삭제 
+	public boolean boardDelete(BoardDTO data) {
+		int result = session.delete("empBoardsMapper.deleteBoard", data.getId());
 		return result == 1 ? true : false;
 	}
-
-	public boolean updateLike(BoardDTO data) {
-		int result = session.update("empBoardsMapper.updateLike", data);
-		return result == 1 ? true : false;
+	
+	public boolean deleteStatisdata(BoardDTO data) {
+		int result = session.delete("empBoardsMapper.deleteStatisData", data.getId());
+		return result >= 0 ? true : false; // 해당 게시물을 다른 사람들이 본 기록이 있다면 기록을 다 지워라 -> 없을 수도 있고 여러 개일 수도 있다. 
 	}
+	
 	// 방문 내역이 있는지 확인
 	public BoardStatisDTO selectStatis(BoardStatisDTO data) {
 		BoardStatisDTO result = session.selectOne("empBoardsMapper.selectStatis", data);
 		return result;
 	}
-
-	// 방문 기록
-	public boolean insertStatis(BoardStatisDTO data) {
-		int result = session.insert("empBoardsMapper.insertStatis", data); // 방문 기록을 추가해주기
-		return result == 1 ? true : false;
-	}
-
+	
 	// 7일 후 방문한 기록 수정 
 	public boolean updateStatis(BoardStatisDTO data) {
 		int result = session.update("empBoardsMapper.updateStatis", data); // 방문 기록을 추가해주기
 		return result == 1 ? true : false;
 		
 	}
+	
+	// 방문 기록
+	public boolean insertStatis(BoardStatisDTO data) {
+		int result = session.insert("empBoardsMapper.insertStatis", data); // 방문 기록을 추가해주기
+		return result == 1 ? true : false;
+	}
+	
+	public boolean updateViewCnt(BoardDTO data) {
+		int result = session.update("empBoardsMapper.updateViewCnt", data);
+		return result == 1 ? true : false;
+	}
+
+
+	// 추천수
+	public boolean updateLike(BoardDTO data) {
+		logger.info("updateLike(data={})",data);
+		int result = session.update("empBoardsMapper.updateLike", data);
+		return result == 1 ? true : false;
+	}
+	
+	
+	
 	// like 수정
 	public boolean updateStatis(BoardStatisDTO data, String type) {
 		if(type.equals("like")) {
@@ -135,18 +141,15 @@ public class BoardDAO {
 	}
 
 	
-
+/*	
+	// 파라미터 있음 
+	public void selectPage(Paging paging, String search) {
+		RowBounds rb = new RowBounds(paging.getOffset(), paging.getLimit());
+		Cursor<Object> cursor = session.selectCursor("empBoardsMapper.selectPage", search, rb);
+		paging.setPageDatas(cursor.iterator());
+	}
 	
-
-	public boolean boardDelete(BoardDTO data) {
-		int result = session.delete("empBoardsMapper.deleteBoard", data.getId());
-		return result == 1 ? true : false;
-	}
-	public boolean deleteStatisdata(BoardDTO data) {
-		int result = session.delete("empBoardsMapper.deleteStatisData", data.getId());
-		return result >= 0 ? true : false; // 해당 게시물을 다른 사람들이 본 기록이 있다면 기록을 다 지워라 -> 없을 수도 있고 여러 개일 수도 있다. 
-	}
-
+	
 
 */
 	

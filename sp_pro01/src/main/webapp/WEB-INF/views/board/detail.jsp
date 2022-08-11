@@ -9,10 +9,7 @@
 	<meta charset="UTF-8">
 	<title>${data.title}</title>
 	<jsp:include page="../module/head.jsp"></jsp:include>
-	<link rel="stylesheet" type="text/css" href="/spring/static/bs5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-	<script type="text/javascript" src="/spring/static/bs5/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="/spring/static/bs5/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 	<header>
@@ -48,42 +45,7 @@
 			</div>
 		</div>
 		
-		<div class="mb-3">
-			<c:url var="pageUrl" value="/board/detail">
-				<c:param name="id">${data.id}</c:param>
-			</c:url>
-			<ul class="pagination justify-content-center">
-				<c:choose>
-					<c:when test="${commentPage.hasPrevPage()}">
-						<li class="page-item">
-							<a class="page-link bi bi-caret-left-fill" href="${pageUrl}&page=${commentPage.prevPage}"></a>
-						</li>
-					</c:when>
-					<c:otherwise>
-						<li class="page-item disabled">
-							<a class="page-link bi bi-caret-left-fill" href="#"></a>
-						</li>
-					</c:otherwise>
-				</c:choose>
-				<c:forEach items="${commentPage.getPages(commentPage.currentPage - 2, commentPage.currentPage + 2)}" var="item">
-					<li class="page-item ${commentPage.currentPage == item ? ' active' : ''}">
-						<a class="page-link" href="${pageUrl}&page=${item}">${item}</a>
-					</li>
-				</c:forEach>
-				<c:choose>
-					<c:when test="${commentPage.hasNextPage()}">
-						<li class="page-item">
-							<a class="page-link bi bi-caret-right-fill" href="${pageUrl}&page=${commentPage.nextPage}"></a>
-						</li>
-					</c:when>
-					<c:otherwise>
-						<li class="page-item disabled">
-							<a class="page-link bi bi-caret-right-fill" href="#"></a>
-						</li>
-					</c:otherwise>
-				</c:choose>
-			</ul>
-		</div>
+		
 		<!-- 댓글 -->
 		<div class="mb-3">
 			<c:forEach items="${commentPage.pageDatas}" var="comment">
@@ -108,8 +70,44 @@
 					</div>
 				</div>
 			</c:forEach>
+			<div class="mb-3">
+				<c:url var="pageUrl" value="/board/detail">
+					<c:param name="id">${data.id}</c:param>
+				</c:url>
+				<ul class="pagination justify-content-center">
+					<c:choose>
+						<c:when test="${commentPage.hasPrevPage()}">
+							<li class="page-item">
+								<a class="page-link bi bi-caret-left-fill" href="${pageUrl}&page=${commentPage.prevPage}"></a>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item disabled">
+								<a class="page-link bi bi-caret-left-fill" href="#"></a>
+							</li>
+						</c:otherwise>
+					</c:choose>
+					<c:forEach items="${commentPage.getPages(commentPage.currentPage - 2, commentPage.currentPage + 2)}" var="item">
+						<li class="page-item ${commentPage.currentPage == item ? ' active' : ''}">
+							<a class="page-link" href="${pageUrl}&page=${item}">${item}</a>
+						</li>
+					</c:forEach>
+					<c:choose>
+						<c:when test="${commentPage.hasNextPage()}">
+							<li class="page-item">
+								<a class="page-link bi bi-caret-right-fill" href="${pageUrl}?page=${commentPage.nextPage}"></a>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item disabled">
+								<a class="page-link bi bi-caret-right-fill" href="#"></a>
+							</li>
+						</c:otherwise>
+					</c:choose>
+				</ul>
+			</div>
 			<div class="mb-1">
-				<c:url var="commentUrl" value="/comment" />
+				<c:url var="commentUrl" value="/board/comment" /> <!-- boardController에서 한꺼번에 처리하기 -->
 				<form action="${commentUrl}/add" method="post">
 					<input type="hidden" name="bid" value="${data.id}">
 					<div class="input-group">
@@ -156,6 +154,7 @@
 		</div>
 	</section>
 	<footer></footer>
+	
 	<script type="text/javascript">
 		// 댓글 작성 안 하고 작성 누르는 경우 대비해서 만든 함수 // 이건 모달로 바꿔보기
 		function formCheck(form) {
@@ -198,7 +197,7 @@
 			var value = e.target.parentElement.previousElementSibling.children[0].value;
 			
 			$.ajax({
-				url: "/comment/modify",
+				url: "${commentUrl}/modify",
 				type: "post",
 				data: {
 					id: cid,
@@ -220,7 +219,7 @@
 			var card = element.parentElement.parentElement.parentElement.parentElement;
 			
 			$.ajax({
-				url: "/comment/delete",
+				url: "${commentUrl}/delete",
 				type: "post",
 				data: {
 					id: cid
@@ -235,7 +234,7 @@
 		}
 		function incLike(element, id) {
 			$.ajax({
-				url: "/board/detail",
+				url: "${boardUrl}/like",
 				type: "post",
 				data: {
 					id: id
@@ -243,6 +242,7 @@
 				success: function(data) {
 					if(data.code === "success") {
 						element.innerText = data.likeCnt;
+						
 					}
 				}
 			});
@@ -250,7 +250,7 @@
 		function boardDelete(boardId) {
 			$.ajax({
 				type: "post",
-				url: "/board/delete",
+				url: "${boardUrl}/delete",
 				data: {
 					id: boardId
 				},
@@ -262,14 +262,29 @@
 					
 					var title = myModal._element.querySelector(".modal-title");
 					var body = myModal._element.querySelector(".modal-body");
-					title.innerText = data.title;
-					body.innerHTML = "<p>" + data.message + "</p>"
+					title.innerText = "오류";
+					body.innerHTML = "<p>" + ${sessionScope.commentError} + "</p>"
 						
 					myModal.show();
 				}
 			})
 		}
 	</script>
+	<c:if test="${sessionScope.commentError}">
+		<script type="text/javascript">
+			var myModal = new bootstrap.Modal(document.getElementById("resultModal"), {
+				keyboard: false
+			});
+			
+			var title = myModal._element.querySelector(".modal-title");
+			var body = myModal._element.querySelector(".modal-body");
+			title.innerText = data.title;
+			body.innerHTML = "<p>" + data.message + "</p>"
+				
+			myModal.show();
+		</script>
+		<c:remove var="commentError" scope="session"/>
+	</c:if>
 	<c:if test="${sessionScope.error}">
 		<script type="text/javascript">
 			alert("${sessionScope.error}");

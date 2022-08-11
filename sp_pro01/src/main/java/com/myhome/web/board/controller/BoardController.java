@@ -1,7 +1,10 @@
 package com.myhome.web.board.controller;
 
+import java.sql.SQLDataException;
+
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +16,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.myhome.web.board.model.BoardDTO;
 import com.myhome.web.board.service.BoardService;
 import com.myhome.web.board.vo.BoardVO;
+import com.myhome.web.comment.model.CommentDTO;
+import com.myhome.web.comment.service.CommentService;
 import com.myhome.web.common.util.Paging;
 import com.myhome.web.emp.model.EmpDTO;
 
@@ -29,7 +35,10 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService service;
-	 
+
+	@Autowired
+	private CommentService commentService;
+	
 	// 조회
 	@RequestMapping(value="", method=RequestMethod.GET) // 정보만 가져다 줄 거니까 GET
 	public String getData(Model model, HttpSession session
@@ -43,7 +52,7 @@ public class BoardController {
 		
 		// pageCount를 변경하고자 요청한 경우
 		if(pageCount > 0) {
-			session.setAttribute("pageCount", pageCount); // 이전에 저장해둔 로그인 정보 가져오기 
+			session.setAttribute("pageCount", pageCount);  
 		}
 		
 		Paging pageData =  service.getPage(page, Integer.parseInt(session.getAttribute("pageCount").toString())); // session은 object로 반환되기 
@@ -59,19 +68,31 @@ public class BoardController {
 	/* 
 	@RequestMapping(value="/detail/{id}", method=RequestMethod.GET)
 	public String getDetail(Model model
-			,@PathVariable int id) 
+			,@PathVariable int id) // @PathVariable을 사용하면 ?를 사용하지 않아도 된다. // path로 설정해두는 것이다.
 	*/
 	// 아래 방법보다 위에 방법이 요즘 트렌드임
 	@RequestMapping(value="/detail", method=RequestMethod.GET)
 	public String getDetail(Model model
-			,@RequestParam int id) {			// @PathVariable을 사용하면 ?를 사용하지 않아도 된다. // path로 설정해두는 것이다.
+			, @RequestParam int id 		// bId
+			, @RequestParam(defaultValue="1") int page	// 댓글 page // 만약 page가 null이라면 기본적으로 1페이지로 설정
+			, @SessionAttribute("loginData") EmpDTO empDto) { 
+		// limit(pageCount)는 기본적으로 5로 설정
+		int limit = 5;
+		
 		BoardDTO data = service.getData(id);
-		model.addAttribute("data", data);
+		Paging commentPage = commentService.getCommentPage(page, limit, id); // 댓글 페이징 데이터 
 		
-		return "board/detail";
 		
+		if(data == null) {
+			model.addAttribute("error", "해당 데이터는 존재하지 않습니다.");
+			return "error/noExists";
+		}else {
+			service.incViewCnt(empDto, data); // 로그인한 사람 정보랑 게시판 정보 전달 -> 해당 게시판 방문 기록 추가
+			model.addAttribute("data", data);
+			model.addAttribute("commentPage", commentPage);
+			return "board/detail";
+		}
 	}
-	
 	
 	//추가 폼 요청 -> 폼을 보여주는 것은 모델이 필요하다. 
 	@GetMapping(value="/add") // 정보만 가져다 줄 거니까 GET
@@ -138,4 +159,65 @@ public class BoardController {
 	
 	
 	// 삭제
+	@PostMapping (value="/delete", produces="application/json; charset=utf-8") // response.setContex() 했던 것처럼
+	@ResponseBody // ajax를 사용할 때는 반드시 @ResponseBody 필요 응답 데이터를 전달해준다.
+	public String delete(@SessionAttribute("loginData") EmpDTO empDto
+			, @RequestParam int id) { // 파라미터로 들어올 아이디가 존재
+		
+		logger.info("delete(empDto={}, id={})", empDto, id);
+		BoardDTO data = service.getData(id);
+		JSONObject json = new JSONObject();
+		
+		if(data == null) { 
+			// 이미 삭제
+			json.put("title", "삭제가 된 데이터");
+			json.put("message", "해당 데이터는 이미 삭제가 되었습니다.");
+			return json.toJSONString();
+		}else {
+			if(data.getEmpId() == empDto.getEmpId()) { // 게시글 
+				boolean result = service.boardDelete(data);
+				// 삭제 가능
+				if(result) {
+					// 삭제 성공 
+					json.put("title", "삭제 완료");
+					json.put("message", "삭제 처리가 완료되었습니다.");
+					return json.toJSONString();
+				}else {
+					// 삭제 실패
+					json.put("title", "삭제 실패");
+					json.put("message", "삭제 중 알 수 없는 문제가 발생하였습니다.");
+					return json.toJSONString();
+				}
+			}else {
+				// 작성자 불일치 - 삭제 불가 - 권한 없음 
+				json.put("title", "삭제불가");
+				json.put("message", "해당 데이터를 삭제할 권한이 없습니다.");
+				return json.toJSONString();
+			}
+		}
+	}
+	
+	// 댓글 추가
+	@PostMapping(value="/comment/add")
+	public String commentAdd(Model model, HttpSession session
+			, @SessionAttribute("loginData") EmpDTO empDto
+			, @RequestParam int bid				// 사용자가 댓글을 달 게시글
+			, @RequestParam String content) { 	// 사용자가 입력한 내용
+		
+		// 댓글 추가
+		CommentDTO data = new CommentDTO();
+		data.setbId(bid);
+		data.setContent(content);
+		data.setEmpId(empDto.getEmpId());
+		
+		try {
+			commentService.add(data);
+			return "redirect:/board/detail?id=" + bid; // 성공하면 그냥 게시글 보여준다.
+		} catch (SQLDataException e) {
+			session.setAttribute("commentError", "댓글 추가 작업 중 오류가 발생하였습니다.");
+			return "redirect:/board/detail?id=" + bid;
+		}
+	}
+	
+	
 }

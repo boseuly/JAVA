@@ -15,8 +15,8 @@
 	</div>
 	<div class="form-floating m-2" >
 		<select class="form-select" name="deptId" id="id_deptId">
+			<option>부서 선택</option>
 			<c:forEach items="${deptDatas}" var="deptDto"> <!-- 부서명을 저장한 객체를 가져와서 for문을 돌려서 보여줘야 한다.  -->
-				<option>부서 선택</option>
 				<c:choose>
 					<c:when test="${empty error and cookie.deptRe.value == deptDto.deptId}"> <!-- 만약 부서 기억하기 체크가 되어있다면-->
 						<option value="${deptDto.deptId}" selected> <!--  해당 부서는 selected를 추가해라 -->

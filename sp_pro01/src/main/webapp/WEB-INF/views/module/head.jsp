@@ -7,4 +7,4 @@
 <c:url var="jQuery" value="/static/bs5" />
 <link type="text/css" rel="stylesheet" href="${bs5}/css/bootstrap.min.css">
 <script type="text/javascript" src="${bs5}/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="${jQuery}/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="${jQuery}/js/jquery-3.6.0.min.js"></script>

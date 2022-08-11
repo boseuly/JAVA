@@ -49,8 +49,9 @@
 		  JOIN DEPARTMENTS D
 		    ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
 	</select>
+	<!-- 
 	<select id="selectDetail" resultType="empDetailDto" parameterType="_int">
-		SELECT EMPLOYEE_ID AS empId  <!-- 이렇게 resultMap 사용 안 하고 별칭 지어줘도 된다. -->
+		SELECT EMPLOYEE_ID AS empId  이렇게 resultMap 사용 안 하고 별칭 지어줘도 된다.
 		     , PHONE_NUMBER AS phone
 		     , HIRE_DATE AS hireDate
 		     , SALARY AS salary
@@ -76,4 +77,5 @@
 		     , COMMISSION_PCT = #{commission}
 		 WHERE EMPLOYEE_ID = #{empId}
 	</update>
+	 -->
 </mapper>

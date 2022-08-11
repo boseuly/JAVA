@@ -72,8 +72,8 @@ public class Paging {
 	}
 	
 	public boolean hasNextPage() { // 다음 페이지가 있는지 확인
-		return this.nextPage > this.pages.size() / limit; // size가 10이면 실제 페이지는 11페이지임
-		// return this.pages.contains(this.nextPage);
+		//return this.nextPage > this.pages.size() / limit; // size가 10이면 실제 페이지는 11페이지임
+		return this.pages.contains(this.nextPage);
 	}
 	
 	public boolean hasPrevPage() { // 이전 페이지가 있는지 확인

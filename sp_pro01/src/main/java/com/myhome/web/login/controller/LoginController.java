@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -37,6 +38,14 @@ public class LoginController {
 		return "";
 	}
 */
+	
+	@GetMapping(value="/login")
+	public String login(Model model) {
+		List<DeptDTO> deptDatas = deptService.getAll();
+		model.addAttribute("deptDatas", deptDatas);
+		return "login/login";
+	}
+	
 	@Autowired // 필드에서 바인딩을 시켜주는 경우에 해당 -> 기본생성자에서 객체를 바인딩 해준다.
 	private LoginService service;
 	
@@ -65,9 +74,7 @@ public class LoginController {
 			response.addCookie(cookie); 
 			return "redirect:/index"; // response.redirect 를 써주지 않아도 된다. 그냥 redirect로 써준다.
 		}else { //로그인 실패
-			List<DeptDTO> deptDatas = deptService.getAll();
-			model.addAttribute("deptDatas", deptDatas);
-			return "/login/login";  
+			return login(model);
 		}
 	}	
 	@RequestMapping(value="/logout", method=RequestMethod.GET)

@@ -8,11 +8,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>게시글 수정</title>
-	<link rel="stylesheet" type="text/css" href="/static/bs5/css/bootstrap.min.css">
+	<jsp:include page="../module/head.jsp"></jsp:include>
 	<link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-	<script type="text/javascript" src="/static/bs5/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="/static/bs5/js/jquery-3.6.0.min.js"></script>
-	<script type="text/javascript" src="/static/ckeditor/ckeditor.js"></script>
+	<c:url value="/static/ckeditor" var="ckUrl"/>
+	<script type="text/javascript" src="${ckUrl}/ckeditor.js"></script>
 </head>
 <body>
 	<header></header>
