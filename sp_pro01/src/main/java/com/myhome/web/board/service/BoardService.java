@@ -36,6 +36,10 @@ public class BoardService {
 		
 		return datas;
 	}
+	public int nextSeq() {
+		return dao.getNextSeq();  // 다음 bId를 불러온다.
+		
+	}
 
 	public BoardDTO getData(int id) {
 		BoardDTO data = dao.selectData(id);
@@ -66,12 +70,12 @@ public class BoardService {
 		boardDto.setEmpId(empDto.getEmpId());
 		
 		int seq = dao.getNextSeq();
-		data.setId(seq);
+		boardDto.setId(seq);
 		
 		boolean result = dao.insertData(boardDto); 
 		
 		if(result) {
-			return data.getId();
+			return boardDto.getId();
 		}
 		return 0;
 	}

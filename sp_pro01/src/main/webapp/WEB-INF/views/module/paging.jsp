@@ -14,7 +14,7 @@
 		</c:when>
 		<c:otherwise>
 			<li class="page-item disabled">
-				<a class="page-link disabled bi bi-caret-left-fill" href="${param.url}?page=${pageData.prevPage}"></a>
+				<a class="page-link disabled bi bi-caret-left-fill" href="${param.url}&page=${pageData.prevPage}"></a>
 			</li>
 		</c:otherwise>
 	</c:choose>
@@ -26,7 +26,7 @@
 	<c:choose>
 		<c:when test="${pageData.hasNextPage()}"> <!-- 얘는 메소드이기 때문에 ()를 써줘야 한다. -->
 			<li class="page-item disabled">
-				<a class="page-link bi bi-caret-right-fill" href="${param.url}?page=${pageData.nextPage}"></a>
+				<a class="page-link bi bi-caret-right-fill" href="${param.url}&page=${pageData.nextPage}"></a>
 			</li>
 		</c:when>
 		<c:otherwise>

@@ -16,7 +16,8 @@
 <body>
 	<header></header>
 	<section class="container">
-		<form action="/board/mod" method="post">
+		<c:url var="boardModUrl" value="/board/modify"/>
+		<form action="${boardModUrl}" method="post">
 			<div class="mt-3">
 				<div class="mb-1 border-bottom border-2 border-secondary">
 					<input type="text" name="title" value="${data.title}">
@@ -53,7 +54,7 @@
 		</form>
 	</section>
 	<footer></footer>
-	<c:url var="imageUrl" value="/image/upload"/>
+	<c:url var="imageUrl" value="/upload/image"/>
 	<script type="text/javascript">
 		CKEDITOR.replace("content", {
 			filebrowserUploadUrl : "${imageUrl}?type=image" 

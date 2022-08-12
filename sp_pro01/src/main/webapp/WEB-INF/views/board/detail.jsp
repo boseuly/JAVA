@@ -95,7 +95,7 @@
 					<c:choose>
 						<c:when test="${commentPage.hasNextPage()}">
 							<li class="page-item">
-								<a class="page-link bi bi-caret-right-fill" href="${pageUrl}?page=${commentPage.nextPage}"></a>
+								<a class="page-link bi bi-caret-right-fill" href="${pageUrl}&page=${commentPage.nextPage}"></a>
 							</li>
 						</c:when>
 						<c:otherwise>
@@ -117,6 +117,12 @@
 				</form>
 			</div>
 		</div>
+		<!-- 올린 파일 나올 자리 없으면 그냥 빈공간으로 -->
+		<c:if test="${not empty files}"> <!-- 만약 저장해둔 files가 있다면 -->
+			<div class="mb-1" id="file-upload"> <!-- 없으면 div의 id를 찾아서 div를 완전히 없애버려야 한다. -->
+				<!-- <input type="text" class="form-control" /> --> <!-- 여러개를 올릴 수 있어야 하니까 multiple 추가 -->
+			</div>
+		</c:if>
 		
 		<!-- 모달 -->
 		<div class="modal fade" tabindex="-1" id="deleteModal">
@@ -164,6 +170,8 @@
 				form.submit(); 
 			}
 		}
+		
+		// 댓글 수정
 		function changeModify(element) {  	// 수정 버튼 요소가 전달된다.
 			element.innerText = "확인";		// 수정 버튼을 확인으로 변경해라
 			element.nextElementSibling.remove(); // 수정 버튼의 다음 요소를 지워라
@@ -232,6 +240,8 @@
 				}
 			})
 		}
+		
+		// 추천 눌를 시
 		function incLike(element, id) {
 			$.ajax({
 				url: "${boardUrl}/like",
@@ -247,6 +257,8 @@
 				}
 			});
 		}
+		
+		// 게시글 삭제
 		function boardDelete(boardId) {
 			$.ajax({
 				type: "post",

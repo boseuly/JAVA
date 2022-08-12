@@ -15,6 +15,7 @@
 		<typeAlias type="com.myhome.web.board.model.BoardDTO" alias="boardDto"/>
 		<typeAlias type="com.myhome.web.board.model.BoardStatisDTO" alias="boardStatisDto"/>
 		<typeAlias type="com.myhome.web.comment.model.CommentDTO" alias="commentDto"/>
+		<typeAlias type="com.myhome.web.upload.model.FileUploadDTO" alias="fileUploadDto"/>
 	<!-- 
 		<typeAlias type="locs.model.LocsDTO" alias="locsDto"/>
 		<typeAlias type="emp.model.EmpDetailDTO" alias="empDetailDto"/>

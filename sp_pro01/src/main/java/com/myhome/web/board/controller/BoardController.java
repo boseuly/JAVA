@@ -1,7 +1,9 @@
 package com.myhome.web.board.controller;
 
 import java.sql.SQLDataException;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.myhome.web.board.model.BoardDTO;
 import com.myhome.web.board.service.BoardService;
@@ -26,6 +29,8 @@ import com.myhome.web.comment.model.CommentDTO;
 import com.myhome.web.comment.service.CommentService;
 import com.myhome.web.common.util.Paging;
 import com.myhome.web.emp.model.EmpDTO;
+import com.myhome.web.upload.model.FileUploadDTO;
+import com.myhome.web.upload.service.FileUploadService;
 
 
 @Controller
@@ -38,6 +43,8 @@ public class BoardController {
 
 	@Autowired
 	private CommentService commentService;
+	@Autowired
+	private FileUploadService fileService;
 	
 	// 조회
 	@RequestMapping(value="", method=RequestMethod.GET) // 정보만 가져다 줄 거니까 GET
@@ -72,7 +79,7 @@ public class BoardController {
 	*/
 	// 아래 방법보다 위에 방법이 요즘 트렌드임
 	@RequestMapping(value="/detail", method=RequestMethod.GET)
-	public String getDetail(Model model
+	public String getDetail(Model model, HttpSession session // FileUploadController에서 loadDTO에 파일 정보 저장하려면 bId가 필요한데 얻을 방법이 없음
 			, @RequestParam int id 		// bId
 			, @RequestParam(defaultValue="1") int page	// 댓글 page // 만약 page가 null이라면 기본적으로 1페이지로 설정
 			, @SessionAttribute("loginData") EmpDTO empDto) { 
@@ -82,6 +89,16 @@ public class BoardController {
 		BoardDTO data = service.getData(id);
 		Paging commentPage = commentService.getCommentPage(page, limit, id); // 댓글 페이징 데이터 
 		
+		// 파일 저장할 때 사용할 세션
+		// 만약 세션이 존재한다면 세션을 삭제 해준다.
+		if(session.getAttribute("bId") != null) {
+			session.removeAttribute("bId"); // bId 속성을 삭제
+		}
+		session.setAttribute("bId", data.getId()); // 세션에 bId를 새롭게 넣어준다.
+		
+		// 저장한 파일 리스트가 떠야 한다.
+		List<FileUploadDTO> fileList = fileService.getFileList(data.getId()); // bId에 맞는 파일 리스트를 불러와라
+		model.addAttribute("files", fileList);
 		
 		if(data == null) {
 			model.addAttribute("error", "해당 데이터는 존재하지 않습니다.");
@@ -102,14 +119,32 @@ public class BoardController {
 	}
 	
 	// 추가 저장 요청
-	@PostMapping(value="/add") // 정보만 가져다 줄 거니까 GET
+	@PostMapping(value="/add")
 	public String add(@ModelAttribute BoardVO boardVo
+			, Model model, HttpServletRequest request
+			, @RequestParam("uploadFiles") MultipartFile[] files // 저장한 파일 가져오기
 			, @SessionAttribute(name="loginData", required=true) EmpDTO empDto) { // session에 있는 loginData 속성을 가지고 오는 것, session이름이랑 매개변수 이름이랑 매치가 되어야 한다. -> 만약 매치가 안 되면 name="loginData" 이런식으로 해줘야 함 
 		logger.info("add(boardVo={}, empDto={})", boardVo, empDto);
 		// EmpDTO empDto = (EmpDTO)session.getAttribute("loginData");
 		// 위에서 @SessionAttribute를 했기 때문에 굳이 로직에서 session.getAttribute하지 않아도 된다.
+		logger.info("image(file={})", files);
 		
-		int id = service.add(empDto, boardVo);
+		
+		int id = service.add(empDto, boardVo); // 게시글을 저장하고 bid를 얻어온다.
+		String realPath = request.getServletContext().getRealPath("/resources"); // 실제 위치 찾기
+		
+		FileUploadDTO fileData = new FileUploadDTO();
+		fileData.setbId(id);
+		
+		for(MultipartFile file : files) {
+			// 파일의 url, 실제주소와 이름
+			fileData.setFileName(file.getOriginalFilename());
+			fileData.setLocation(realPath);
+			fileData.setUrl(request.getContextPath() + "/static/img/board" + file.getOriginalFilename());
+			fileData.setFileSize(file.getSize()/1000);
+			fileService.updateFile(fileData); // 파일을 추가한다.
+		}
+		model.addAttribute("files", fileData);
 		
 		if(id > 0) {
 			return "redirect:/board/detail?id=" + id; // 추가 성공시 해당 게시글 상세 페이지로 이동
