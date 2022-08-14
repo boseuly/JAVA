@@ -99,7 +99,7 @@
 			}
 			
 			// input요소를 생성 -> div의 파일 개수만큼 input요소 생성
-			
+			// -> a 태그로 수정하기
 			for(var i=0; i < fileName.length; i++){ 
 				var input = document.createElement('input');
 				input.className="form-control";	// class 추가

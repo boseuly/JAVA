@@ -1,11 +1,14 @@
 package com.myhome.web.board.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLDataException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FilenameUtils;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -89,14 +92,7 @@ public class BoardController {
 		BoardDTO data = service.getData(id);
 		Paging commentPage = commentService.getCommentPage(page, limit, id); // 댓글 페이징 데이터 
 		
-		// 파일 저장할 때 사용할 세션
-		// 만약 세션이 존재한다면 세션을 삭제 해준다.
-		if(session.getAttribute("bId") != null) {
-			session.removeAttribute("bId"); // bId 속성을 삭제
-		}
-		session.setAttribute("bId", data.getId()); // 세션에 bId를 새롭게 넣어준다.
-		
-		// 저장한 파일 리스트가 떠야 한다.
+		// 저장한 파일 리스트 띄우기 -> bId에 해당 하는 파일들을 가져와서 파일 위치를 브라우저에 보낸다.
 		List<FileUploadDTO> fileList = fileService.getFileList(data.getId()); // bId에 맞는 파일 리스트를 불러와라
 		model.addAttribute("files", fileList);
 		
@@ -123,7 +119,7 @@ public class BoardController {
 	public String add(@ModelAttribute BoardVO boardVo
 			, Model model, HttpServletRequest request
 			, @RequestParam("uploadFiles") MultipartFile[] files // 저장한 파일 가져오기
-			, @SessionAttribute(name="loginData", required=true) EmpDTO empDto) { // session에 있는 loginData 속성을 가지고 오는 것, session이름이랑 매개변수 이름이랑 매치가 되어야 한다. -> 만약 매치가 안 되면 name="loginData" 이런식으로 해줘야 함 
+			, @SessionAttribute(name="loginData", required=true) EmpDTO empDto) throws IllegalStateException, IOException { // session에 있는 loginData 속성을 가지고 오는 것, session이름이랑 매개변수 이름이랑 매치가 되어야 한다. -> 만약 매치가 안 되면 name="loginData" 이런식으로 해줘야 함 
 		logger.info("add(boardVo={}, empDto={})", boardVo, empDto);
 		// EmpDTO empDto = (EmpDTO)session.getAttribute("loginData");
 		// 위에서 @SessionAttribute를 했기 때문에 굳이 로직에서 session.getAttribute하지 않아도 된다.
@@ -136,16 +132,29 @@ public class BoardController {
 		FileUploadDTO fileData = new FileUploadDTO();
 		fileData.setbId(id);
 		
+		
 		for(MultipartFile file : files) {
 			// 파일의 url, 실제주소와 이름
-			fileData.setFileName(file.getOriginalFilename());
+			// 파일 저장 과정
+			long time = System.currentTimeMillis(); 		// 현재 시각 가져오기 -> 파일 이름 중복을 방지하기 위해
+			String realName = file.getOriginalFilename(); 	// 파일 진짜 이름 가져오기
+		 	String fileExtensions = FilenameUtils.getExtension(realName); 	// 파일의 확장자명 가져오기
+			String saveFileName = String.format("%s_%s.%s", realName, time, fileExtensions);	// 파일명 중복을 방지하기 위해 이름 뒤에 time과 확장자명을 합침
+			File saveFile = new File(realPath + "/img/board/",saveFileName); 		// 중복 처리 되는 지 확인하기
+			
+			file.transferTo(saveFile);
+			if(saveFile.exists()) {
+				logger.info("파일 생성 완료");
+			}
+			
+			fileData.setFileName(realName);
 			fileData.setLocation(realPath);
-			fileData.setUrl(request.getContextPath() + "/static/img/board" + file.getOriginalFilename());
+			fileData.setUrl(request.getContextPath() + "/static/img/board/" + saveFileName);
 			fileData.setFileSize(file.getSize()/1000);
 			fileService.updateFile(fileData); // 파일을 추가한다.
+			
 		}
 		model.addAttribute("files", fileData);
-		
 		if(id > 0) {
 			return "redirect:/board/detail?id=" + id; // 추가 성공시 해당 게시글 상세 페이지로 이동
 		}else {

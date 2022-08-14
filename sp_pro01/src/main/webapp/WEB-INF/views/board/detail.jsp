@@ -29,6 +29,17 @@
 			<div class="mb-1 border-bottom border-2 border-secondary">
 				<p>${data.content}</p>
 			</div>
+			<!-- 자료가 보이도록 해야 함 -->
+			<div class="input-group file-list input-group-sm mb-3">
+				<c:if test="${not empty files}">
+					<c:forEach items="${files}" var="file"> <!-- 저장해둔 파일들을 가지고 온다. -> for문 돌려주기 -->
+						<div class="input-group">
+							<a class="link-secondary text-decoration-none" href="${file.url}">${file.fileName}</a> <!-- 이거 설정 어떻게 해야 하는지 좀더 알아보기 -->
+						</div>
+					</c:forEach>
+				</c:if>
+			</div>
+			
 			<div class="mb-1">
 				<div onclick="incLike(id_like, ${data.id});">
 					<i class="bi bi-hand-thumbs-up text-secondary text-opacity-50"></i>
