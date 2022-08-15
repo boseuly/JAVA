@@ -116,45 +116,56 @@ public class BoardController {
 	
 	// 추가 저장 요청
 	@PostMapping(value="/add")
-	public String add(@ModelAttribute BoardVO boardVo
-			, Model model, HttpServletRequest request
-			, @RequestParam("uploadFiles") MultipartFile[] files // 저장한 파일 가져오기
+	public String add(Model model, HttpServletRequest request
+			, @ModelAttribute BoardVO boardVo 						// request.setAttribute랑 같은 의미 객체의 변수명과 파라미터명(jsp의 name)이 같으면 자동으로 바인딩 시켜준다.
+			, @RequestParam("uploadFiles") MultipartFile[] files 	// 저장한 파일 가져오기
 			, @SessionAttribute(name="loginData", required=true) EmpDTO empDto) throws IllegalStateException, IOException { // session에 있는 loginData 속성을 가지고 오는 것, session이름이랑 매개변수 이름이랑 매치가 되어야 한다. -> 만약 매치가 안 되면 name="loginData" 이런식으로 해줘야 함 
+		
 		logger.info("add(boardVo={}, empDto={})", boardVo, empDto);
 		// EmpDTO empDto = (EmpDTO)session.getAttribute("loginData");
 		// 위에서 @SessionAttribute를 했기 때문에 굳이 로직에서 session.getAttribute하지 않아도 된다.
 		logger.info("image(file={})", files);
 		
-		
-		int id = service.add(empDto, boardVo); // 게시글을 저장하고 bid를 얻어온다.
-		String realPath = request.getServletContext().getRealPath("/resources"); // 실제 위치 찾기
-		
-		FileUploadDTO fileData = new FileUploadDTO();
-		fileData.setbId(id);
-		
-		
-		for(MultipartFile file : files) {
-			// 파일의 url, 실제주소와 이름
-			// 파일 저장 과정
-			long time = System.currentTimeMillis(); 		// 현재 시각 가져오기 -> 파일 이름 중복을 방지하기 위해
-			String realName = file.getOriginalFilename(); 	// 파일 진짜 이름 가져오기
-		 	String fileExtensions = FilenameUtils.getExtension(realName); 	// 파일의 확장자명 가져오기
-			String saveFileName = String.format("%s_%s.%s", realName, time, fileExtensions);	// 파일명 중복을 방지하기 위해 이름 뒤에 time과 확장자명을 합침
-			File saveFile = new File(realPath + "/img/board/",saveFileName); 		// 중복 처리 되는 지 확인하기
-			
-			file.transferTo(saveFile);
-			if(saveFile.exists()) {
-				logger.info("파일 생성 완료");
-			}
-			
-			fileData.setFileName(realName);
-			fileData.setLocation(realPath);
-			fileData.setUrl(request.getContextPath() + "/static/img/board/" + saveFileName);
-			fileData.setFileSize(file.getSize()/1000);
-			fileService.updateFile(fileData); // 파일을 추가한다.
-			
+		// 이걸 해야지만 모달이 정상적으로 띄워진다. 
+		if(boardVo.getTitle().isBlank()) { // isBlank()는 공백을 비어있다고 처리하지만 isEmpty()는 공백을 비어있다고 처리하지 않음 
+			System.out.println("boardVo.title 없음");
+			model.addAttribute("errorMsg", "제목은 필수 입력 사항입니다. 제목을 입력해주세요.");
+			return "board/add"; 	// 만약 둘 중 하나라도 
 		}
-		model.addAttribute("files", fileData);
+		int id = service.add(empDto, boardVo); // 게시글을 저장하고 bid를 얻어온다.
+		
+		// 파일이 null이 아닌 경우에만 파일을 추가해줘라
+		if(files != null) {
+			String realPath = request.getServletContext().getRealPath("/resources"); // 실제 위치 찾기
+			
+			FileUploadDTO fileData = new FileUploadDTO();
+			fileData.setbId(id);
+			
+			
+			for(MultipartFile file : files) {
+				// 파일의 url, 실제주소와 이름
+				// 파일 저장 과정
+				long time = System.currentTimeMillis(); 		// 현재 시각 가져오기 -> 파일 이름 중복을 방지하기 위해
+				String realName = file.getOriginalFilename(); 	// 파일 진짜 이름 가져오기
+				String fileExtensions = FilenameUtils.getExtension(realName); 	// 파일의 확장자명 가져오기
+				String saveFileName = String.format("%s_%s.%s", realName, time, fileExtensions);	// 파일명 중복을 방지하기 위해 이름 뒤에 time과 확장자명을 합침
+				File saveFile = new File(realPath + "/img/board/",saveFileName); 		// 중복 처리 되는 지 확인하기
+				
+				file.transferTo(saveFile);
+				if(saveFile.exists()) {
+					logger.info("파일 생성 완료");
+				}
+				
+				fileData.setFileName(realName);
+				fileData.setLocation(realPath);
+				fileData.setUrl(request.getContextPath() + "/static/img/board/" + saveFileName);
+				fileData.setFileSize(file.getSize()/1000);
+				fileService.updateFile(fileData); // 파일을 추가한다.
+				
+			}
+			model.addAttribute("files", fileData);
+		}
+		
 		if(id > 0) {
 			return "redirect:/board/detail?id=" + id; // 추가 성공시 해당 게시글 상세 페이지로 이동
 		}else {

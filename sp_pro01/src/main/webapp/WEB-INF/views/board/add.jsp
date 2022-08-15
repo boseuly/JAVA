@@ -32,7 +32,7 @@
 			<c:url value="/board/add" var="boardAddUrl"/>
 			<form action="${boardAddUrl}" method="post" enctype="multipart/form-data" >
 				<div class="mb-3">
-					<input class="form-control" id="id_title" name="title" placeholder="제목을 입력하세요." value="${param.title}">
+					<input class="form-control" id="id_title" name="title" placeholder="제목을 입력하세요." value="${param.title}"> <!-- 오류 났을 때 내용 유지하기 위해서 parameter 내용 가져오기 -->
 				</div>
 				<div class="mb-3">
 					<textarea class="form-control" id="id-controller" name="content" 
