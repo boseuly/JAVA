@@ -3,6 +3,7 @@ package com.myhome.web.login.controller;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -53,7 +54,7 @@ public class LoginController {
 	private DeptService deptService;
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST) // deptRe를 작성한 이유 -> 부서기억하기에 체크 여부를 확인하기 위해서
-	public String login(Model model, LoginVO loginVo,String deptRe, HttpSession session, HttpServletResponse response) { // 형변환이 불가능한 데이터가 들어오면 안 됨
+	public String login(Model model, LoginVO loginVo,String deptRe,String url, HttpServletRequest request, HttpSession session, HttpServletResponse response) { // 형변환이 불가능한 데이터가 들어오면 안 됨
 		// 로그인 요청을 하면 서버에 데이터가 전달이 되고, 전달된 데이터를 추출할 수 있어야 한다.
 		logger.info("login({}, {}, {}, {})", loginVo.getEmpName(), loginVo.getDeptId(), loginVo.getEmpName(), deptRe);
 		
@@ -71,8 +72,8 @@ public class LoginController {
 				cookie = new Cookie("deptRe", "");
 				cookie.setMaxAge(0);
 			}
-			response.addCookie(cookie); 
-			return "redirect:/index"; // response.redirect 를 써주지 않아도 된다. 그냥 redirect로 써준다.
+			response.addCookie(cookie);  	// 앞에 있는 path인 spring만 지워야하기 때문(중복방지를 위해)에 replaceFirst 를 사용해준다. 
+			return "redirect:" + url.replaceFirst(request.getContextPath(), ""); // response.redirect 를 써주지 않아도 된다. 그냥 redirect로 써준다. // 로그인 input에 
 		}else { //로그인 실패
 			return login(model);
 		}

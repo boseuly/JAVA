@@ -6,7 +6,6 @@
 
 <c:url var="loginUrl" value="/login"/>
 <form class="small-form" action="${loginUrl}" method="post">
-	<input type="hidden" name="url" value="${param.url}"> 
 	<div class="form-floating">
 		<input type="text" class="form-control" id="id_empId" name="empId" value="" placeholder="직원 ID를 입력하세요.">
 		<label>직원 ID</label>
