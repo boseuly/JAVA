@@ -34,7 +34,7 @@
 				<c:if test="${not empty files}">
 					<c:forEach items="${files}" var="file"> <!-- 저장해둔 파일들을 가지고 온다. -> for문 돌려주기 -->
 						<div class="input-group">
-							<a class="link-secondary text-decoration-none" href="${file.url}">${file.fileName}</a> <!-- 이거 설정 어떻게 해야 하는지 좀더 알아보기 -->
+							<a class="link-secondary text-decoration-none" href="${file.url}" download="${file.fileName}">${file.fileName}</a> <!-- 이거 설정 어떻게 해야 하는지 좀더 알아보기 -->
 						</div>
 					</c:forEach>
 				</c:if>

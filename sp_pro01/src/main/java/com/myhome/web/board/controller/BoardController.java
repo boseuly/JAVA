@@ -109,7 +109,7 @@ public class BoardController {
 	
 	//추가 폼 요청 -> 폼을 보여주는 것은 모델이 필요하다. 
 	@GetMapping(value="/add") // 정보만 가져다 줄 거니까 GET
-	public String add(@SessionAttribute(name="loginData", required=true) EmpDTO empDto) {
+	public String add(@SessionAttribute(name="loginData", required=true) EmpDTO empDto) { // session에 저장된 이름이랑 내가 메소드에서 사용할 변수명이랑 다르면 이렇게 설정해야 함
 		logger.info("add(empDto={})", empDto);
 		return "board/add";
 	}
@@ -117,7 +117,7 @@ public class BoardController {
 	// 추가 저장 요청
 	@PostMapping(value="/add")
 	public String add(Model model, HttpServletRequest request
-			, @ModelAttribute BoardVO boardVo 						// request.setAttribute랑 같은 의미 객체의 변수명과 파라미터명(jsp의 name)이 같으면 자동으로 바인딩 시켜준다.
+			, @ModelAttribute BoardVO boardVo 						// request.setAttribute랑 같은 의미/ 객체의 변수명과 파라미터명(jsp의 name)이 같으면 자동으로 바인딩 시켜준다.
 			, @RequestParam("uploadFiles") MultipartFile[] files 	// 저장한 파일 가져오기
 			, @SessionAttribute(name="loginData", required=true) EmpDTO empDto) throws IllegalStateException, IOException { // session에 있는 loginData 속성을 가지고 오는 것, session이름이랑 매개변수 이름이랑 매치가 되어야 한다. -> 만약 매치가 안 되면 name="loginData" 이런식으로 해줘야 함 
 		

@@ -24,6 +24,29 @@
 		}
 		form.submit();
 	}
+	
+	function uploadCheck(element){
+		var modal = new bootstrap.Modal(document.getElementById("errorModal"), {
+			keyboard: false
+		});
+		var title = modal._element.querySelector(".modal-title");
+		var body = modal._element.querySelector(".modal-body");
+		
+		if(element.files.length > 3){
+			title.innerText = "파일 업로드 제한";
+			body.innerText = "파일 업로드는 최대 3개까지만 가능합니다.";
+			element.value = "";
+			modal.show();
+			return ;
+		}
+		for(file of element.files){
+			if(file.innerText = "파일 크기 제한";
+			body.innerText = "파일은 최대 5MB를 초과할 수 없습니다.";
+			element.value = "";
+			modal.show();
+			return ;
+		}
+	}
 </script>
 <body>
 	<header></header>
@@ -107,7 +130,6 @@
 				element.parentElement.nextElementSibling.appendChild(input);	// 이름이 담긴 input을 넣는다.
 			}
 		}
-	
 	</script>
 	<!-- 
 	<script type="text/javascript">
