@@ -73,6 +73,12 @@ public class LoginController {
 				cookie.setMaxAge(0);
 			}
 			response.addCookie(cookie);  	// 앞에 있는 path인 spring만 지워야하기 때문(중복방지를 위해)에 replaceFirst 를 사용해준다. 
+			// url 파라미터가 login이라면 홈화면으로 redirect 시킨다.
+			System.out.println("url : " + url);
+			if(url.isBlank()) {	// url이 공백이라면 login화면으로 바로 이동한 경우이기 때문에 
+				url = "/spring/index";	// 로그인 성공 화면으로 보내준다.
+			}
+			
 			return "redirect:" + url.replaceFirst(request.getContextPath(), ""); // response.redirect 를 써주지 않아도 된다. 그냥 redirect로 써준다. // 로그인 input에 
 		}else { //로그인 실패
 			return login(model);
