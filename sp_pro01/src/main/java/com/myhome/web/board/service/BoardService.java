@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,7 @@ public class BoardService {
 	
 	 // 게시글 추가 
 	@Transactional
-	public int add(EmpDTO empDto, BoardVO data) {
+	public int add(HttpSession session, EmpDTO empDto, BoardVO data) {
 		logger.info("add(empDto={}, data={})", empDto, data);
 		BoardDTO boardDto = new BoardDTO();
 		boardDto.setTitle(data.getTitle());
@@ -81,14 +82,14 @@ public class BoardService {
 	}
 	
 	// 게시글 수정
-	public boolean modifyBoard(BoardDTO boardUpdateData) { // update될 내용이 담긴 객체 
+	public boolean modifyBoard(HttpSession session, BoardDTO boardUpdateData) { // update될 내용이 담긴 객체 
 		boolean result = dao.modifyBoard(boardUpdateData); // 게시글 수정
 		return result;
 		
 	}
 	// 게시글 삭제 
 	@Transactional
-	public boolean boardDelete(BoardDTO data) {
+	public boolean boardDelete(HttpSession session,BoardDTO data) {
 		boolean result1 = dao.deleteStatisdata(data);  	// 얘를 수행한 다음
 		boolean result2 = dao.boardDelete(data);		// 얘도 수행해야 함
 		if(result1 && result2) { // 삭제가 성공한 경우			// 하나의 트랜젝션에 해당 -> @Transactional
@@ -130,6 +131,11 @@ public class BoardService {
 		}
 		
 //		throw new RuntimeException("RuntimeException을 발생시키면 롤백"); -> 이렇게 하면 이전 트랜젝션 상태로 돌아가게 된다.
+	}
+	
+	// AOP 사용하기 위해서 'add'+ Like 메소드를 따로 만든 거임 -> AOP에서 add가 들어간 메소드에 대해서 권한을 확인하도록 했기 때문에 like도 권한 확인하고자 addLike로 만듦
+	public void addLike(HttpSession session, BoardDTO data) throws SQLDataException{
+		this.incLike(session, data);
 	}
 	
 	

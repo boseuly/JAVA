@@ -71,5 +71,25 @@
 	</interceptors>
 	
 	<!-- aop 사용하기 위한 설정 이렇게 하면 @Aspect라고 되어있는 클래스의 객체를 생성해줌-->
-	<aop:aspectj-autoproxy/> 
+	<aop:aspectj-autoproxy/>
+	
+	<beans:bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<beans:property name="exceptionMappings">
+			<beans:props>
+				<beans:prop key="com.myhome.web.exception.UnauthorizedException">error/401</beans:prop>
+				<beans:prop key="com.myhome.web.exception.ForbiddenException">error/403</beans:prop>
+				<beans:prop key="com.myhome.web.exception.PermissionDeniedDataAccessException">error/permission</beans:prop>
+				<beans:prop key="Exception">error/403</beans:prop>
+			</beans:props>
+		</beans:property>
+		<beans:property name="statusCodes">
+			<beans:props>
+				<beans:prop key="403">error/403</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+	
+	
+	
+	 
 </beans:beans>

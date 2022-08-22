@@ -132,7 +132,7 @@ public class BoardController {
 			model.addAttribute("errorMsg", "제목은 필수 입력 사항입니다. 제목을 입력해주세요.");
 			return "board/add"; 	// 만약 둘 중 하나라도 
 		}
-		int id = service.add(empDto, boardVo); // 게시글을 저장하고 bid를 얻어온다.
+		int id = service.add(request.getSession(), empDto, boardVo); // 게시글을 저장하고 bid를 얻어온다.
 		
 		// 파일이 null이 아닌 경우에만 파일을 추가해줘라
 		if(files != null) {
@@ -175,7 +175,7 @@ public class BoardController {
 	
 	// 수정 폼요청 
 	@GetMapping(value="/modify")
-	public String modify(Model model
+	public String modify(Model model, HttpServletRequest request
 			, @SessionAttribute(name="loginData", required=true) EmpDTO empDto
 			, @RequestParam int id) {
 		logger.info("modify(empDto={}, id={})", empDto, id);
@@ -192,7 +192,7 @@ public class BoardController {
 	
 	// 수정 저장 요청
 	@PostMapping(value="/modify")
-	public String modify(Model model
+	public String modify(Model model, HttpServletRequest request
 			,@SessionAttribute(name="loginData", required=true) EmpDTO empDto
 			,@ModelAttribute BoardVO boardVo) {
 		BoardDTO data = service.getData(boardVo.getId()); // 게시글 데이터 조회 먼저 해준다.
@@ -200,7 +200,7 @@ public class BoardController {
 		if(empDto.getEmpId() == data.getEmpId()) {
 			data.setTitle(boardVo.getTitle());
 			data.setContent(boardVo.getContent());
-			boolean result = service.modifyBoard(data);
+			boolean result = service.modifyBoard(request.getSession(), data);
 			if(result) {
 				return "redirect:/board/detail?id=" + data.getId();
 			}else {
@@ -214,9 +214,10 @@ public class BoardController {
 	
 	
 	// 삭제
-	@PostMapping (value="/delete", produces="application/json; charset=utf-8") // response.setContex() 했던 것처럼
+	@PostMapping (value="/delete", produces="application/json; charset=utf-8") // response.setContex() 했던 것처럼 -> ajax 사용할 때 
 	@ResponseBody // ajax를 사용할 때는 반드시 @ResponseBody 필요 응답 데이터를 전달해준다.
-	public String delete(@SessionAttribute("loginData") EmpDTO empDto
+	public String delete(HttpServletRequest request
+			, @SessionAttribute("loginData") EmpDTO empDto
 			, @RequestParam int id) { // 파라미터로 들어올 아이디가 존재
 		
 		logger.info("delete(empDto={}, id={})", empDto, id);
@@ -230,7 +231,7 @@ public class BoardController {
 			return json.toJSONString();
 		}else {
 			if(data.getEmpId() == empDto.getEmpId()) { // 게시글 
-				boolean result = service.boardDelete(data);
+				boolean result = service.boardDelete(request.getSession(), data);
 				// 삭제 가능
 				if(result) {
 					// 삭제 성공 
